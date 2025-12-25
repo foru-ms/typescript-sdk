@@ -510,6 +510,9 @@ We welcome contributions! Please see our contributing guidelines for more inform
 
 ## Changelog
 
+### v1.2.1
+- README.md formatting and updates
+
 ### v1.2.0
 - Added custom error classes for better error handling
 - Added automatic retry logic with exponential backoff
