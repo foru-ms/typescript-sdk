@@ -75,32 +75,34 @@ client.setToken('user_jwt_token');
 
 ### Users (`client.users`)
 
-*   `list(params: { query?: string; filter?: 'newest' | 'oldest'; cursor?: string })`: List users.
-*   `retrieve(id: string)`: Get user by ID.
-*   `create(payload: any)`: Create a user (Admin).
-*   `update(id: string, payload: any)`: Update a user.
+*   `list(params?: { query?: string; filter?: 'newest' | 'oldest'; cursor?: string })`: List users.
+*   `retrieve(userId: string)`: Get user by ID.
+*   `create(payload: { username: string; email: string; password: string; displayName?: string; emailVerified?: boolean; roles?: string[]; bio?: string; signature?: string; url?: string; extendedData?: Record<string, any> })`: Create a user (Admin).
+*   `update(id: string, payload: { username?: string; email?: string; password?: string; displayName?: string; emailVerified?: boolean; roles?: string[]; bio?: string; signature?: string; url?: string; extendedData?: Record<string, any> })`: Update a user.
 *   `delete(id: string)`: Delete a user.
-*   `getFollowers(id: string, params: { cursor?: string })`: Get user's followers.
-*   `getFollowing(id: string, params: { cursor?: string })`: Get who a user follows.
+*   `getFollowers(id: string, params?: { query?: string; cursor?: string; filter?: 'newest' | 'oldest' })`: Get user's followers.
+*   `getFollowing(id: string, params?: { query?: string; cursor?: string; filter?: 'newest' | 'oldest' })`: Get who a user follows.
 *   `follow(id: string, followerId: string, extendedData?: any)`: Follow a user.
 *   `unfollow(id: string, followerId: string)`: Unfollow a user.
 
+
 ### Tags (`client.tags`)
 
-*   `list(params: { query?: string; cursor?: string })`: List tags.
-*   `create(payload: { name: string; description?: string; color?: string; extendedData?: any })`: Create a tag.
+*   `list(params?: { query?: string; cursor?: string })`: List tags.
+*   `create(payload: { name: string; description?: string; color?: string; extendedData?: Record<string, any> })`: Create a tag.
 *   `retrieve(id: string, params?: { userId?: string })`: Get a tag.
-*   `update(id: string, payload: any)`: Update a tag.
+*   `update(id: string, payload: { name?: string; description?: string; color?: string; extendedData?: Record<string, any> })`: Update a tag.
 *   `delete(id: string)`: Delete a tag.
 *   `subscribe(id: string, userId: string)`: Subscribe to a tag.
 *   `unsubscribe(id: string, userId: string)`: Unsubscribe from a tag.
-*   `listSubscribed(params: { userId: string; cursor?: string })`: List tags a user is subscribed to.
+*   `listSubscribed(params: { userId: string; query?: string; cursor?: string })`: List tags a user is subscribed to.
+
 
 ### Notifications (`client.notifications`)
 
-*   `list(params: { userId: string; read?: boolean; filter?: string; cursor?: string })`: List notifications.
-*   `markAllAsRead(userId: string, read?: boolean)`: Bulk update read status.
-*   `create(payload: any)`: Create a notification manually.
+*   `list(params: { userId: string; read?: boolean; filter?: 'newest' | 'oldest'; cursor?: string })`: List notifications.
+*   `markAllAsRead(userId: string, read?: boolean)`: Bulk update read status. Default is `true`.
+*   `create(payload: { threadId?: string; postId?: string; privateMessageId?: string; notifierId: string; notifiedId: string; type: string; description?: string; extendedData?: Record<string, any> })`: Create a notification manually.
 *   `retrieve(id: string)`: Get a notification.
 *   `update(id: string, payload: { read: boolean })`: Update a notification.
 *   `delete(id: string)`: Delete a notification.
@@ -125,50 +127,110 @@ client.setToken('user_jwt_token');
 ### Integrations (`client.integrations`)
 
 *   `list()`: Get all configured integrations.
-*   `create(payload: { type: string; name: string; config: any })`: Configure an integration (Slack, Discord, etc.).
+*   `create(payload: { type: 'SLACK' | 'DISCORD' | 'SALESFORCE' | 'HUBSPOT' | 'OKTA' | 'AUTH0'; name: string; config: any })`: Configure an integration (Slack, Discord, etc.).
 *   `retrieve(id: string)`: Get integration details.
 *   `delete(id: string)`: Remove an integration.
 
 ### Private Messages (`client.privateMessages`)
 
-*   `list(params: { userId?: string; cursor?: string })`: List private messages.
-*   `create(payload: { title?: string; body: string; recipientId: string; senderId?: string })`: Send a direct message.
+*   `list(params?: { query?: string; userId?: string; filter?: 'newest' | 'oldest'; cursor?: string })`: List private messages.
+*   `create(payload: { title?: string; body: string; recipientId: string; senderId?: string; extendedData?: Record<string, any> })`: Send a direct message.
 *   `retrieve(id: string)`: Get a message thread.
-*   `reply(id: string, payload: { body: string; senderId: string; recipientId: string })`: Reply to a message.
+*   `reply(id: string, payload: { body: string; senderId: string; recipientId: string; extendedData?: Record<string, any> })`: Reply to a message.
 *   `delete(id: string)`: Delete a message.
 
 ### Reports (`client.reports`)
 
-*   `list(params: { reporterId?: string; reportedId?: string; read?: boolean; cursor?: string })`: List reports.
-*   `create(payload: { reporterId: string; type: string; description?: string; ... })`: Submit a report.
+*   `list(params?: { reporterId?: string; reportedId?: string; read?: boolean; cursor?: string; filter?: 'newest' | 'oldest' })`: List reports.
+*   `create(payload: { reporterId: string; reportedId?: string; threadId?: string; postId?: string; privateMessageId?: string; type?: string; description?: string; extendedData?: Record<string, any> })`: Submit a report.
 *   `batchUpdate(payload: { reportIds: string[]; read: boolean })`: Bulk update status.
 *   `retrieve(id: string)`: Get a report.
-*   `update(id: string, payload: any)`: Update report details.
+*   `update(id: string, payload: { threadId?: string; postId?: string; privateMessageId?: string; reportedId?: string; reporterId?: string; type?: string; description?: string; read?: boolean; extendedData?: Record<string, any> })`: Update report details.
 *   `delete(id: string)`: Delete a report.
 *   `updateStatus(id: string, read: boolean)`: Update read status of a report.
 
 ### Roles (`client.roles`)
 
-*   `list(params: { cursor?: string })`: List user roles.
-*   `create(payload: { name: string; description?: string; color?: string })`: Create a new role.
+*   `list(params?: { filter?: 'newest' | 'oldest'; cursor?: string })`: List user roles.
+*   `create(payload: { name: string; description?: string; color?: string; extendedData?: Record<string, any> })`: Create a new role.
 *   `retrieve(id: string)`: Get a role.
-*   `update(id: string, payload: any)`: Update a role.
+*   `update(id: string, payload: { name?: string; description?: string; color?: string; extendedData?: Record<string, any> })`: Update a role.
 *   `delete(id: string)`: Delete a role.
 
 ### SSO (`client.sso`)
 
 *   `list()`: List SSO providers.
-*   `create(payload: { provider: string; domain: string; config: any })`: Configure SSO.
+*   `create(payload: { provider: 'OKTA' | 'AUTH0' | 'SAML'; domain: string; config: any })`: Configure SSO.
 *   `delete(id: string)`: Remove SSO provider.
 
 ## Types
 
-Import interfaces directly from the package:
+Import all available interfaces and types directly from the package:
 
 ```typescript
 import { 
-  Thread, Post, User, Tag, Notification, 
-  LoginResponse, RegisterPayload 
+  // Auth Types
+  RegisterPayload,
+  User,
+  LoginResponse,
+  
+  // Thread Types
+  Thread,
+  CreateThreadPayload,
+  UpdateThreadPayload,
+  ThreadListResponse,
+  ThreadFilter,
+  
+  // Post Types
+  Post,
+  CreatePostPayload,
+  UpdatePostPayload,
+  PostListResponse,
+  
+  // Tag Types
+  Tag,
+  TagListResponse,
+  
+  // User Types
+  UserListResponse,
+  
+  // Notification Types
+  Notification,
+  NotificationListResponse,
+  
+  // Search Types
+  SearchResponse,
+  
+  // Webhook Types
+  Webhook,
+  WebhookListResponse,
+  
+  // Stats Types
+  StatsResponse,
+  
+  // Integration Types
+  Integration,
+  IntegrationListResponse,
+  
+  // Private Message Types
+  PrivateMessage,
+  PrivateMessageListResponse,
+  
+  // Report Types
+  Report,
+  ReportListResponse,
+  
+  // Role Types
+  Role,
+  RoleListResponse,
+  
+  // SSO Types
+  SSOProvider,
+  SSOProviderListResponse,
+  
+  // Utility Types
+  PaginatedResponse,
+  InteractionType
 } from '@foru-ms/sdk';
 ```
 
