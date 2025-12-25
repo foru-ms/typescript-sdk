@@ -40,7 +40,7 @@ client.setToken('user_jwt_token');
 
 ### Threads (`client.threads`)
 
-*   `list(params: { limit?: number; filter?: 'newest' | 'oldest'; tagId?: string; categoryId?: string; cursor?: string })`: List threads.
+*   `list(params: { limit?: number; filter?: 'newest' | 'oldest'; tagId?: string; cursor?: string })`: List threads.
 *   `create(payload: CreateThreadPayload)`: Create a new thread.
 *   `retrieve(id: string)`: Get a thread by ID.
 *   `update(id: string, payload: UpdateThreadPayload)`: Update a thread.
