@@ -1,8 +1,18 @@
 # @foru-ms/sdk
 
-The official JavaScript/TypeScript SDK for [Foru.ms](https://foru.ms). Build powerful community features directly into your application.
+The official JavaScript/ TypeScript SDK for [Foru.ms](https://foru.ms). Build powerful community features directly into your application.
 
-This SDK is fully typed and provides a comprehensive interface to the Foru.ms API.
+This SDK is fully typed and provides a comprehensive interface to the Foru.ms API with built-in error handling, automatic retries, and pagination helpers.
+
+## Features
+
+✨ **Fully Typed** - Complete TypeScript support with detailed type definitions  
+🔄 **Auto Retry** - Automatic retry logic for rate limits and server errors  
+📄 **Easy Pagination** - Built-in helpers for cursor-based pagination  
+🚨 **Rich Error Classes** - Specific error types for better error handling  
+🔐 **Webhook Verification** - Built-in signature verification for webhooks  
+📊 **Rate Limit Tracking** - Automatic tracking of API rate limits  
+📚 **Comprehensive Examples** - Detailed examples for common use cases
 
 ## Installation
 
@@ -14,19 +24,155 @@ yarn add @foru-ms/sdk
 pnpm add @foru-ms/sdk
 ```
 
-## Setup & Initialization
+## Quick Start
 
 ```typescript
 import { ForumClient } from '@foru-ms/sdk';
 
 const client = new ForumClient({
   apiKey: 'your_api_key',
-  // baseUrl: 'https://api.foru.ms/v1' // Optional
+  baseUrl: 'https://api.foru.ms/v1', // Optional
+  maxRetries: 3, // Optional, default: 3
+  enableRetry: true, // Optional, default: true
 });
 
 // Set an authentication token (JWT) for user-scoped requests
 client.setToken('user_jwt_token');
+
+// Create a thread
+const thread = await client.threads.create({
+  title: 'My First Thread',
+  body: 'Hello, Foru.ms!',
+  userId: 'user-123',
+});
+
+// List threads with auto-pagination
+for await (const thread of client.pagination.paginateAll(
+  (cursor) => client.threads.list({ cursor })
+)) {
+  console.log(thread.title);
+}
 ```
+
+## Error Handling
+
+The SDK provides specific error classes for different scenarios:
+
+```typescript
+import {
+  ForumClient,
+  AuthenticationError,
+  NotFoundError,
+  RateLimitError,
+  ValidationError
+} from '@foru-ms/sdk';
+
+try {
+  await client.threads.retrieve('thread-id');
+} catch (error) {
+  if (error instanceof NotFoundError) {
+    console.log('Thread not found');
+  } else if (error instanceof RateLimitError) {
+    console.log('Rate limited, retry after:', error.retryAfter);
+  } else if (error instanceof AuthenticationError) {
+    console.log('Authentication failed');
+  }
+}
+```
+
+**Available Error Classes:**
+- `ForumAPIError` - Base class for all API errors
+- `AuthenticationError` - 401 errors
+- `AuthorizationError` - 403 errors
+- `NotFoundError` - 404 errors
+- `ValidationError` - 422 errors
+- `RateLimitError` - 429 errors
+- `ServerError` - 5xx errors
+- `NetworkError` - Network/connection errors
+
+## Pagination
+
+The SDK provides multiple ways to handle pagination:
+
+```typescript
+// Auto-pagination with async iterator
+for await (const thread of client.pagination.paginateAll(
+  (cursor) => client.threads.list({ cursor, filter: 'newest' })
+)) {
+  console.log(thread.title);
+}
+
+// Fetch all pages at once
+const allThreads = await client.pagination.fetchAllPages(
+  (cursor) => client.threads.list({ cursor }),
+  5 // max pages
+);
+
+// Manual pagination
+let cursor: string | undefined;
+do {
+  const response = await client.threads.list({ cursor });
+  // Process threads...
+  cursor = response.nextThreadCursor;
+} while (cursor);
+```
+
+## Webhooks
+
+Verify webhook signatures for security. All webhooks include:
+- `X-Webhook-Signature`: HMAC-SHA256 signature
+- `X-Webhook-Timestamp`: Unix timestamp (milliseconds)
+- `X-Webhook-Event`: Event type
+
+```typescript
+app.post('/webhooks/foru', (req, res) => {
+  const signature = req.headers['x-webhook-signature'];
+  const timestamp = req.headers['x-webhook-timestamp'];
+  const event = req.headers['x-webhook-event'];
+  
+  // Verify signature with timestamp (prevents replay attacks)
+  const isValid = client.webhooks.verifySignature(
+    req.body,
+    signature,
+    timestamp,
+    'your_webhook_secret'
+  );
+
+  if (!isValid) {
+    return res.status(401).send('Invalid signature');
+  }
+
+  // Process webhook...
+  console.log('Event:', event);
+  res.send('OK');
+});
+```
+
+## Rate Limiting
+
+Track rate limit information automatically:
+
+```typescript
+await client.threads.list();
+
+if (client.lastRateLimitInfo) {
+  console.log('Limit:', client.lastRateLimitInfo.limit);
+  console.log('Remaining:', client.lastRateLimitInfo.remaining);
+  console.log('Resets at:', new Date(client.lastRateLimitInfo.reset * 1000));
+}
+```
+
+## Examples
+
+Check the `/examples` directory for detailed examples:
+
+- [Authentication](./examples/authentication.ts) - Login, registration, token management
+- [Managing Threads](./examples/managing-threads.ts) - CRUD operations, polls, interactions
+- [Pagination](./examples/pagination.ts) - Different pagination strategies
+- [Error Handling](./examples/error-handling.ts) - Comprehensive error handling
+- [Webhooks](./examples/webhooks.ts) - Setup and verification
+
+
 
 ## API Reference
 
@@ -252,21 +398,128 @@ import {
   
   // Utility Types
   PaginatedResponse,
-  InteractionType
+  InteractionType,
+  
+  // Error Classes
+  ForumAPIError,
+  AuthenticationError,
+  AuthorizationError,
+  NotFoundError,
+  ValidationError,
+  RateLimitError,
+  ServerError,
+  NetworkError,
+  
+  // Response Types
+  RateLimitInfo,
+  ResponseMetadata,
+  APIResponse,
+  InteractionListResponse,
+  PollResponse,
+  PollOption,
+  
+  // Utilities
+  PaginationHelper,
+  Validator,
+  RetryHelper
 } from '@foru-ms/sdk';
 ```
 
-## Error Handling
+## Advanced Usage
 
-All methods return a Promise. If the API returns a non-200 status, the Promise rejects with an Error object containing the server message.
+### Custom Client Options
 
 ```typescript
-try {
-  await client.threads.create({ ... });
-} catch (err: any) {
-  console.error("Error creating thread:", err.message);
+const client = new ForumClient({
+  apiKey: 'your_api_key',
+  baseUrl: 'https://api.foru.ms/v1',
+  maxRetries: 5,        // Increase retry attempts
+  enableRetry: true,    // Enable auto-retry (default: true)
+});
+
+// Access rate limit info after any request
+await client.threads.list();
+console.log('Rate limit:', client.lastRateLimitInfo);
+
+// Check authentication status
+if (client.isAuthenticated()) {
+  const user = await client.auth.me();
 }
 ```
+
+### Async Iteration for Large Datasets
+
+```typescript
+// Automatically fetch all pages
+for await (const user of client.pagination.paginateAll(
+  (cursor) => client.users.list({ cursor })
+)) {
+  await processUser(user);
+  // Pagination happens automatically in the background
+}
+```
+
+### Batch Operations
+
+```typescript
+// Fetch multiple items efficiently
+const threadIds = ['id1', 'id2', 'id3'];
+const threads = await Promise.all(
+  threadIds.map(id => client.threads.retrieve(id))
+);
+```
+
+## Best Practices
+
+1. **Error Handling**: Always use try-catch with specific error types
+2. **Rate Limits**: Monitor `client.lastRateLimitInfo` for API usage
+3. **Webhooks**: Always verify signatures to prevent unauthorized requests
+4. **Pagination**: Use async iterators for large result sets
+5. **Authentication**: Store tokens securely, never in client-side code
+
+## Troubleshooting
+
+### Rate Limit Errors
+
+If you encounter rate limit errors frequently, consider:
+- Implementing caching for frequently accessed data
+- Using pagination helpers to avoid fetching too much data
+- Batching operations where possible
+
+### Authentication Issues
+
+- Ensure your API key is valid and active
+- Check that tokens haven't expired
+- Use `client.isAuthenticated()` to verify authentication status
+
+### Webhook Verification Failures
+
+- Verify you're using the correct webhook secret
+- Check that timestamps aren't too old (default: 5 minutes)
+- Ensure you're passing the raw payload object, not a string
+
+## Contributing
+
+We welcome contributions! Please see our contributing guidelines for more information.
+
+## Support
+
+- 📧 Email: support@foru.ms
+- 📚 Documentation: https://docs.foru.ms
+- 🐛 Issues: https://github.com/foru-ms/sdk/issues
+
+## Changelog
+
+### v2.0.0
+- Added custom error classes for better error handling
+- Added automatic retry logic with exponential backoff
+- Added pagination helpers for easy iteration
+- Added webhook signature verification
+- Added 22 new endpoints
+- Enhanced documentation and examples
+
+### v1.x
+- Initial SDK release with core functionality
 
 ## License
 
