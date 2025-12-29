@@ -84,16 +84,17 @@ export class TagsResource {
         });
     }
 
-    async subscribe(id: string, userId: string): Promise<any> {
+    async subscribe(id: string, userId?: string): Promise<any> {
         return this.client.request(`/tag/${id}/subscribers`, {
             method: 'POST',
             body: JSON.stringify({ userId }),
         });
     }
 
-    async unsubscribe(id: string, userId: string): Promise<any> {
-        return this.client.request(`/tag/${id}/subscribers?userId=${userId}`, {
+    async unsubscribe(id: string, userId?: string): Promise<any> {
+        return this.client.request(`/tag/${id}/subscribers`, {
             method: 'DELETE',
+            body: JSON.stringify({ userId }),
         });
     }
 
@@ -113,7 +114,7 @@ export class TagsResource {
     }
 
     async listSubscribed(params: {
-        userId: string;
+        userId?: string;
         query?: string;
         cursor?: string;
         limit?: number;

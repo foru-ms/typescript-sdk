@@ -59,7 +59,6 @@ async function main() {
         await client.threads.create({
             title: '', // Invalid: empty title
             body: 'Test',
-            userId: 'user-123',
         });
     } catch (error) {
         if (error instanceof ValidationError) {

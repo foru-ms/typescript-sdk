@@ -58,8 +58,7 @@ async function main() {
         const response = await client.posts.list({
             cursor,
             filter: 'newest',
-            type: 'created', // Only posts created by user
-            userId: 'user-123',
+            type: 'created',
         });
 
         console.log(`Page ${++pageCount}:`, response.posts.length, 'posts');

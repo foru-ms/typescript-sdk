@@ -79,7 +79,6 @@ async function main() {
     const post = await client.posts.create({
         threadId: newThread.id,
         body: 'Thanks for posting! Check out our documentation.',
-        userId: 'moderator-123',
     });
     console.log('Post created:', post.id);
 
@@ -87,7 +86,6 @@ async function main() {
     const reply = await client.posts.create({
         threadId: newThread.id,
         body: 'Thank you! That helps a lot.',
-        userId,
         parentId: post.id, // This makes it a reply
     });
     console.log('Reply created:', reply.id);

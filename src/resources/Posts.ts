@@ -50,7 +50,7 @@ export class PostsResource {
         });
     }
 
-    async delete(postId: string, payload?: { userId: string }): Promise<import('../types').Post & { deleted: boolean }> {
+    async delete(postId: string, payload?: { userId?: string }): Promise<import('../types').Post & { deleted: boolean }> {
         return this.client.request<import('../types').Post & { deleted: boolean }>(`/post/${postId}`, {
             method: 'DELETE',
             body: payload ? JSON.stringify(payload) : undefined,
@@ -80,8 +80,10 @@ export class PostsResource {
         });
     }
 
-    async unlike(id: string, userId: string): Promise<any> {
-        return this.client.request(`/post/${id}/likes?userId=${userId}`, {
+    async unlike(id: string, userId?: string): Promise<any> {
+        return userId ? this.client.request(`/post/${id}/likes?userId=${userId}`, {
+            method: 'DELETE',
+        }) : this.client.request(`/post/${id}/likes`, {
             method: 'DELETE',
         });
     }
@@ -108,8 +110,10 @@ export class PostsResource {
         });
     }
 
-    async undislike(id: string, userId: string): Promise<any> {
-        return this.client.request(`/post/${id}/dislikes?userId=${userId}`, {
+    async undislike(id: string, userId?: string): Promise<any> {
+        return userId ? this.client.request(`/post/${id}/dislikes?userId=${userId}`, {
+            method: 'DELETE',
+        }) : this.client.request(`/post/${id}/dislikes`, {
             method: 'DELETE',
         });
     }
@@ -136,8 +140,10 @@ export class PostsResource {
         });
     }
 
-    async unupvote(id: string, userId: string): Promise<any> {
-        return this.client.request(`/post/${id}/upvotes?userId=${userId}`, {
+    async unupvote(id: string, userId?: string): Promise<any> {
+        return userId ? this.client.request(`/post/${id}/upvotes?userId=${userId}`, {
+            method: 'DELETE',
+        }) : this.client.request(`/post/${id}/upvotes`, {
             method: 'DELETE',
         });
     }
@@ -164,8 +170,10 @@ export class PostsResource {
         });
     }
 
-    async undownvote(id: string, userId: string): Promise<any> {
-        return this.client.request(`/post/${id}/downvotes?userId=${userId}`, {
+    async undownvote(id: string, userId?: string): Promise<any> {
+        return userId ? this.client.request(`/post/${id}/downvotes?userId=${userId}`, {
+            method: 'DELETE',
+        }) : this.client.request(`/post/${id}/downvotes`, {
             method: 'DELETE',
         });
     }

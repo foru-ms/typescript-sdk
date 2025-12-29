@@ -51,7 +51,7 @@ export class ThreadsResource {
         });
     }
 
-    async delete(threadId: string, payload?: { userId: string }): Promise<import('../types').Thread & { deleted: boolean }> {
+    async delete(threadId: string, payload?: { userId?: string }): Promise<import('../types').Thread & { deleted: boolean }> {
         return this.client.request<import('../types').Thread & { deleted: boolean }>(`/thread/${threadId}`, {
             method: 'DELETE',
             body: payload ? JSON.stringify(payload) : undefined,
@@ -81,9 +81,10 @@ export class ThreadsResource {
         });
     }
 
-    async unlike(id: string, userId: string): Promise<any> {
-        return this.client.request(`/thread/${id}/likes?userId=${userId}`, {
+    async unlike(id: string, userId?: string): Promise<any> {
+        return this.client.request(`/thread/${id}/likes`, {
             method: 'DELETE',
+            body: JSON.stringify({ userId }),
         });
     }
 
@@ -109,9 +110,10 @@ export class ThreadsResource {
         });
     }
 
-    async undislike(id: string, userId: string): Promise<any> {
-        return this.client.request(`/thread/${id}/dislikes?userId=${userId}`, {
+    async undislike(id: string, userId?: string): Promise<any> {
+        return this.client.request(`/thread/${id}/dislikes`, {
             method: 'DELETE',
+            body: JSON.stringify({ userId }),
         });
     }
 
@@ -130,16 +132,17 @@ export class ThreadsResource {
         return this.client.request(`/thread/${id}/dislikes?${searchParams.toString()}`, { method: 'GET' });
     }
 
-    async subscribe(id: string, userId: string, extendedData?: any): Promise<any> {
+    async subscribe(id: string, userId?: string, extendedData?: any): Promise<any> {
         return this.client.request(`/thread/${id}/subscribers`, {
             method: 'POST',
             body: JSON.stringify({ userId, extendedData }),
         });
     }
 
-    async unsubscribe(id: string, userId: string): Promise<any> {
-        return this.client.request(`/thread/${id}/subscribers?userId=${userId}`, {
+    async unsubscribe(id: string, userId?: string): Promise<any> {
+        return this.client.request(`/thread/${id}/subscribers`, {
             method: 'DELETE',
+            body: JSON.stringify({ userId }),
         });
     }
 
@@ -165,9 +168,10 @@ export class ThreadsResource {
         });
     }
 
-    async unupvote(id: string, userId: string): Promise<any> {
-        return this.client.request(`/thread/${id}/upvotes?userId=${userId}`, {
+    async unupvote(id: string, userId?: string): Promise<any> {
+        return this.client.request(`/thread/${id}/upvotes`, {
             method: 'DELETE',
+            body: JSON.stringify({ userId }),
         });
     }
 
@@ -193,9 +197,10 @@ export class ThreadsResource {
         });
     }
 
-    async undownvote(id: string, userId: string): Promise<any> {
-        return this.client.request(`/thread/${id}/downvotes?userId=${userId}`, {
+    async undownvote(id: string, userId?: string): Promise<any> {
+        return this.client.request(`/thread/${id}/downvotes`, {
             method: 'DELETE',
+            body: JSON.stringify({ userId }),
         });
     }
 
@@ -227,23 +232,24 @@ export class ThreadsResource {
         );
     }
 
-    async vote(id: string, optionId: string, userId: string): Promise<any> {
+    async vote(id: string, optionId: string, userId?: string): Promise<any> {
         return this.client.request(`/thread/${id}/poll/votes`, {
             method: 'POST',
             body: JSON.stringify({ optionId, userId }),
         });
     }
 
-    async voteUpdate(id: string, optionId: string, userId: string): Promise<any> {
+    async voteUpdate(id: string, optionId: string, userId?: string): Promise<any> {
         return this.client.request(`/thread/${id}/poll/votes`, {
             method: 'PUT',
             body: JSON.stringify({ optionId, userId }),
         });
     }
 
-    async unvote(id: string, userId: string): Promise<any> {
-        return this.client.request(`/thread/${id}/poll/votes?userId=${userId}`, {
+    async unvote(id: string, userId?: string): Promise<any> {
+        return this.client.request(`/thread/${id}/poll/votes`, {
             method: 'DELETE',
+            body: JSON.stringify({ userId }),
         });
     }
 }

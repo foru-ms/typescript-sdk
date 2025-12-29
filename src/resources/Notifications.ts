@@ -9,7 +9,7 @@ export class NotificationsResource {
     }
 
     async list(params: {
-        userId: string;
+        userId?: string;
         read?: boolean;
         filter?: 'newest' | 'oldest';
         cursor?: string;
@@ -27,7 +27,7 @@ export class NotificationsResource {
         });
     }
 
-    async markAllAsRead(userId: string, read: boolean = true): Promise<{ count: number }> {
+    async markAllAsRead(userId?: string, read: boolean = true): Promise<{ count: number }> {
         return this.client.request<{ count: number }>('/notifications', {
             method: 'PATCH',
             body: JSON.stringify({ userId, read }),
@@ -56,7 +56,7 @@ export class NotificationsResource {
         threadId?: string;
         postId?: string;
         privateMessageId?: string;
-        notifierId: string;
+        notifierId?: string;
         notifiedId: string;
         type: string;
         description?: string;

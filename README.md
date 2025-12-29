@@ -43,7 +43,6 @@ client.setToken('user_jwt_token');
 const thread = await client.threads.create({
   title: 'My First Thread',
   body: 'Hello, Foru.ms!',
-  userId: 'user-123',
 });
 
 // List threads with auto-pagination
@@ -137,7 +136,7 @@ const users = await client.users.list({ limit: 10 });
 
 // Limit applies to all paginated endpoints
 const posts = await client.posts.list({ limit: 25 });
-const notifications = await client.notifications.list({ userId: 'user-123', limit: 30 });
+const notifications = await client.notifications.list({ limit: 30 });
 ```
 
 ## Webhooks
@@ -552,6 +551,9 @@ We welcome contributions! Please see our contributing guidelines for more inform
 - Issues: https://github.com/foru-ms/sdk/issues
 
 ## Changelog
+
+### v1.2.5
+- Added optional `userId` parameter to methods that accept it
 
 ### v1.2.4
 - Pagination Enhancement: Added configurable `limit` query parameter to all paginated endpoints
