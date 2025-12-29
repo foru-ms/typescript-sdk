@@ -113,18 +113,20 @@ export class TagsResource {
         return this.client.request(`/tag/${id}/subscribers?${searchParams.toString()}`, { method: 'GET' });
     }
 
-    async listSubscribed(params: {
+    async listSubscribed(params?: {
         userId?: string;
         query?: string;
         cursor?: string;
         limit?: number;
     }): Promise<TagListResponse> {
         const searchParams = new URLSearchParams();
-        Object.entries(params).forEach(([key, value]) => {
-            if (value !== undefined) {
-                searchParams.append(key, value as string);
-            }
-        });
+        if (params) {
+            Object.entries(params).forEach(([key, value]) => {
+                if (value !== undefined) {
+                    searchParams.append(key, value as string);
+                }
+            });
+        }
 
         return this.client.request<TagListResponse>(`/tags/subscribed?${searchParams.toString()}`, {
             method: 'GET',

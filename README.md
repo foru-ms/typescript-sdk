@@ -210,12 +210,12 @@ Check the `/examples` directory for detailed examples:
 ### Threads (`client.threads`)
 
 **Thread Management**
-*   `list(params: { query?: string; tagId?: string; filter?: 'newest' | 'oldest'; type?: 'created' | 'liked' | 'disliked' | 'upvoted' | 'downvoted' | 'subscribed'; cursor?: string; userId?: string; limit?: number })`: List threads with filtering options. `limit` controls page size (1-50, default: 15).
+*   `list(params?: { query?: string; tagId?: string; filter?: 'newest' | 'oldest'; type?: 'created' | 'liked' | 'disliked' | 'upvoted' | 'downvoted' | 'subscribed'; cursor?: string; userId?: string; limit?: number })`: List threads with filtering options. `limit` controls page size (1-50, default: 15).
 *   `create(payload: CreateThreadPayload)`: Create a new thread.
 *   `retrieve(id: string)`: Get a thread by ID.
 *   `update(id: string, payload: UpdateThreadPayload)`: Update a thread.
 *   `delete(id: string)`: Delete a thread.
-*   `getPosts(id: string, params: { query?: string; cursor?: string; filter?: 'newest' | 'oldest'; limit?: number })`: Get posts in a thread.
+*   `getPosts(id: string, params?: { query?: string; cursor?: string; filter?: 'newest' | 'oldest'; limit?: number })`: Get posts in a thread.
 
 **Thread Interactions**
 *   `like(id: string, userId?: string, extendedData?: any)`: Like a thread.
@@ -249,7 +249,7 @@ Check the `/examples` directory for detailed examples:
 ### Posts (`client.posts`)
 
 **Post Management**
-*   `list(params: { query?: string; filter?: 'newest' | 'oldest'; type?: 'created' | 'liked' | 'disliked' | 'upvoted' | 'downvoted'; cursor?: string; userId?: string; limit?: number })`: List posts with filtering options. `limit` controls page size (1-50, default: 15).
+*   `list(params?: { query?: string; filter?: 'newest' | 'oldest'; type?: 'created' | 'liked' | 'disliked' | 'upvoted' | 'downvoted'; cursor?: string; userId?: string; limit?: number })`: List posts with filtering options. `limit` controls page size (1-50, default: 15).
 *   `create(payload: CreatePostPayload)`: Create a new post/reply.
 *   `retrieve(id: string)`: Get a post by ID.
 *   `update(id: string, payload: UpdatePostPayload)`: Update a post.
@@ -288,7 +288,7 @@ Check the `/examples` directory for detailed examples:
 ### Tags (`client.tags`)
 
 *   `list(params?: { query?: string; cursor?: string; limit?: number })`: List all tags. `limit` controls page size (1-50, default: 15).
-*   `listSubscribed(params: { userId?: string; query?: string; cursor?: string; limit?: number })`: List tags a user is subscribed to.
+*   `listSubscribed(params?: { userId?: string; query?: string; cursor?: string; limit?: number })`: List tags a user is subscribed to.
 *   `create(payload: { name: string; description?: string; color?: string; extendedData?: Record<string, any> })`: Create a tag.
 *   `retrieve(id: string, params?: { userId?: string })`: Get a tag with optional user context.
 *   `update(id: string, payload: { name?: string; description?: string; color?: string; extendedData?: Record<string, any> })`: Update a tag.
@@ -301,7 +301,7 @@ Check the `/examples` directory for detailed examples:
 
 ### Notifications (`client.notifications`)
 
-*   `list(params: { userId?: string; read?: boolean; filter?: 'newest' | 'oldest'; cursor?: string; limit?: number })`: List notifications for a user. `limit` controls page size (1-50, default: 15).
+*   `list(params?: { userId?: string; read?: boolean; filter?: 'newest' | 'oldest'; cursor?: string; limit?: number })`: List notifications for a user. `limit` controls page size (1-50, default: 15).
 *   `create(payload: { threadId?: string; postId?: string; privateMessageId?: string; notifierId?: string; notifiedId: string; type: string; description?: string; extendedData?: Record<string, any> })`: Create a notification manually.
 *   `retrieve(id: string, userId?: string)`: Get a notification by ID.
 *   `update(id: string, payload: { userId?: string; read: boolean })`: Update a notification's read status.
@@ -551,6 +551,9 @@ We welcome contributions! Please see our contributing guidelines for more inform
 - Issues: https://github.com/foru-ms/sdk/issues
 
 ## Changelog
+
+### v1.2.6
+- Fixed issue with optional parameters not being optional in typescript
 
 ### v1.2.5
 - Added optional `userId` parameter to methods that accept it

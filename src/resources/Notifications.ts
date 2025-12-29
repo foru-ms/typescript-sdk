@@ -8,7 +8,7 @@ export class NotificationsResource {
         this.client = client;
     }
 
-    async list(params: {
+    async list(params?: {
         userId?: string;
         read?: boolean;
         filter?: 'newest' | 'oldest';
@@ -16,11 +16,13 @@ export class NotificationsResource {
         limit?: number;
     }): Promise<NotificationListResponse> {
         const searchParams = new URLSearchParams();
-        Object.entries(params).forEach(([key, value]) => {
-            if (value !== undefined) {
-                searchParams.append(key, String(value));
-            }
-        });
+        if (params) {
+            Object.entries(params).forEach(([key, value]) => {
+                if (value !== undefined) {
+                    searchParams.append(key, String(value));
+                }
+            });
+        }
 
         return this.client.request<NotificationListResponse>(`/notifications?${searchParams.toString()}`, {
             method: 'GET',
