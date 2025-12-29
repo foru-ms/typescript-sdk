@@ -552,6 +552,9 @@ We welcome contributions! Please see our contributing guidelines for more inform
 
 ## Changelog
 
+### v1.2.8
+- Added Poll resource for poll management
+
 ### v1.2.7
 - Fixed issue with optional parameters not being optional in typescript
 

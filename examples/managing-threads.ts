@@ -1,3 +1,4 @@
+// @ts-ignore
 import { ForumClient } from '@foru-ms/sdk';
 
 /**
