@@ -18,7 +18,7 @@ export declare namespace SsOsClient {
 export class SsOsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<SsOsClient.Options>;
 
-    constructor(options: SsOsClient.Options = {}) {
+    constructor(options: SsOsClient.Options) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 

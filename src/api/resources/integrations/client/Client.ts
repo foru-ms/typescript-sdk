@@ -18,7 +18,7 @@ export declare namespace IntegrationsClient {
 export class IntegrationsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<IntegrationsClient.Options>;
 
-    constructor(options: IntegrationsClient.Options = {}) {
+    constructor(options: IntegrationsClient.Options) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 

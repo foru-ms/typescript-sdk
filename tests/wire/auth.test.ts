@@ -62,6 +62,29 @@ describe("AuthClient", () => {
             .post("/auth/register")
             .jsonBody(rawRequestBody)
             .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.auth.register({
+                username: "foo",
+                email: "email",
+                password: "mandarin",
+            });
+        }).rejects.toThrow(Forum.UnauthorizedError);
+    });
+
+    test("register (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { username: "foo", email: "email", password: "mandarin" };
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/auth/register")
+            .jsonBody(rawRequestBody)
+            .respondWith()
             .statusCode(402)
             .jsonBody(rawResponseBody)
             .build();
@@ -75,7 +98,7 @@ describe("AuthClient", () => {
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("register (4)", async () => {
+    test("register (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { username: "foo", email: "email", password: "mandarin" };
@@ -98,7 +121,7 @@ describe("AuthClient", () => {
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("register (5)", async () => {
+    test("register (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { username: "foo", email: "email", password: "mandarin" };
@@ -176,6 +199,28 @@ describe("AuthClient", () => {
             .post("/auth/login")
             .jsonBody(rawRequestBody)
             .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.auth.login({
+                login: "foo",
+                password: "x",
+            });
+        }).rejects.toThrow(Forum.UnauthorizedError);
+    });
+
+    test("login (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { login: "foo", password: "x" };
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/auth/login")
+            .jsonBody(rawRequestBody)
+            .respondWith()
             .statusCode(402)
             .jsonBody(rawResponseBody)
             .build();
@@ -188,7 +233,7 @@ describe("AuthClient", () => {
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("login (4)", async () => {
+    test("login (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { login: "foo", password: "x" };
@@ -210,7 +255,7 @@ describe("AuthClient", () => {
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("login (5)", async () => {
+    test("login (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { login: "foo", password: "x" };
@@ -348,6 +393,27 @@ describe("AuthClient", () => {
             .post("/auth/forgot-password")
             .jsonBody(rawRequestBody)
             .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.auth.requestPasswordReset({
+                email: "email",
+            });
+        }).rejects.toThrow(Forum.UnauthorizedError);
+    });
+
+    test("requestPasswordReset (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { email: "email" };
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/auth/forgot-password")
+            .jsonBody(rawRequestBody)
+            .respondWith()
             .statusCode(402)
             .jsonBody(rawResponseBody)
             .build();
@@ -359,7 +425,7 @@ describe("AuthClient", () => {
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("requestPasswordReset (4)", async () => {
+    test("requestPasswordReset (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { email: "email" };
@@ -380,7 +446,7 @@ describe("AuthClient", () => {
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("requestPasswordReset (5)", async () => {
+    test("requestPasswordReset (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { email: "email" };
@@ -454,6 +520,27 @@ describe("AuthClient", () => {
             .post("/auth/reset-password")
             .jsonBody(rawRequestBody)
             .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.auth.resetPassword({
+                password: "mandarin",
+            });
+        }).rejects.toThrow(Forum.UnauthorizedError);
+    });
+
+    test("resetPassword (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { password: "mandarin" };
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/auth/reset-password")
+            .jsonBody(rawRequestBody)
+            .respondWith()
             .statusCode(402)
             .jsonBody(rawResponseBody)
             .build();
@@ -465,7 +552,7 @@ describe("AuthClient", () => {
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("resetPassword (4)", async () => {
+    test("resetPassword (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { password: "mandarin" };
@@ -486,7 +573,7 @@ describe("AuthClient", () => {
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("resetPassword (5)", async () => {
+    test("resetPassword (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { password: "mandarin" };

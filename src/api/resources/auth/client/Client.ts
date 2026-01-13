@@ -18,15 +18,18 @@ export declare namespace AuthClient {
 export class AuthClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<AuthClient.Options>;
 
-    constructor(options: AuthClient.Options = {}) {
+    constructor(options: AuthClient.Options) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
     /**
+     * Register a new user in your forum instance. Requires API key for instance identification. Returns a JWT token for subsequent authenticated requests.
+     *
      * @param {Forum.PostAuthRegisterRequest} request
      * @param {AuthClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
+     * @throws {@link Forum.UnauthorizedError}
      * @throws {@link Forum.PaymentRequiredError}
      * @throws {@link Forum.TooManyRequestsError}
      * @throws {@link Forum.InternalServerError}
@@ -49,7 +52,12 @@ export class AuthClient {
         request: Forum.PostAuthRegisterRequest,
         requestOptions?: AuthClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.PostAuthRegisterResponse>> {
-        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(this._options?.headers, requestOptions?.headers);
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -77,6 +85,11 @@ export class AuthClient {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Forum.BadRequestError(_response.error.body as Forum.ErrorResponse, _response.rawResponse);
+                case 401:
+                    throw new Forum.UnauthorizedError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
                 case 402:
                     throw new Forum.PaymentRequiredError(
                         _response.error.body as Forum.ErrorResponse,
@@ -105,10 +118,13 @@ export class AuthClient {
     }
 
     /**
+     * Authenticate an existing user. Requires API key for instance identification. Returns a JWT token for subsequent authenticated requests.
+     *
      * @param {Forum.PostAuthLoginRequest} request
      * @param {AuthClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
+     * @throws {@link Forum.UnauthorizedError}
      * @throws {@link Forum.PaymentRequiredError}
      * @throws {@link Forum.TooManyRequestsError}
      * @throws {@link Forum.InternalServerError}
@@ -130,7 +146,12 @@ export class AuthClient {
         request: Forum.PostAuthLoginRequest,
         requestOptions?: AuthClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.PostAuthLoginResponse>> {
-        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(this._options?.headers, requestOptions?.headers);
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -158,6 +179,11 @@ export class AuthClient {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Forum.BadRequestError(_response.error.body as Forum.ErrorResponse, _response.rawResponse);
+                case 401:
+                    throw new Forum.UnauthorizedError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
                 case 402:
                     throw new Forum.PaymentRequiredError(
                         _response.error.body as Forum.ErrorResponse,
@@ -266,10 +292,13 @@ export class AuthClient {
     }
 
     /**
+     * Request a password reset email. Requires API key for instance identification.
+     *
      * @param {Forum.PostAuthForgotPasswordRequest} request
      * @param {AuthClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
+     * @throws {@link Forum.UnauthorizedError}
      * @throws {@link Forum.PaymentRequiredError}
      * @throws {@link Forum.TooManyRequestsError}
      * @throws {@link Forum.InternalServerError}
@@ -290,7 +319,12 @@ export class AuthClient {
         request: Forum.PostAuthForgotPasswordRequest,
         requestOptions?: AuthClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.PostAuthForgotPasswordResponse>> {
-        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(this._options?.headers, requestOptions?.headers);
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -318,6 +352,11 @@ export class AuthClient {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Forum.BadRequestError(_response.error.body as Forum.ErrorResponse, _response.rawResponse);
+                case 401:
+                    throw new Forum.UnauthorizedError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
                 case 402:
                     throw new Forum.PaymentRequiredError(
                         _response.error.body as Forum.ErrorResponse,
@@ -346,10 +385,13 @@ export class AuthClient {
     }
 
     /**
+     * Reset password using a reset token. Requires API key for instance identification.
+     *
      * @param {Forum.PostAuthResetPasswordRequest} request
      * @param {AuthClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
+     * @throws {@link Forum.UnauthorizedError}
      * @throws {@link Forum.PaymentRequiredError}
      * @throws {@link Forum.TooManyRequestsError}
      * @throws {@link Forum.InternalServerError}
@@ -370,7 +412,12 @@ export class AuthClient {
         request: Forum.PostAuthResetPasswordRequest,
         requestOptions?: AuthClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.PostAuthResetPasswordResponse>> {
-        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(this._options?.headers, requestOptions?.headers);
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -398,6 +445,11 @@ export class AuthClient {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Forum.BadRequestError(_response.error.body as Forum.ErrorResponse, _response.rawResponse);
+                case 401:
+                    throw new Forum.UnauthorizedError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
                 case 402:
                     throw new Forum.PaymentRequiredError(
                         _response.error.body as Forum.ErrorResponse,

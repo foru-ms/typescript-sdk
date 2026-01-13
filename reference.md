@@ -4,6 +4,20 @@
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Register a new user in your forum instance. Requires API key for instance identification. Returns a JWT token for subsequent authenticated requests.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -56,6 +70,20 @@ await client.auth.register({
 <details><summary><code>client.auth.<a href="/src/api/resources/auth/client/Client.ts">login</a>({ ...params }) -> Forum.PostAuthLoginResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Authenticate an existing user. Requires API key for instance identification. Returns a JWT token for subsequent authenticated requests.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -150,6 +178,20 @@ await client.auth.getCurrentUser();
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Request a password reset email. Requires API key for instance identification.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -200,6 +242,20 @@ await client.auth.requestPasswordReset({
 <details><summary><code>client.auth.<a href="/src/api/resources/auth/client/Client.ts">resetPassword</a>({ ...params }) -> Forum.PostAuthResetPasswordResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Reset password using a reset token. Requires API key for instance identification.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 

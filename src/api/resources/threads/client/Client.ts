@@ -18,7 +18,7 @@ export declare namespace ThreadsClient {
 export class ThreadsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<ThreadsClient.Options>;
 
-    constructor(options: ThreadsClient.Options = {}) {
+    constructor(options: ThreadsClient.Options) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 

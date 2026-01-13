@@ -18,7 +18,7 @@ export declare namespace PrivateMessagesClient {
 export class PrivateMessagesClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<PrivateMessagesClient.Options>;
 
-    constructor(options: PrivateMessagesClient.Options = {}) {
+    constructor(options: PrivateMessagesClient.Options) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 

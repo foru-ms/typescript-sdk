@@ -18,7 +18,7 @@ export declare namespace PostsClient {
 export class PostsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<PostsClient.Options>;
 
-    constructor(options: PostsClient.Options = {}) {
+    constructor(options: PostsClient.Options) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 

@@ -18,7 +18,7 @@ export declare namespace NotificationsClient {
 export class NotificationsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<NotificationsClient.Options>;
 
-    constructor(options: NotificationsClient.Options = {}) {
+    constructor(options: NotificationsClient.Options) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
