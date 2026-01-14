@@ -65,7 +65,7 @@ export class ThreadsClient {
             this._options?.headers,
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
@@ -152,7 +152,7 @@ export class ThreadsClient {
             this._options?.headers,
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
@@ -244,7 +244,7 @@ export class ThreadsClient {
             this._options?.headers,
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
@@ -333,7 +333,7 @@ export class ThreadsClient {
             this._options?.headers,
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
@@ -423,7 +423,7 @@ export class ThreadsClient {
             this._options?.headers,
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
@@ -525,7 +525,7 @@ export class ThreadsClient {
             this._options?.headers,
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
@@ -609,7 +609,7 @@ export class ThreadsClient {
             this._options?.headers,
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
@@ -693,7 +693,7 @@ export class ThreadsClient {
             this._options?.headers,
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
@@ -793,7 +793,7 @@ export class ThreadsClient {
             this._options?.headers,
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
@@ -878,7 +878,7 @@ export class ThreadsClient {
             this._options?.headers,
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
@@ -968,7 +968,7 @@ export class ThreadsClient {
             this._options?.headers,
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
@@ -1055,7 +1055,7 @@ export class ThreadsClient {
             this._options?.headers,
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
@@ -1147,7 +1147,7 @@ export class ThreadsClient {
             this._options?.headers,
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
@@ -1247,7 +1247,7 @@ export class ThreadsClient {
             this._options?.headers,
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
@@ -1334,7 +1334,7 @@ export class ThreadsClient {
             this._options?.headers,
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
@@ -1426,7 +1426,7 @@ export class ThreadsClient {
             this._options?.headers,
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
@@ -1517,7 +1517,7 @@ export class ThreadsClient {
             this._options?.headers,
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
@@ -1605,7 +1605,7 @@ export class ThreadsClient {
             this._options?.headers,
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
@@ -1694,7 +1694,7 @@ export class ThreadsClient {
             this._options?.headers,
             requestOptions?.headers,
         );
-        const _response = await core.fetcher({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
