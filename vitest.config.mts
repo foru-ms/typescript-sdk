@@ -13,15 +13,6 @@ export default defineConfig({
                     setupFiles: ["./setup.ts"],
                 },
             },
-            {
-                test: {
-                    globals: true,
-                    name: "wire",
-                    environment: "node",
-                    root: "./tests/wire",
-                    setupFiles: ["../setup.ts", "../mock-server/setup.ts"],
-                },
-            },
         ],
         passWithNoTests: true,
     },

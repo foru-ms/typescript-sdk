@@ -10,42 +10,44 @@ describe("WebhooksClient", () => {
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            data: [
-                {
-                    id: "id",
-                    name: "name",
-                    url: "url",
-                    events: ["events"],
-                    active: true,
-                    lastTriggered: "lastTriggered",
-                    failureCount: 1,
-                    createdAt: "createdAt",
-                    updatedAt: "updatedAt",
-                },
-            ],
-            meta: { total: 1, page: 1, limit: 1 },
+            data: {
+                items: [
+                    {
+                        id: "id",
+                        name: "name",
+                        url: "url",
+                        events: ["events"],
+                        active: true,
+                        lastTriggered: null,
+                        failureCount: 1,
+                        createdAt: "createdAt",
+                        updatedAt: "updatedAt",
+                    },
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
+            },
         };
         server.mockEndpoint().get("/webhooks").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.webhooks.listAllWebhooks();
         expect(response).toEqual({
-            data: [
-                {
-                    id: "id",
-                    name: "name",
-                    url: "url",
-                    events: ["events"],
-                    active: true,
-                    lastTriggered: "lastTriggered",
-                    failureCount: 1,
-                    createdAt: "createdAt",
-                    updatedAt: "updatedAt",
-                },
-            ],
-            meta: {
-                total: 1,
-                page: 1,
-                limit: 1,
+            data: {
+                items: [
+                    {
+                        id: "id",
+                        name: "name",
+                        url: "url",
+                        events: ["events"],
+                        active: true,
+                        lastTriggered: null,
+                        failureCount: 1,
+                        createdAt: "createdAt",
+                        updatedAt: "updatedAt",
+                    },
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
             },
         });
     });

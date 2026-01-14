@@ -10,60 +10,48 @@ describe("UsersClient", () => {
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            data: [
-                {
-                    id: "id",
-                    username: "username",
-                    displayName: "displayName",
-                    bio: "bio",
-                    signature: "signature",
-                    url: "url",
-                    postsCount: 1,
-                    threadsCount: 1,
-                    isOnline: true,
-                    lastSeenAt: "lastSeenAt",
-                    roles: [{ id: "id", name: "name", slug: null }],
-                    extendedData: { key: "value" },
-                    createdAt: "createdAt",
-                    updatedAt: "updatedAt",
-                },
-            ],
-            meta: { total: 1, page: 1, limit: 1 },
+            data: {
+                items: [
+                    {
+                        id: "id",
+                        username: "username",
+                        displayName: null,
+                        bio: null,
+                        signature: null,
+                        url: null,
+                        isOnline: null,
+                        lastSeenAt: null,
+                        extendedData: null,
+                        createdAt: "createdAt",
+                        updatedAt: "updatedAt",
+                    },
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
+            },
         };
         server.mockEndpoint().get("/users").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.users.listAllUsers();
         expect(response).toEqual({
-            data: [
-                {
-                    id: "id",
-                    username: "username",
-                    displayName: "displayName",
-                    bio: "bio",
-                    signature: "signature",
-                    url: "url",
-                    postsCount: 1,
-                    threadsCount: 1,
-                    isOnline: true,
-                    lastSeenAt: "lastSeenAt",
-                    roles: [
-                        {
-                            id: "id",
-                            name: "name",
-                            slug: null,
-                        },
-                    ],
-                    extendedData: {
-                        key: "value",
+            data: {
+                items: [
+                    {
+                        id: "id",
+                        username: "username",
+                        displayName: null,
+                        bio: null,
+                        signature: null,
+                        url: null,
+                        isOnline: null,
+                        lastSeenAt: null,
+                        extendedData: null,
+                        createdAt: "createdAt",
+                        updatedAt: "updatedAt",
                     },
-                    createdAt: "createdAt",
-                    updatedAt: "updatedAt",
-                },
-            ],
-            meta: {
-                total: 1,
-                page: 1,
-                limit: 1,
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
             },
         });
     });

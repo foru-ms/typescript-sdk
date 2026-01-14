@@ -10,44 +10,38 @@ describe("PostsClient", () => {
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            data: [
-                {
-                    threadId: "threadId",
-                    body: "body",
-                    userId: "userId",
-                    parentId: "parentId",
-                    extendedData: { key: "value" },
-                    id: "id",
-                    depth: 1,
-                    createdAt: "createdAt",
-                    updatedAt: "updatedAt",
-                },
-            ],
-            meta: { total: 1, page: 1, limit: 1 },
+            data: {
+                items: [
+                    {
+                        threadId: "threadId",
+                        body: "body",
+                        id: "id",
+                        depth: null,
+                        createdAt: "createdAt",
+                        updatedAt: "updatedAt",
+                    },
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
+            },
         };
         server.mockEndpoint().get("/posts").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.posts.listAllPosts();
         expect(response).toEqual({
-            data: [
-                {
-                    threadId: "threadId",
-                    body: "body",
-                    userId: "userId",
-                    parentId: "parentId",
-                    extendedData: {
-                        key: "value",
+            data: {
+                items: [
+                    {
+                        threadId: "threadId",
+                        body: "body",
+                        id: "id",
+                        depth: null,
+                        createdAt: "createdAt",
+                        updatedAt: "updatedAt",
                     },
-                    id: "id",
-                    depth: 1,
-                    createdAt: "createdAt",
-                    updatedAt: "updatedAt",
-                },
-            ],
-            meta: {
-                total: 1,
-                page: 1,
-                limit: 1,
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
             },
         });
     });

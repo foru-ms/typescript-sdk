@@ -10,50 +10,50 @@ describe("NotificationsClient", () => {
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            data: [
-                {
-                    id: "id",
-                    userId: "userId",
-                    notifierId: "notifierId",
-                    type: "type",
-                    description: "description",
-                    status: "status",
-                    threadId: "threadId",
-                    postId: "postId",
-                    privateMessageId: "privateMessageId",
-                    extendedData: { key: "value" },
-                    createdAt: "createdAt",
-                    updatedAt: "updatedAt",
-                },
-            ],
-            meta: { total: 1, page: 1, limit: 1 },
+            data: {
+                items: [
+                    {
+                        id: "id",
+                        userId: "userId",
+                        notifierId: "notifierId",
+                        type: null,
+                        description: null,
+                        status: null,
+                        threadId: null,
+                        postId: null,
+                        privateMessageId: null,
+                        extendedData: null,
+                        createdAt: "createdAt",
+                        updatedAt: "updatedAt",
+                    },
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
+            },
         };
         server.mockEndpoint().get("/notifications").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.notifications.listAllNotifications();
         expect(response).toEqual({
-            data: [
-                {
-                    id: "id",
-                    userId: "userId",
-                    notifierId: "notifierId",
-                    type: "type",
-                    description: "description",
-                    status: "status",
-                    threadId: "threadId",
-                    postId: "postId",
-                    privateMessageId: "privateMessageId",
-                    extendedData: {
-                        key: "value",
+            data: {
+                items: [
+                    {
+                        id: "id",
+                        userId: "userId",
+                        notifierId: "notifierId",
+                        type: null,
+                        description: null,
+                        status: null,
+                        threadId: null,
+                        postId: null,
+                        privateMessageId: null,
+                        extendedData: null,
+                        createdAt: "createdAt",
+                        updatedAt: "updatedAt",
                     },
-                    createdAt: "createdAt",
-                    updatedAt: "updatedAt",
-                },
-            ],
-            meta: {
-                total: 1,
-                page: 1,
-                limit: 1,
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
             },
         });
     });

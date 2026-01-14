@@ -10,36 +10,38 @@ describe("SsOsClient", () => {
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            data: [
-                {
-                    id: "id",
-                    provider: "OKTA",
-                    domain: "domain",
-                    active: true,
-                    createdAt: "createdAt",
-                    updatedAt: "updatedAt",
-                },
-            ],
-            meta: { total: 1, page: 1, limit: 1 },
+            data: {
+                items: [
+                    {
+                        id: "id",
+                        provider: "OKTA",
+                        domain: "domain",
+                        active: true,
+                        createdAt: "createdAt",
+                        updatedAt: "updatedAt",
+                    },
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
+            },
         };
         server.mockEndpoint().get("/sso").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.ssOs.listAllSsOs();
         expect(response).toEqual({
-            data: [
-                {
-                    id: "id",
-                    provider: "OKTA",
-                    domain: "domain",
-                    active: true,
-                    createdAt: "createdAt",
-                    updatedAt: "updatedAt",
-                },
-            ],
-            meta: {
-                total: 1,
-                page: 1,
-                limit: 1,
+            data: {
+                items: [
+                    {
+                        id: "id",
+                        provider: "OKTA",
+                        domain: "domain",
+                        active: true,
+                        createdAt: "createdAt",
+                        updatedAt: "updatedAt",
+                    },
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
             },
         });
     });

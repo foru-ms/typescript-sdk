@@ -10,46 +10,38 @@ describe("PrivateMessagesClient", () => {
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            data: [
-                {
-                    recipientId: "recipientId",
-                    senderId: "senderId",
-                    title: "title",
-                    body: "body",
-                    parentId: "parentId",
-                    extendedData: { key: "value" },
-                    id: "id",
-                    status: "status",
-                    createdAt: "createdAt",
-                    updatedAt: "updatedAt",
-                },
-            ],
-            meta: { total: 1, page: 1, limit: 1 },
+            data: {
+                items: [
+                    {
+                        recipientId: "recipientId",
+                        body: "body",
+                        id: "id",
+                        status: null,
+                        createdAt: "createdAt",
+                        updatedAt: "updatedAt",
+                    },
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
+            },
         };
         server.mockEndpoint().get("/private-messages").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.privateMessages.listAllPrivateMessages();
         expect(response).toEqual({
-            data: [
-                {
-                    recipientId: "recipientId",
-                    senderId: "senderId",
-                    title: "title",
-                    body: "body",
-                    parentId: "parentId",
-                    extendedData: {
-                        key: "value",
+            data: {
+                items: [
+                    {
+                        recipientId: "recipientId",
+                        body: "body",
+                        id: "id",
+                        status: null,
+                        createdAt: "createdAt",
+                        updatedAt: "updatedAt",
                     },
-                    id: "id",
-                    status: "status",
-                    createdAt: "createdAt",
-                    updatedAt: "updatedAt",
-                },
-            ],
-            meta: {
-                total: 1,
-                page: 1,
-                limit: 1,
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
             },
         });
     });

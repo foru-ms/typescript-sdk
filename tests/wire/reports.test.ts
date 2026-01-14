@@ -10,46 +10,28 @@ describe("ReportsClient", () => {
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            data: [
-                {
-                    type: "type",
-                    description: "description",
-                    userId: "userId",
-                    reportedId: "reportedId",
-                    threadId: "threadId",
-                    postId: "postId",
-                    privateMessageId: "privateMessageId",
-                    id: "id",
-                    status: "status",
-                    createdAt: "createdAt",
-                    updatedAt: "updatedAt",
-                },
-            ],
-            meta: { total: 1, page: 1, limit: 1 },
+            data: {
+                items: [{ type: "type", id: "id", status: null, createdAt: "createdAt", updatedAt: "updatedAt" }],
+                nextCursor: "nextCursor",
+                count: 1,
+            },
         };
         server.mockEndpoint().get("/reports").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.reports.listAllReports();
         expect(response).toEqual({
-            data: [
-                {
-                    type: "type",
-                    description: "description",
-                    userId: "userId",
-                    reportedId: "reportedId",
-                    threadId: "threadId",
-                    postId: "postId",
-                    privateMessageId: "privateMessageId",
-                    id: "id",
-                    status: "status",
-                    createdAt: "createdAt",
-                    updatedAt: "updatedAt",
-                },
-            ],
-            meta: {
-                total: 1,
-                page: 1,
-                limit: 1,
+            data: {
+                items: [
+                    {
+                        type: "type",
+                        id: "id",
+                        status: null,
+                        createdAt: "createdAt",
+                        updatedAt: "updatedAt",
+                    },
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
             },
         });
     });

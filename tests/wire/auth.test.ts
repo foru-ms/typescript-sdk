@@ -9,7 +9,12 @@ describe("AuthClient", () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { username: "username", email: "email", password: "password" };
-        const rawResponseBody = { token: "token" };
+        const rawResponseBody = {
+            data: {
+                token: "token",
+                user: { id: "id", username: "username", email: "email", displayName: "displayName" },
+            },
+        };
         server
             .mockEndpoint()
             .post("/auth/register")
@@ -25,7 +30,15 @@ describe("AuthClient", () => {
             password: "password",
         });
         expect(response).toEqual({
-            token: "token",
+            data: {
+                token: "token",
+                user: {
+                    id: "id",
+                    username: "username",
+                    email: "email",
+                    displayName: "displayName",
+                },
+            },
         });
     });
 
@@ -148,7 +161,12 @@ describe("AuthClient", () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { login: "login", password: "password" };
-        const rawResponseBody = { token: "token" };
+        const rawResponseBody = {
+            data: {
+                token: "token",
+                user: { id: "id", username: "username", email: "email", displayName: "displayName" },
+            },
+        };
         server
             .mockEndpoint()
             .post("/auth/login")
@@ -163,7 +181,15 @@ describe("AuthClient", () => {
             password: "password",
         });
         expect(response).toEqual({
-            token: "token",
+            data: {
+                token: "token",
+                user: {
+                    id: "id",
+                    username: "username",
+                    email: "email",
+                    displayName: "displayName",
+                },
+            },
         });
     });
 
@@ -281,13 +307,15 @@ describe("AuthClient", () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { id: "id", username: "username" };
+        const rawResponseBody = { data: { id: "id", username: "username" } };
         server.mockEndpoint().get("/auth/me").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.auth.getCurrentUser();
         expect(response).toEqual({
-            id: "id",
-            username: "username",
+            data: {
+                id: "id",
+                username: "username",
+            },
         });
     });
 
@@ -343,7 +371,7 @@ describe("AuthClient", () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { email: "email" };
-        const rawResponseBody = { message: "message", resetToken: "resetToken" };
+        const rawResponseBody = { data: { message: "message", resetToken: "resetToken" } };
         server
             .mockEndpoint()
             .post("/auth/forgot-password")
@@ -357,8 +385,10 @@ describe("AuthClient", () => {
             email: "email",
         });
         expect(response).toEqual({
-            message: "message",
-            resetToken: "resetToken",
+            data: {
+                message: "message",
+                resetToken: "resetToken",
+            },
         });
     });
 
@@ -471,7 +501,7 @@ describe("AuthClient", () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { password: "password" };
-        const rawResponseBody = { message: "message" };
+        const rawResponseBody = { data: { message: "message" } };
         server
             .mockEndpoint()
             .post("/auth/reset-password")
@@ -485,7 +515,9 @@ describe("AuthClient", () => {
             password: "password",
         });
         expect(response).toEqual({
-            message: "message",
+            data: {
+                message: "message",
+            },
         });
     });
 

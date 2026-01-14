@@ -10,63 +10,50 @@ describe("ThreadsClient", () => {
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            data: [
-                {
-                    title: "title",
-                    body: "body",
-                    userId: "userId",
-                    tags: ["tags"],
-                    poll: { title: "title", options: [{ title: "title" }] },
-                    id: "id",
-                    slug: "slug",
-                    locked: true,
-                    pinned: true,
-                    views: 1,
-                    postsCount: 1,
-                    lastPostAt: "lastPostAt",
-                    extendedData: { key: "value" },
-                    createdAt: "createdAt",
-                    updatedAt: "updatedAt",
-                },
-            ],
-            meta: { total: 1, page: 1, limit: 1 },
+            data: {
+                items: [
+                    {
+                        title: "title",
+                        body: "body",
+                        id: "id",
+                        slug: null,
+                        locked: null,
+                        pinned: null,
+                        views: 1,
+                        postsCount: 1,
+                        lastPostAt: null,
+                        extendedData: null,
+                        createdAt: "createdAt",
+                        updatedAt: "updatedAt",
+                    },
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
+            },
         };
         server.mockEndpoint().get("/threads").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.threads.listAllThreads();
         expect(response).toEqual({
-            data: [
-                {
-                    title: "title",
-                    body: "body",
-                    userId: "userId",
-                    tags: ["tags"],
-                    poll: {
+            data: {
+                items: [
+                    {
                         title: "title",
-                        options: [
-                            {
-                                title: "title",
-                            },
-                        ],
+                        body: "body",
+                        id: "id",
+                        slug: null,
+                        locked: null,
+                        pinned: null,
+                        views: 1,
+                        postsCount: 1,
+                        lastPostAt: null,
+                        extendedData: null,
+                        createdAt: "createdAt",
+                        updatedAt: "updatedAt",
                     },
-                    id: "id",
-                    slug: "slug",
-                    locked: true,
-                    pinned: true,
-                    views: 1,
-                    postsCount: 1,
-                    lastPostAt: "lastPostAt",
-                    extendedData: {
-                        key: "value",
-                    },
-                    createdAt: "createdAt",
-                    updatedAt: "updatedAt",
-                },
-            ],
-            meta: {
-                total: 1,
-                page: 1,
-                limit: 1,
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
             },
         });
     });

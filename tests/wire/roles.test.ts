@@ -10,42 +10,27 @@ describe("RolesClient", () => {
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            data: [
-                {
-                    name: "name",
-                    slug: "slug",
-                    description: "description",
-                    color: "color",
-                    extendedData: { key: "value" },
-                    id: "id",
-                    createdAt: "createdAt",
-                    updatedAt: "updatedAt",
-                },
-            ],
-            meta: { total: 1, page: 1, limit: 1 },
+            data: {
+                items: [{ name: "name", id: "id", createdAt: "createdAt", updatedAt: "updatedAt" }],
+                nextCursor: "nextCursor",
+                count: 1,
+            },
         };
         server.mockEndpoint().get("/roles").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.roles.listAllRoles();
         expect(response).toEqual({
-            data: [
-                {
-                    name: "name",
-                    slug: "slug",
-                    description: "description",
-                    color: "color",
-                    extendedData: {
-                        key: "value",
+            data: {
+                items: [
+                    {
+                        name: "name",
+                        id: "id",
+                        createdAt: "createdAt",
+                        updatedAt: "updatedAt",
                     },
-                    id: "id",
-                    createdAt: "createdAt",
-                    updatedAt: "updatedAt",
-                },
-            ],
-            meta: {
-                total: 1,
-                page: 1,
-                limit: 1,
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
             },
         });
     });
