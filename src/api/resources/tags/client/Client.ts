@@ -15,6 +15,9 @@ export declare namespace TagsClient {
     export interface RequestOptions extends BaseRequestOptions {}
 }
 
+/**
+ * Operations for tags
+ */
 export class TagsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<TagsClient.Options>;
 
@@ -23,7 +26,9 @@ export class TagsClient {
     }
 
     /**
-     * @param {Forum.GetTagsRequest} request
+     * Retrieve a paginated list of tags. Use cursor for pagination.
+     *
+     * @param {Forum.ListTagsRequest} request
      * @param {TagsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -32,27 +37,27 @@ export class TagsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.tags.listAllTags()
+     *     await client.tags.listTags()
      */
-    public listAllTags(
-        request: Forum.GetTagsRequest = {},
+    public listTags(
+        request: Forum.ListTagsRequest = {},
         requestOptions?: TagsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetTagsResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__listAllTags(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.TagListResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__listTags(request, requestOptions));
     }
 
-    private async __listAllTags(
-        request: Forum.GetTagsRequest = {},
+    private async __listTags(
+        request: Forum.ListTagsRequest = {},
         requestOptions?: TagsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetTagsResponse>> {
-        const { page, limit, search } = request;
+    ): Promise<core.WithRawResponse<Forum.TagListResponse>> {
+        const { limit, cursor, search } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (page != null) {
-            _queryParams.page = page.toString();
-        }
-
         if (limit != null) {
             _queryParams.limit = limit.toString();
+        }
+
+        if (cursor != null) {
+            _queryParams.cursor = cursor;
         }
 
         if (search != null) {
@@ -82,7 +87,7 @@ export class TagsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetTagsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.TagListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -120,7 +125,9 @@ export class TagsClient {
     }
 
     /**
-     * @param {Forum.PostTagsRequest} request
+     * Create a new tag.
+     *
+     * @param {Forum.CreateTagRequest} request
      * @param {TagsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -130,21 +137,21 @@ export class TagsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.tags.createATag({
+     *     await client.tags.createTag({
      *         name: "name"
      *     })
      */
-    public createATag(
-        request: Forum.PostTagsRequest,
+    public createTag(
+        request: Forum.CreateTagRequest,
         requestOptions?: TagsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PostTagsResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__createATag(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.TagResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__createTag(request, requestOptions));
     }
 
-    private async __createATag(
-        request: Forum.PostTagsRequest,
+    private async __createTag(
+        request: Forum.CreateTagRequest,
         requestOptions?: TagsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PostTagsResponse>> {
+    ): Promise<core.WithRawResponse<Forum.TagResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -171,7 +178,7 @@ export class TagsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PostTagsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.TagResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -211,7 +218,9 @@ export class TagsClient {
     }
 
     /**
-     * @param {Forum.GetTagsIdRequest} request
+     * Retrieve a tag by ID or slug (if supported).
+     *
+     * @param {Forum.GetTagRequest} request
      * @param {TagsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -221,21 +230,21 @@ export class TagsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.tags.getATag({
+     *     await client.tags.getTag({
      *         id: "id"
      *     })
      */
-    public getATag(
-        request: Forum.GetTagsIdRequest,
+    public getTag(
+        request: Forum.GetTagRequest,
         requestOptions?: TagsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetTagsIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getATag(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.TagResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getTag(request, requestOptions));
     }
 
-    private async __getATag(
-        request: Forum.GetTagsIdRequest,
+    private async __getTag(
+        request: Forum.GetTagRequest,
         requestOptions?: TagsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetTagsIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.TagResponse>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -260,7 +269,7 @@ export class TagsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetTagsIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.TagResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -300,7 +309,9 @@ export class TagsClient {
     }
 
     /**
-     * @param {Forum.DeleteTagsIdRequest} request
+     * Permanently delete a tag.
+     *
+     * @param {Forum.DeleteTagRequest} request
      * @param {TagsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -310,21 +321,21 @@ export class TagsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.tags.deleteATag({
+     *     await client.tags.deleteTag({
      *         id: "id"
      *     })
      */
-    public deleteATag(
-        request: Forum.DeleteTagsIdRequest,
+    public deleteTag(
+        request: Forum.DeleteTagRequest,
         requestOptions?: TagsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.DeleteTagsIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteATag(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.SuccessResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteTag(request, requestOptions));
     }
 
-    private async __deleteATag(
-        request: Forum.DeleteTagsIdRequest,
+    private async __deleteTag(
+        request: Forum.DeleteTagRequest,
         requestOptions?: TagsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.DeleteTagsIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -349,7 +360,7 @@ export class TagsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.DeleteTagsIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.SuccessResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -389,7 +400,9 @@ export class TagsClient {
     }
 
     /**
-     * @param {Forum.PatchTagsIdRequest} request
+     * Update an existing tag. Only provided fields will be modified.
+     *
+     * @param {Forum.UpdateTagRequest} request
      * @param {TagsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -400,21 +413,21 @@ export class TagsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.tags.updateATag({
+     *     await client.tags.updateTag({
      *         id: "id"
      *     })
      */
-    public updateATag(
-        request: Forum.PatchTagsIdRequest,
+    public updateTag(
+        request: Forum.UpdateTagRequest,
         requestOptions?: TagsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PatchTagsIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__updateATag(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.UpdateTagResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__updateTag(request, requestOptions));
     }
 
-    private async __updateATag(
-        request: Forum.PatchTagsIdRequest,
+    private async __updateTag(
+        request: Forum.UpdateTagRequest,
         requestOptions?: TagsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PatchTagsIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.UpdateTagResponse>> {
         const { id, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -442,7 +455,7 @@ export class TagsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PatchTagsIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.UpdateTagResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -484,7 +497,9 @@ export class TagsClient {
     }
 
     /**
-     * @param {Forum.GetTagsIdSubscribersRequest} request
+     * Retrieve a paginated list of subscribers for Tag.
+     *
+     * @param {Forum.ListTagSubscribersRequest} request
      * @param {TagsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -498,24 +513,24 @@ export class TagsClient {
      *     })
      */
     public listTagSubscribers(
-        request: Forum.GetTagsIdSubscribersRequest,
+        request: Forum.ListTagSubscribersRequest,
         requestOptions?: TagsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetTagsIdSubscribersResponse> {
+    ): core.HttpResponsePromise<Forum.TagSubscriberListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__listTagSubscribers(request, requestOptions));
     }
 
     private async __listTagSubscribers(
-        request: Forum.GetTagsIdSubscribersRequest,
+        request: Forum.ListTagSubscribersRequest,
         requestOptions?: TagsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetTagsIdSubscribersResponse>> {
-        const { id, cursor, limit } = request;
+    ): Promise<core.WithRawResponse<Forum.TagSubscriberListResponse>> {
+        const { id, limit, cursor } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
         if (limit != null) {
             _queryParams.limit = limit.toString();
+        }
+
+        if (cursor != null) {
+            _queryParams.cursor = cursor;
         }
 
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -541,7 +556,7 @@ export class TagsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetTagsIdSubscribersResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.TagSubscriberListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -576,7 +591,7 @@ export class TagsClient {
     }
 
     /**
-     * @param {Forum.GetTagsIdSubscribersSubIdRequest} request
+     * @param {Forum.GetTagSubscriberRequest} request
      * @param {TagsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -585,22 +600,22 @@ export class TagsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.tags.getASubscriberFromTag({
+     *     await client.tags.getTagSubscriber({
      *         id: "id",
      *         subId: "subId"
      *     })
      */
-    public getASubscriberFromTag(
-        request: Forum.GetTagsIdSubscribersSubIdRequest,
+    public getTagSubscriber(
+        request: Forum.GetTagSubscriberRequest,
         requestOptions?: TagsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetTagsIdSubscribersSubIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getASubscriberFromTag(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.GetTagSubscriberResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getTagSubscriber(request, requestOptions));
     }
 
-    private async __getASubscriberFromTag(
-        request: Forum.GetTagsIdSubscribersSubIdRequest,
+    private async __getTagSubscriber(
+        request: Forum.GetTagSubscriberRequest,
         requestOptions?: TagsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetTagsIdSubscribersSubIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.GetTagSubscriberResponse>> {
         const { id, subId } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -625,10 +640,7 @@ export class TagsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as Forum.GetTagsIdSubscribersSubIdResponse,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Forum.GetTagSubscriberResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -668,7 +680,7 @@ export class TagsClient {
     }
 
     /**
-     * @param {Forum.DeleteTagsIdSubscribersSubIdRequest} request
+     * @param {Forum.DeleteTagSubscriberRequest} request
      * @param {TagsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -677,22 +689,22 @@ export class TagsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.tags.deleteASubscriberFromTag({
+     *     await client.tags.deleteTagSubscriber({
      *         id: "id",
      *         subId: "subId"
      *     })
      */
-    public deleteASubscriberFromTag(
-        request: Forum.DeleteTagsIdSubscribersSubIdRequest,
+    public deleteTagSubscriber(
+        request: Forum.DeleteTagSubscriberRequest,
         requestOptions?: TagsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.DeleteTagsIdSubscribersSubIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteASubscriberFromTag(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.SuccessResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteTagSubscriber(request, requestOptions));
     }
 
-    private async __deleteASubscriberFromTag(
-        request: Forum.DeleteTagsIdSubscribersSubIdRequest,
+    private async __deleteTagSubscriber(
+        request: Forum.DeleteTagSubscriberRequest,
         requestOptions?: TagsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.DeleteTagsIdSubscribersSubIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id, subId } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -717,10 +729,7 @@ export class TagsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as Forum.DeleteTagsIdSubscribersSubIdResponse,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Forum.SuccessResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

@@ -5,7 +5,7 @@ import { ForumClient } from "../../src/Client";
 import { mockServerPool } from "../mock-server/MockServerPool";
 
 describe("RolesClient", () => {
-    test("listAllRoles (1)", async () => {
+    test("listRoles (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -18,7 +18,7 @@ describe("RolesClient", () => {
         };
         server.mockEndpoint().get("/roles").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.roles.listAllRoles();
+        const response = await client.roles.listRoles();
         expect(response).toEqual({
             data: {
                 items: [
@@ -35,7 +35,7 @@ describe("RolesClient", () => {
         });
     });
 
-    test("listAllRoles (2)", async () => {
+    test("listRoles (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -43,11 +43,11 @@ describe("RolesClient", () => {
         server.mockEndpoint().get("/roles").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.roles.listAllRoles();
+            return await client.roles.listRoles();
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("listAllRoles (3)", async () => {
+    test("listRoles (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -55,11 +55,11 @@ describe("RolesClient", () => {
         server.mockEndpoint().get("/roles").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.roles.listAllRoles();
+            return await client.roles.listRoles();
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("listAllRoles (4)", async () => {
+    test("listRoles (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -67,11 +67,11 @@ describe("RolesClient", () => {
         server.mockEndpoint().get("/roles").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.roles.listAllRoles();
+            return await client.roles.listRoles();
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("listAllRoles (5)", async () => {
+    test("listRoles (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -79,11 +79,11 @@ describe("RolesClient", () => {
         server.mockEndpoint().get("/roles").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.roles.listAllRoles();
+            return await client.roles.listRoles();
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("createARole (1)", async () => {
+    test("createRole (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name" };
@@ -108,7 +108,7 @@ describe("RolesClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.roles.createARole({
+        const response = await client.roles.createRole({
             name: "name",
         });
         expect(response).toEqual({
@@ -127,7 +127,7 @@ describe("RolesClient", () => {
         });
     });
 
-    test("createARole (2)", async () => {
+    test("createRole (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "x" };
@@ -142,13 +142,13 @@ describe("RolesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.roles.createARole({
+            return await client.roles.createRole({
                 name: "x",
             });
         }).rejects.toThrow(Forum.BadRequestError);
     });
 
-    test("createARole (3)", async () => {
+    test("createRole (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "x" };
@@ -163,13 +163,13 @@ describe("RolesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.roles.createARole({
+            return await client.roles.createRole({
                 name: "x",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("createARole (4)", async () => {
+    test("createRole (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "x" };
@@ -184,13 +184,13 @@ describe("RolesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.roles.createARole({
+            return await client.roles.createRole({
                 name: "x",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("createARole (5)", async () => {
+    test("createRole (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "x" };
@@ -205,13 +205,13 @@ describe("RolesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.roles.createARole({
+            return await client.roles.createRole({
                 name: "x",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("createARole (6)", async () => {
+    test("createRole (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "x" };
@@ -226,13 +226,13 @@ describe("RolesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.roles.createARole({
+            return await client.roles.createRole({
                 name: "x",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("getARole (1)", async () => {
+    test("getRole (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -250,7 +250,7 @@ describe("RolesClient", () => {
         };
         server.mockEndpoint().get("/roles/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.roles.getARole({
+        const response = await client.roles.getRole({
             id: "id",
         });
         expect(response).toEqual({
@@ -269,7 +269,7 @@ describe("RolesClient", () => {
         });
     });
 
-    test("getARole (2)", async () => {
+    test("getRole (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -277,13 +277,13 @@ describe("RolesClient", () => {
         server.mockEndpoint().get("/roles/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.roles.getARole({
+            return await client.roles.getRole({
                 id: "id",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("getARole (3)", async () => {
+    test("getRole (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -291,13 +291,13 @@ describe("RolesClient", () => {
         server.mockEndpoint().get("/roles/id").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.roles.getARole({
+            return await client.roles.getRole({
                 id: "id",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("getARole (4)", async () => {
+    test("getRole (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -305,13 +305,13 @@ describe("RolesClient", () => {
         server.mockEndpoint().get("/roles/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.roles.getARole({
+            return await client.roles.getRole({
                 id: "id",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("getARole (5)", async () => {
+    test("getRole (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -319,13 +319,13 @@ describe("RolesClient", () => {
         server.mockEndpoint().get("/roles/id").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.roles.getARole({
+            return await client.roles.getRole({
                 id: "id",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("getARole (6)", async () => {
+    test("getRole (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -333,28 +333,30 @@ describe("RolesClient", () => {
         server.mockEndpoint().get("/roles/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.roles.getARole({
+            return await client.roles.getRole({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("deleteARole (1)", async () => {
+    test("deleteRole (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { success: true };
+        const rawResponseBody = { data: { success: true } };
         server.mockEndpoint().delete("/roles/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.roles.deleteARole({
+        const response = await client.roles.deleteRole({
             id: "id",
         });
         expect(response).toEqual({
-            success: true,
+            data: {
+                success: true,
+            },
         });
     });
 
-    test("deleteARole (2)", async () => {
+    test("deleteRole (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -362,13 +364,13 @@ describe("RolesClient", () => {
         server.mockEndpoint().delete("/roles/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.roles.deleteARole({
+            return await client.roles.deleteRole({
                 id: "id",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("deleteARole (3)", async () => {
+    test("deleteRole (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -376,13 +378,13 @@ describe("RolesClient", () => {
         server.mockEndpoint().delete("/roles/id").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.roles.deleteARole({
+            return await client.roles.deleteRole({
                 id: "id",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("deleteARole (4)", async () => {
+    test("deleteRole (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -390,13 +392,13 @@ describe("RolesClient", () => {
         server.mockEndpoint().delete("/roles/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.roles.deleteARole({
+            return await client.roles.deleteRole({
                 id: "id",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("deleteARole (5)", async () => {
+    test("deleteRole (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -404,13 +406,13 @@ describe("RolesClient", () => {
         server.mockEndpoint().delete("/roles/id").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.roles.deleteARole({
+            return await client.roles.deleteRole({
                 id: "id",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("deleteARole (6)", async () => {
+    test("deleteRole (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -418,13 +420,13 @@ describe("RolesClient", () => {
         server.mockEndpoint().delete("/roles/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.roles.deleteARole({
+            return await client.roles.deleteRole({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("updateARole (1)", async () => {
+    test("updateRole (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -449,7 +451,7 @@ describe("RolesClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.roles.updateARole({
+        const response = await client.roles.updateRole({
             id: "id",
         });
         expect(response).toEqual({
@@ -468,7 +470,7 @@ describe("RolesClient", () => {
         });
     });
 
-    test("updateARole (2)", async () => {
+    test("updateRole (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -483,13 +485,13 @@ describe("RolesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.roles.updateARole({
+            return await client.roles.updateRole({
                 id: "id",
             });
         }).rejects.toThrow(Forum.BadRequestError);
     });
 
-    test("updateARole (3)", async () => {
+    test("updateRole (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -504,13 +506,13 @@ describe("RolesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.roles.updateARole({
+            return await client.roles.updateRole({
                 id: "id",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("updateARole (4)", async () => {
+    test("updateRole (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -525,13 +527,13 @@ describe("RolesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.roles.updateARole({
+            return await client.roles.updateRole({
                 id: "id",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("updateARole (5)", async () => {
+    test("updateRole (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -546,13 +548,13 @@ describe("RolesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.roles.updateARole({
+            return await client.roles.updateRole({
                 id: "id",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("updateARole (6)", async () => {
+    test("updateRole (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -567,13 +569,13 @@ describe("RolesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.roles.updateARole({
+            return await client.roles.updateRole({
                 id: "id",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("updateARole (7)", async () => {
+    test("updateRole (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -588,7 +590,7 @@ describe("RolesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.roles.updateARole({
+            return await client.roles.updateRole({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);

@@ -2,10 +2,11 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         id: "id"
+ *     }
  */
 export interface GetSsoRequest {
-    page?: number;
-    limit?: number;
-    search?: string;
+    /** SSO ID */
+    id: string;
 }

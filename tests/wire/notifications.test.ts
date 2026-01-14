@@ -5,7 +5,7 @@ import { ForumClient } from "../../src/Client";
 import { mockServerPool } from "../mock-server/MockServerPool";
 
 describe("NotificationsClient", () => {
-    test("listAllNotifications (1)", async () => {
+    test("listNotifications (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -33,7 +33,7 @@ describe("NotificationsClient", () => {
         };
         server.mockEndpoint().get("/notifications").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.notifications.listAllNotifications();
+        const response = await client.notifications.listNotifications();
         expect(response).toEqual({
             data: {
                 items: [
@@ -58,7 +58,7 @@ describe("NotificationsClient", () => {
         });
     });
 
-    test("listAllNotifications (2)", async () => {
+    test("listNotifications (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -66,11 +66,11 @@ describe("NotificationsClient", () => {
         server.mockEndpoint().get("/notifications").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.notifications.listAllNotifications();
+            return await client.notifications.listNotifications();
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("listAllNotifications (3)", async () => {
+    test("listNotifications (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -78,11 +78,11 @@ describe("NotificationsClient", () => {
         server.mockEndpoint().get("/notifications").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.notifications.listAllNotifications();
+            return await client.notifications.listNotifications();
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("listAllNotifications (4)", async () => {
+    test("listNotifications (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -90,11 +90,11 @@ describe("NotificationsClient", () => {
         server.mockEndpoint().get("/notifications").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.notifications.listAllNotifications();
+            return await client.notifications.listNotifications();
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("listAllNotifications (5)", async () => {
+    test("listNotifications (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -102,11 +102,11 @@ describe("NotificationsClient", () => {
         server.mockEndpoint().get("/notifications").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.notifications.listAllNotifications();
+            return await client.notifications.listNotifications();
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("createANotification (1)", async () => {
+    test("createNotification (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { userId: "userId", type: "type" };
@@ -135,7 +135,7 @@ describe("NotificationsClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.notifications.createANotification({
+        const response = await client.notifications.createNotification({
             userId: "userId",
             type: "type",
         });
@@ -159,7 +159,7 @@ describe("NotificationsClient", () => {
         });
     });
 
-    test("createANotification (2)", async () => {
+    test("createNotification (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { userId: "userId", type: "x" };
@@ -174,14 +174,14 @@ describe("NotificationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.notifications.createANotification({
+            return await client.notifications.createNotification({
                 userId: "userId",
                 type: "x",
             });
         }).rejects.toThrow(Forum.BadRequestError);
     });
 
-    test("createANotification (3)", async () => {
+    test("createNotification (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { userId: "userId", type: "x" };
@@ -196,14 +196,14 @@ describe("NotificationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.notifications.createANotification({
+            return await client.notifications.createNotification({
                 userId: "userId",
                 type: "x",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("createANotification (4)", async () => {
+    test("createNotification (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { userId: "userId", type: "x" };
@@ -218,14 +218,14 @@ describe("NotificationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.notifications.createANotification({
+            return await client.notifications.createNotification({
                 userId: "userId",
                 type: "x",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("createANotification (5)", async () => {
+    test("createNotification (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { userId: "userId", type: "x" };
@@ -240,14 +240,14 @@ describe("NotificationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.notifications.createANotification({
+            return await client.notifications.createNotification({
                 userId: "userId",
                 type: "x",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("createANotification (6)", async () => {
+    test("createNotification (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { userId: "userId", type: "x" };
@@ -262,14 +262,14 @@ describe("NotificationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.notifications.createANotification({
+            return await client.notifications.createNotification({
                 userId: "userId",
                 type: "x",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("getANotification (1)", async () => {
+    test("getNotification (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -291,7 +291,7 @@ describe("NotificationsClient", () => {
         };
         server.mockEndpoint().get("/notifications/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.notifications.getANotification({
+        const response = await client.notifications.getNotification({
             id: "id",
         });
         expect(response).toEqual({
@@ -314,7 +314,7 @@ describe("NotificationsClient", () => {
         });
     });
 
-    test("getANotification (2)", async () => {
+    test("getNotification (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -322,13 +322,13 @@ describe("NotificationsClient", () => {
         server.mockEndpoint().get("/notifications/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.notifications.getANotification({
+            return await client.notifications.getNotification({
                 id: "id",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("getANotification (3)", async () => {
+    test("getNotification (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -336,13 +336,13 @@ describe("NotificationsClient", () => {
         server.mockEndpoint().get("/notifications/id").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.notifications.getANotification({
+            return await client.notifications.getNotification({
                 id: "id",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("getANotification (4)", async () => {
+    test("getNotification (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -350,13 +350,13 @@ describe("NotificationsClient", () => {
         server.mockEndpoint().get("/notifications/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.notifications.getANotification({
+            return await client.notifications.getNotification({
                 id: "id",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("getANotification (5)", async () => {
+    test("getNotification (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -364,13 +364,13 @@ describe("NotificationsClient", () => {
         server.mockEndpoint().get("/notifications/id").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.notifications.getANotification({
+            return await client.notifications.getNotification({
                 id: "id",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("getANotification (6)", async () => {
+    test("getNotification (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -378,17 +378,17 @@ describe("NotificationsClient", () => {
         server.mockEndpoint().get("/notifications/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.notifications.getANotification({
+            return await client.notifications.getNotification({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("deleteANotification (1)", async () => {
+    test("deleteNotification (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { success: true };
+        const rawResponseBody = { data: { success: true } };
         server
             .mockEndpoint()
             .delete("/notifications/id")
@@ -397,15 +397,17 @@ describe("NotificationsClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.notifications.deleteANotification({
+        const response = await client.notifications.deleteNotification({
             id: "id",
         });
         expect(response).toEqual({
-            success: true,
+            data: {
+                success: true,
+            },
         });
     });
 
-    test("deleteANotification (2)", async () => {
+    test("deleteNotification (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -419,13 +421,13 @@ describe("NotificationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.notifications.deleteANotification({
+            return await client.notifications.deleteNotification({
                 id: "id",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("deleteANotification (3)", async () => {
+    test("deleteNotification (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -439,13 +441,13 @@ describe("NotificationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.notifications.deleteANotification({
+            return await client.notifications.deleteNotification({
                 id: "id",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("deleteANotification (4)", async () => {
+    test("deleteNotification (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -459,13 +461,13 @@ describe("NotificationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.notifications.deleteANotification({
+            return await client.notifications.deleteNotification({
                 id: "id",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("deleteANotification (5)", async () => {
+    test("deleteNotification (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -479,13 +481,13 @@ describe("NotificationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.notifications.deleteANotification({
+            return await client.notifications.deleteNotification({
                 id: "id",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("deleteANotification (6)", async () => {
+    test("deleteNotification (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -499,13 +501,13 @@ describe("NotificationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.notifications.deleteANotification({
+            return await client.notifications.deleteNotification({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("updateANotification (1)", async () => {
+    test("updateNotification (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -534,7 +536,7 @@ describe("NotificationsClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.notifications.updateANotification({
+        const response = await client.notifications.updateNotification({
             id: "id",
         });
         expect(response).toEqual({
@@ -557,7 +559,7 @@ describe("NotificationsClient", () => {
         });
     });
 
-    test("updateANotification (2)", async () => {
+    test("updateNotification (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -572,13 +574,13 @@ describe("NotificationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.notifications.updateANotification({
+            return await client.notifications.updateNotification({
                 id: "id",
             });
         }).rejects.toThrow(Forum.BadRequestError);
     });
 
-    test("updateANotification (3)", async () => {
+    test("updateNotification (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -593,13 +595,13 @@ describe("NotificationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.notifications.updateANotification({
+            return await client.notifications.updateNotification({
                 id: "id",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("updateANotification (4)", async () => {
+    test("updateNotification (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -614,13 +616,13 @@ describe("NotificationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.notifications.updateANotification({
+            return await client.notifications.updateNotification({
                 id: "id",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("updateANotification (5)", async () => {
+    test("updateNotification (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -635,13 +637,13 @@ describe("NotificationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.notifications.updateANotification({
+            return await client.notifications.updateNotification({
                 id: "id",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("updateANotification (6)", async () => {
+    test("updateNotification (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -656,13 +658,13 @@ describe("NotificationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.notifications.updateANotification({
+            return await client.notifications.updateNotification({
                 id: "id",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("updateANotification (7)", async () => {
+    test("updateNotification (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -677,7 +679,7 @@ describe("NotificationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.notifications.updateANotification({
+            return await client.notifications.updateNotification({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);

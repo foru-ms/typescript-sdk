@@ -5,7 +5,7 @@ import { ForumClient } from "../../src/Client";
 import { mockServerPool } from "../mock-server/MockServerPool";
 
 describe("WebhooksClient", () => {
-    test("listAllWebhooks (1)", async () => {
+    test("listWebhooks (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -30,7 +30,7 @@ describe("WebhooksClient", () => {
         };
         server.mockEndpoint().get("/webhooks").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.webhooks.listAllWebhooks();
+        const response = await client.webhooks.listWebhooks();
         expect(response).toEqual({
             data: {
                 items: [
@@ -52,7 +52,7 @@ describe("WebhooksClient", () => {
         });
     });
 
-    test("listAllWebhooks (2)", async () => {
+    test("listWebhooks (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -60,11 +60,11 @@ describe("WebhooksClient", () => {
         server.mockEndpoint().get("/webhooks").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.webhooks.listAllWebhooks();
+            return await client.webhooks.listWebhooks();
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("listAllWebhooks (3)", async () => {
+    test("listWebhooks (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -72,11 +72,11 @@ describe("WebhooksClient", () => {
         server.mockEndpoint().get("/webhooks").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.webhooks.listAllWebhooks();
+            return await client.webhooks.listWebhooks();
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("listAllWebhooks (4)", async () => {
+    test("listWebhooks (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -84,11 +84,11 @@ describe("WebhooksClient", () => {
         server.mockEndpoint().get("/webhooks").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.webhooks.listAllWebhooks();
+            return await client.webhooks.listWebhooks();
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("listAllWebhooks (5)", async () => {
+    test("listWebhooks (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -96,11 +96,11 @@ describe("WebhooksClient", () => {
         server.mockEndpoint().get("/webhooks").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.webhooks.listAllWebhooks();
+            return await client.webhooks.listWebhooks();
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("createAWebhook (1)", async () => {
+    test("createWebhook (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name", url: "url", events: ["events"] };
@@ -126,7 +126,7 @@ describe("WebhooksClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.webhooks.createAWebhook({
+        const response = await client.webhooks.createWebhook({
             name: "name",
             url: "url",
             events: ["events"],
@@ -146,7 +146,7 @@ describe("WebhooksClient", () => {
         });
     });
 
-    test("createAWebhook (2)", async () => {
+    test("createWebhook (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "x", url: "url", events: ["events", "events"] };
@@ -161,7 +161,7 @@ describe("WebhooksClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.webhooks.createAWebhook({
+            return await client.webhooks.createWebhook({
                 name: "x",
                 url: "url",
                 events: ["events", "events"],
@@ -169,7 +169,7 @@ describe("WebhooksClient", () => {
         }).rejects.toThrow(Forum.BadRequestError);
     });
 
-    test("createAWebhook (3)", async () => {
+    test("createWebhook (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "x", url: "url", events: ["events", "events"] };
@@ -184,7 +184,7 @@ describe("WebhooksClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.webhooks.createAWebhook({
+            return await client.webhooks.createWebhook({
                 name: "x",
                 url: "url",
                 events: ["events", "events"],
@@ -192,7 +192,7 @@ describe("WebhooksClient", () => {
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("createAWebhook (4)", async () => {
+    test("createWebhook (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "x", url: "url", events: ["events", "events"] };
@@ -207,7 +207,7 @@ describe("WebhooksClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.webhooks.createAWebhook({
+            return await client.webhooks.createWebhook({
                 name: "x",
                 url: "url",
                 events: ["events", "events"],
@@ -215,7 +215,7 @@ describe("WebhooksClient", () => {
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("createAWebhook (5)", async () => {
+    test("createWebhook (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "x", url: "url", events: ["events", "events"] };
@@ -230,7 +230,7 @@ describe("WebhooksClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.webhooks.createAWebhook({
+            return await client.webhooks.createWebhook({
                 name: "x",
                 url: "url",
                 events: ["events", "events"],
@@ -238,7 +238,7 @@ describe("WebhooksClient", () => {
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("createAWebhook (6)", async () => {
+    test("createWebhook (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "x", url: "url", events: ["events", "events"] };
@@ -253,7 +253,7 @@ describe("WebhooksClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.webhooks.createAWebhook({
+            return await client.webhooks.createWebhook({
                 name: "x",
                 url: "url",
                 events: ["events", "events"],
@@ -261,7 +261,7 @@ describe("WebhooksClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("getAWebhook (1)", async () => {
+    test("getWebhook (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -280,7 +280,7 @@ describe("WebhooksClient", () => {
         };
         server.mockEndpoint().get("/webhooks/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.webhooks.getAWebhook({
+        const response = await client.webhooks.getWebhook({
             id: "id",
         });
         expect(response).toEqual({
@@ -298,7 +298,7 @@ describe("WebhooksClient", () => {
         });
     });
 
-    test("getAWebhook (2)", async () => {
+    test("getWebhook (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -306,13 +306,13 @@ describe("WebhooksClient", () => {
         server.mockEndpoint().get("/webhooks/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.webhooks.getAWebhook({
+            return await client.webhooks.getWebhook({
                 id: "id",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("getAWebhook (3)", async () => {
+    test("getWebhook (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -320,13 +320,13 @@ describe("WebhooksClient", () => {
         server.mockEndpoint().get("/webhooks/id").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.webhooks.getAWebhook({
+            return await client.webhooks.getWebhook({
                 id: "id",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("getAWebhook (4)", async () => {
+    test("getWebhook (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -334,13 +334,13 @@ describe("WebhooksClient", () => {
         server.mockEndpoint().get("/webhooks/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.webhooks.getAWebhook({
+            return await client.webhooks.getWebhook({
                 id: "id",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("getAWebhook (5)", async () => {
+    test("getWebhook (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -348,13 +348,13 @@ describe("WebhooksClient", () => {
         server.mockEndpoint().get("/webhooks/id").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.webhooks.getAWebhook({
+            return await client.webhooks.getWebhook({
                 id: "id",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("getAWebhook (6)", async () => {
+    test("getWebhook (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -362,28 +362,30 @@ describe("WebhooksClient", () => {
         server.mockEndpoint().get("/webhooks/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.webhooks.getAWebhook({
+            return await client.webhooks.getWebhook({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("deleteAWebhook (1)", async () => {
+    test("deleteWebhook (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { success: true };
+        const rawResponseBody = { data: { success: true } };
         server.mockEndpoint().delete("/webhooks/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.webhooks.deleteAWebhook({
+        const response = await client.webhooks.deleteWebhook({
             id: "id",
         });
         expect(response).toEqual({
-            success: true,
+            data: {
+                success: true,
+            },
         });
     });
 
-    test("deleteAWebhook (2)", async () => {
+    test("deleteWebhook (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -391,13 +393,13 @@ describe("WebhooksClient", () => {
         server.mockEndpoint().delete("/webhooks/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.webhooks.deleteAWebhook({
+            return await client.webhooks.deleteWebhook({
                 id: "id",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("deleteAWebhook (3)", async () => {
+    test("deleteWebhook (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -405,13 +407,13 @@ describe("WebhooksClient", () => {
         server.mockEndpoint().delete("/webhooks/id").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.webhooks.deleteAWebhook({
+            return await client.webhooks.deleteWebhook({
                 id: "id",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("deleteAWebhook (4)", async () => {
+    test("deleteWebhook (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -419,13 +421,13 @@ describe("WebhooksClient", () => {
         server.mockEndpoint().delete("/webhooks/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.webhooks.deleteAWebhook({
+            return await client.webhooks.deleteWebhook({
                 id: "id",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("deleteAWebhook (5)", async () => {
+    test("deleteWebhook (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -433,13 +435,13 @@ describe("WebhooksClient", () => {
         server.mockEndpoint().delete("/webhooks/id").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.webhooks.deleteAWebhook({
+            return await client.webhooks.deleteWebhook({
                 id: "id",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("deleteAWebhook (6)", async () => {
+    test("deleteWebhook (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -447,7 +449,7 @@ describe("WebhooksClient", () => {
         server.mockEndpoint().delete("/webhooks/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.webhooks.deleteAWebhook({
+            return await client.webhooks.deleteWebhook({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);
@@ -457,7 +459,25 @@ describe("WebhooksClient", () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { data: { items: [{}], nextCursor: "nextCursor", count: 1 } };
+        const rawResponseBody = {
+            data: {
+                items: [
+                    {
+                        id: "id",
+                        webhookId: "webhookId",
+                        event: "event",
+                        payload: null,
+                        responseCode: null,
+                        responseBody: null,
+                        success: true,
+                        error: null,
+                        createdAt: "createdAt",
+                    },
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
+            },
+        };
         server
             .mockEndpoint()
             .get("/webhooks/id/deliveries")
@@ -471,7 +491,19 @@ describe("WebhooksClient", () => {
         });
         expect(response).toEqual({
             data: {
-                items: [{}],
+                items: [
+                    {
+                        id: "id",
+                        webhookId: "webhookId",
+                        event: "event",
+                        payload: null,
+                        responseCode: null,
+                        responseBody: null,
+                        success: true,
+                        error: null,
+                        createdAt: "createdAt",
+                    },
+                ],
                 nextCursor: "nextCursor",
                 count: 1,
             },
@@ -558,11 +590,23 @@ describe("WebhooksClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("getADeliveryFromWebhook (1)", async () => {
+    test("getWebhookDelivery (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { data: {} };
+        const rawResponseBody = {
+            data: {
+                id: "id",
+                webhookId: "webhookId",
+                event: "event",
+                payload: { key: "value" },
+                responseCode: 1,
+                responseBody: "responseBody",
+                success: true,
+                error: "error",
+                createdAt: "createdAt",
+            },
+        };
         server
             .mockEndpoint()
             .get("/webhooks/id/deliveries/subId")
@@ -571,16 +615,28 @@ describe("WebhooksClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.webhooks.getADeliveryFromWebhook({
+        const response = await client.webhooks.getWebhookDelivery({
             id: "id",
             subId: "subId",
         });
         expect(response).toEqual({
-            data: {},
+            data: {
+                id: "id",
+                webhookId: "webhookId",
+                event: "event",
+                payload: {
+                    key: "value",
+                },
+                responseCode: 1,
+                responseBody: "responseBody",
+                success: true,
+                error: "error",
+                createdAt: "createdAt",
+            },
         });
     });
 
-    test("getADeliveryFromWebhook (2)", async () => {
+    test("getWebhookDelivery (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -594,14 +650,14 @@ describe("WebhooksClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.webhooks.getADeliveryFromWebhook({
+            return await client.webhooks.getWebhookDelivery({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("getADeliveryFromWebhook (3)", async () => {
+    test("getWebhookDelivery (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -615,14 +671,14 @@ describe("WebhooksClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.webhooks.getADeliveryFromWebhook({
+            return await client.webhooks.getWebhookDelivery({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("getADeliveryFromWebhook (4)", async () => {
+    test("getWebhookDelivery (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -636,14 +692,14 @@ describe("WebhooksClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.webhooks.getADeliveryFromWebhook({
+            return await client.webhooks.getWebhookDelivery({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("getADeliveryFromWebhook (5)", async () => {
+    test("getWebhookDelivery (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -657,18 +713,18 @@ describe("WebhooksClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.webhooks.getADeliveryFromWebhook({
+            return await client.webhooks.getWebhookDelivery({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("deleteADeliveryFromWebhook (1)", async () => {
+    test("deleteWebhookDelivery (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { success: true };
+        const rawResponseBody = { data: { success: true } };
         server
             .mockEndpoint()
             .delete("/webhooks/id/deliveries/subId")
@@ -677,16 +733,18 @@ describe("WebhooksClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.webhooks.deleteADeliveryFromWebhook({
+        const response = await client.webhooks.deleteWebhookDelivery({
             id: "id",
             subId: "subId",
         });
         expect(response).toEqual({
-            success: true,
+            data: {
+                success: true,
+            },
         });
     });
 
-    test("deleteADeliveryFromWebhook (2)", async () => {
+    test("deleteWebhookDelivery (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -700,14 +758,14 @@ describe("WebhooksClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.webhooks.deleteADeliveryFromWebhook({
+            return await client.webhooks.deleteWebhookDelivery({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("deleteADeliveryFromWebhook (3)", async () => {
+    test("deleteWebhookDelivery (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -721,14 +779,14 @@ describe("WebhooksClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.webhooks.deleteADeliveryFromWebhook({
+            return await client.webhooks.deleteWebhookDelivery({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("deleteADeliveryFromWebhook (4)", async () => {
+    test("deleteWebhookDelivery (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -742,14 +800,14 @@ describe("WebhooksClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.webhooks.deleteADeliveryFromWebhook({
+            return await client.webhooks.deleteWebhookDelivery({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("deleteADeliveryFromWebhook (5)", async () => {
+    test("deleteWebhookDelivery (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -763,7 +821,7 @@ describe("WebhooksClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.webhooks.deleteADeliveryFromWebhook({
+            return await client.webhooks.deleteWebhookDelivery({
                 id: "id",
                 subId: "subId",
             });

@@ -15,6 +15,9 @@ export declare namespace AuthClient {
     export interface RequestOptions extends BaseRequestOptions {}
 }
 
+/**
+ * Operations for auth
+ */
 export class AuthClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<AuthClient.Options>;
 
@@ -25,7 +28,7 @@ export class AuthClient {
     /**
      * Register a new user in your forum instance. Requires API key for instance identification. Returns a JWT token for subsequent authenticated requests.
      *
-     * @param {Forum.PostAuthRegisterRequest} request
+     * @param {Forum.RegisterAuthRequest} request
      * @param {AuthClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -35,23 +38,23 @@ export class AuthClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.auth.register({
+     *     await client.auth.registerAuth({
      *         username: "username",
      *         email: "email",
      *         password: "password"
      *     })
      */
-    public register(
-        request: Forum.PostAuthRegisterRequest,
+    public registerAuth(
+        request: Forum.RegisterAuthRequest,
         requestOptions?: AuthClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PostAuthRegisterResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__register(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.RegisterResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__registerAuth(request, requestOptions));
     }
 
-    private async __register(
-        request: Forum.PostAuthRegisterRequest,
+    private async __registerAuth(
+        request: Forum.RegisterAuthRequest,
         requestOptions?: AuthClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PostAuthRegisterResponse>> {
+    ): Promise<core.WithRawResponse<Forum.RegisterResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -78,7 +81,7 @@ export class AuthClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PostAuthRegisterResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.RegisterResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -120,7 +123,7 @@ export class AuthClient {
     /**
      * Authenticate an existing user. Requires API key for instance identification. Returns a JWT token for subsequent authenticated requests.
      *
-     * @param {Forum.PostAuthLoginRequest} request
+     * @param {Forum.LoginAuthRequest} request
      * @param {AuthClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -130,22 +133,22 @@ export class AuthClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.auth.login({
+     *     await client.auth.loginAuth({
      *         login: "login",
      *         password: "password"
      *     })
      */
-    public login(
-        request: Forum.PostAuthLoginRequest,
+    public loginAuth(
+        request: Forum.LoginAuthRequest,
         requestOptions?: AuthClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PostAuthLoginResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__login(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.LoginResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__loginAuth(request, requestOptions));
     }
 
-    private async __login(
-        request: Forum.PostAuthLoginRequest,
+    private async __loginAuth(
+        request: Forum.LoginAuthRequest,
         requestOptions?: AuthClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PostAuthLoginResponse>> {
+    ): Promise<core.WithRawResponse<Forum.LoginResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -172,7 +175,7 @@ export class AuthClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PostAuthLoginResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.LoginResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -220,17 +223,15 @@ export class AuthClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.auth.getCurrentUser()
+     *     await client.auth.meAuth()
      */
-    public getCurrentUser(
-        requestOptions?: AuthClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetAuthMeResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getCurrentUser(requestOptions));
+    public meAuth(requestOptions?: AuthClient.RequestOptions): core.HttpResponsePromise<Forum.MeResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__meAuth(requestOptions));
     }
 
-    private async __getCurrentUser(
+    private async __meAuth(
         requestOptions?: AuthClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetAuthMeResponse>> {
+    ): Promise<core.WithRawResponse<Forum.MeResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -254,7 +255,7 @@ export class AuthClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetAuthMeResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.MeResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -294,7 +295,7 @@ export class AuthClient {
     /**
      * Request a password reset email. Requires API key for instance identification.
      *
-     * @param {Forum.PostAuthForgotPasswordRequest} request
+     * @param {Forum.ForgotPasswordAuthRequest} request
      * @param {AuthClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -304,21 +305,21 @@ export class AuthClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.auth.requestPasswordReset({
+     *     await client.auth.forgotPasswordAuth({
      *         email: "email"
      *     })
      */
-    public requestPasswordReset(
-        request: Forum.PostAuthForgotPasswordRequest,
+    public forgotPasswordAuth(
+        request: Forum.ForgotPasswordAuthRequest,
         requestOptions?: AuthClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PostAuthForgotPasswordResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__requestPasswordReset(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.ForgotPasswordResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__forgotPasswordAuth(request, requestOptions));
     }
 
-    private async __requestPasswordReset(
-        request: Forum.PostAuthForgotPasswordRequest,
+    private async __forgotPasswordAuth(
+        request: Forum.ForgotPasswordAuthRequest,
         requestOptions?: AuthClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PostAuthForgotPasswordResponse>> {
+    ): Promise<core.WithRawResponse<Forum.ForgotPasswordResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -345,7 +346,7 @@ export class AuthClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PostAuthForgotPasswordResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.ForgotPasswordResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -387,7 +388,7 @@ export class AuthClient {
     /**
      * Reset password using a reset token. Requires API key for instance identification.
      *
-     * @param {Forum.PostAuthResetPasswordRequest} request
+     * @param {Forum.ResetPasswordAuthRequest} request
      * @param {AuthClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -397,21 +398,21 @@ export class AuthClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.auth.resetPassword({
+     *     await client.auth.resetPasswordAuth({
      *         password: "password"
      *     })
      */
-    public resetPassword(
-        request: Forum.PostAuthResetPasswordRequest,
+    public resetPasswordAuth(
+        request: Forum.ResetPasswordAuthRequest,
         requestOptions?: AuthClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PostAuthResetPasswordResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__resetPassword(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.ResetPasswordResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__resetPasswordAuth(request, requestOptions));
     }
 
-    private async __resetPassword(
-        request: Forum.PostAuthResetPasswordRequest,
+    private async __resetPasswordAuth(
+        request: Forum.ResetPasswordAuthRequest,
         requestOptions?: AuthClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PostAuthResetPasswordResponse>> {
+    ): Promise<core.WithRawResponse<Forum.ResetPasswordResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -438,7 +439,7 @@ export class AuthClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PostAuthResetPasswordResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.ResetPasswordResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

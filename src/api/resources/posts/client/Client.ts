@@ -15,6 +15,9 @@ export declare namespace PostsClient {
     export interface RequestOptions extends BaseRequestOptions {}
 }
 
+/**
+ * Operations for posts
+ */
 export class PostsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<PostsClient.Options>;
 
@@ -23,7 +26,9 @@ export class PostsClient {
     }
 
     /**
-     * @param {Forum.GetPostsRequest} request
+     * Retrieve a paginated list of posts. Use cursor for pagination.
+     *
+     * @param {Forum.ListPostsRequest} request
      * @param {PostsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -32,31 +37,43 @@ export class PostsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.posts.listAllPosts()
+     *     await client.posts.listPosts()
      */
-    public listAllPosts(
-        request: Forum.GetPostsRequest = {},
+    public listPosts(
+        request: Forum.ListPostsRequest = {},
         requestOptions?: PostsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetPostsResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__listAllPosts(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.PostListResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__listPosts(request, requestOptions));
     }
 
-    private async __listAllPosts(
-        request: Forum.GetPostsRequest = {},
+    private async __listPosts(
+        request: Forum.ListPostsRequest = {},
         requestOptions?: PostsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetPostsResponse>> {
-        const { page, limit, search } = request;
+    ): Promise<core.WithRawResponse<Forum.PostListResponse>> {
+        const { limit, cursor, userId, sort, search, type: type_ } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (page != null) {
-            _queryParams.page = page.toString();
-        }
-
         if (limit != null) {
             _queryParams.limit = limit.toString();
         }
 
+        if (cursor != null) {
+            _queryParams.cursor = cursor;
+        }
+
+        if (userId != null) {
+            _queryParams.userId = userId;
+        }
+
+        if (sort != null) {
+            _queryParams.sort = sort;
+        }
+
         if (search != null) {
             _queryParams.search = search;
+        }
+
+        if (type_ != null) {
+            _queryParams.type = type_;
         }
 
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -82,7 +99,7 @@ export class PostsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetPostsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.PostListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -120,7 +137,9 @@ export class PostsClient {
     }
 
     /**
-     * @param {Forum.PostPostsRequest} request
+     * Create a new post.
+     *
+     * @param {Forum.CreatePostRequest} request
      * @param {PostsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -130,22 +149,22 @@ export class PostsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.posts.createAPost({
+     *     await client.posts.createPost({
      *         threadId: "threadId",
      *         body: "body"
      *     })
      */
-    public createAPost(
-        request: Forum.PostPostsRequest,
+    public createPost(
+        request: Forum.CreatePostRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PostPostsResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__createAPost(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.PostResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__createPost(request, requestOptions));
     }
 
-    private async __createAPost(
-        request: Forum.PostPostsRequest,
+    private async __createPost(
+        request: Forum.CreatePostRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PostPostsResponse>> {
+    ): Promise<core.WithRawResponse<Forum.PostResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -172,7 +191,7 @@ export class PostsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PostPostsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.PostResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -212,7 +231,9 @@ export class PostsClient {
     }
 
     /**
-     * @param {Forum.GetPostsIdRequest} request
+     * Retrieve a post by ID or slug (if supported).
+     *
+     * @param {Forum.GetPostRequest} request
      * @param {PostsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -222,21 +243,21 @@ export class PostsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.posts.getAPost({
+     *     await client.posts.getPost({
      *         id: "id"
      *     })
      */
-    public getAPost(
-        request: Forum.GetPostsIdRequest,
+    public getPost(
+        request: Forum.GetPostRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetPostsIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getAPost(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.PostResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getPost(request, requestOptions));
     }
 
-    private async __getAPost(
-        request: Forum.GetPostsIdRequest,
+    private async __getPost(
+        request: Forum.GetPostRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetPostsIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.PostResponse>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -261,7 +282,7 @@ export class PostsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetPostsIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.PostResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -301,7 +322,9 @@ export class PostsClient {
     }
 
     /**
-     * @param {Forum.DeletePostsIdRequest} request
+     * Permanently delete a post.
+     *
+     * @param {Forum.DeletePostRequest} request
      * @param {PostsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -311,21 +334,21 @@ export class PostsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.posts.deleteAPost({
+     *     await client.posts.deletePost({
      *         id: "id"
      *     })
      */
-    public deleteAPost(
-        request: Forum.DeletePostsIdRequest,
+    public deletePost(
+        request: Forum.DeletePostRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.DeletePostsIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteAPost(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.SuccessResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deletePost(request, requestOptions));
     }
 
-    private async __deleteAPost(
-        request: Forum.DeletePostsIdRequest,
+    private async __deletePost(
+        request: Forum.DeletePostRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.DeletePostsIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -350,7 +373,7 @@ export class PostsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.DeletePostsIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.SuccessResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -390,7 +413,9 @@ export class PostsClient {
     }
 
     /**
-     * @param {Forum.PatchPostsIdRequest} request
+     * Update an existing post. Only provided fields will be modified.
+     *
+     * @param {Forum.UpdatePostRequest} request
      * @param {PostsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -401,21 +426,21 @@ export class PostsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.posts.updateAPost({
+     *     await client.posts.updatePost({
      *         id: "id"
      *     })
      */
-    public updateAPost(
-        request: Forum.PatchPostsIdRequest,
+    public updatePost(
+        request: Forum.UpdatePostRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PatchPostsIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__updateAPost(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.UpdatePostResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__updatePost(request, requestOptions));
     }
 
-    private async __updateAPost(
-        request: Forum.PatchPostsIdRequest,
+    private async __updatePost(
+        request: Forum.UpdatePostRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PatchPostsIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.UpdatePostResponse>> {
         const { id, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -443,7 +468,7 @@ export class PostsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PatchPostsIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.UpdatePostResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -485,7 +510,9 @@ export class PostsClient {
     }
 
     /**
-     * @param {Forum.GetPostsIdReactionsRequest} request
+     * Retrieve a paginated list of reactions for Post.
+     *
+     * @param {Forum.ListPostReactionsRequest} request
      * @param {PostsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -499,24 +526,28 @@ export class PostsClient {
      *     })
      */
     public listPostReactions(
-        request: Forum.GetPostsIdReactionsRequest,
+        request: Forum.ListPostReactionsRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetPostsIdReactionsResponse> {
+    ): core.HttpResponsePromise<Forum.PostReactionListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__listPostReactions(request, requestOptions));
     }
 
     private async __listPostReactions(
-        request: Forum.GetPostsIdReactionsRequest,
+        request: Forum.ListPostReactionsRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetPostsIdReactionsResponse>> {
-        const { id, cursor, limit } = request;
+    ): Promise<core.WithRawResponse<Forum.PostReactionListResponse>> {
+        const { id, limit, cursor, type: type_ } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (limit != null) {
+            _queryParams.limit = limit.toString();
+        }
+
         if (cursor != null) {
             _queryParams.cursor = cursor;
         }
 
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
+        if (type_ != null) {
+            _queryParams.type = type_;
         }
 
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -542,7 +573,7 @@ export class PostsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetPostsIdReactionsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.PostReactionListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -577,7 +608,9 @@ export class PostsClient {
     }
 
     /**
-     * @param {Forum.PostPostsIdReactionsRequest} request
+     * Create a Reaction in Post.
+     *
+     * @param {Forum.CreatePostReactionRequest} request
      * @param {PostsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -587,22 +620,22 @@ export class PostsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.posts.createAReactionInPost({
+     *     await client.posts.createPostReaction({
      *         id: "id",
      *         type: "LIKE"
      *     })
      */
-    public createAReactionInPost(
-        request: Forum.PostPostsIdReactionsRequest,
+    public createPostReaction(
+        request: Forum.CreatePostReactionRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PostPostsIdReactionsResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__createAReactionInPost(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.PostReactionResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__createPostReaction(request, requestOptions));
     }
 
-    private async __createAReactionInPost(
-        request: Forum.PostPostsIdReactionsRequest,
+    private async __createPostReaction(
+        request: Forum.CreatePostReactionRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PostPostsIdReactionsResponse>> {
+    ): Promise<core.WithRawResponse<Forum.PostReactionResponse>> {
         const { id, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -630,7 +663,7 @@ export class PostsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PostPostsIdReactionsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.PostReactionResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -667,9 +700,7 @@ export class PostsClient {
     }
 
     /**
-     * Removes the authenticated user's reaction. No subId needed.
-     *
-     * @param {Forum.DeletePostsIdReactionsRequest} request
+     * @param {Forum.DeletePostReactionRequest} request
      * @param {PostsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -678,192 +709,22 @@ export class PostsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.posts.removeYourReactionFromPost({
-     *         id: "id"
-     *     })
-     */
-    public removeYourReactionFromPost(
-        request: Forum.DeletePostsIdReactionsRequest,
-        requestOptions?: PostsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.DeletePostsIdReactionsResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__removeYourReactionFromPost(request, requestOptions));
-    }
-
-    private async __removeYourReactionFromPost(
-        request: Forum.DeletePostsIdReactionsRequest,
-        requestOptions?: PostsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.DeletePostsIdReactionsResponse>> {
-        const { id } = request;
-        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
-        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
-            _authRequest.headers,
-            this._options?.headers,
-            requestOptions?.headers,
-        );
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.ForumEnvironment.Production,
-                `posts/${core.url.encodePathParam(id)}/reactions`,
-            ),
-            method: "DELETE",
-            headers: _headers,
-            queryParameters: requestOptions?.queryParams,
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-            fetchFn: this._options?.fetch,
-            logging: this._options.logging,
-        });
-        if (_response.ok) {
-            return { data: _response.body as Forum.DeletePostsIdReactionsResponse, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 401:
-                    throw new Forum.UnauthorizedError(
-                        _response.error.body as Forum.ErrorResponse,
-                        _response.rawResponse,
-                    );
-                case 404:
-                    throw new Forum.NotFoundError(_response.error.body as Forum.ErrorResponse, _response.rawResponse);
-                case 429:
-                    throw new Forum.TooManyRequestsError(
-                        _response.error.body as Forum.ErrorResponse,
-                        _response.rawResponse,
-                    );
-                case 500:
-                    throw new Forum.InternalServerError(
-                        _response.error.body as Forum.ErrorResponse,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.ForumError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "DELETE", "/posts/{id}/reactions");
-    }
-
-    /**
-     * @param {Forum.GetPostsIdReactionsSubIdRequest} request
-     * @param {PostsClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Forum.UnauthorizedError}
-     * @throws {@link Forum.NotFoundError}
-     * @throws {@link Forum.TooManyRequestsError}
-     * @throws {@link Forum.InternalServerError}
-     *
-     * @example
-     *     await client.posts.getAReactionFromPost({
+     *     await client.posts.deletePostReaction({
      *         id: "id",
      *         subId: "subId"
      *     })
      */
-    public getAReactionFromPost(
-        request: Forum.GetPostsIdReactionsSubIdRequest,
+    public deletePostReaction(
+        request: Forum.DeletePostReactionRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetPostsIdReactionsSubIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getAReactionFromPost(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.SuccessResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deletePostReaction(request, requestOptions));
     }
 
-    private async __getAReactionFromPost(
-        request: Forum.GetPostsIdReactionsSubIdRequest,
+    private async __deletePostReaction(
+        request: Forum.DeletePostReactionRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetPostsIdReactionsSubIdResponse>> {
-        const { id, subId } = request;
-        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
-        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
-            _authRequest.headers,
-            this._options?.headers,
-            requestOptions?.headers,
-        );
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.ForumEnvironment.Production,
-                `posts/${core.url.encodePathParam(id)}/reactions/${core.url.encodePathParam(subId)}`,
-            ),
-            method: "GET",
-            headers: _headers,
-            queryParameters: requestOptions?.queryParams,
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-            fetchFn: this._options?.fetch,
-            logging: this._options.logging,
-        });
-        if (_response.ok) {
-            return {
-                data: _response.body as Forum.GetPostsIdReactionsSubIdResponse,
-                rawResponse: _response.rawResponse,
-            };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 401:
-                    throw new Forum.UnauthorizedError(
-                        _response.error.body as Forum.ErrorResponse,
-                        _response.rawResponse,
-                    );
-                case 404:
-                    throw new Forum.NotFoundError(_response.error.body as Forum.ErrorResponse, _response.rawResponse);
-                case 429:
-                    throw new Forum.TooManyRequestsError(
-                        _response.error.body as Forum.ErrorResponse,
-                        _response.rawResponse,
-                    );
-                case 500:
-                    throw new Forum.InternalServerError(
-                        _response.error.body as Forum.ErrorResponse,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.ForumError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/posts/{id}/reactions/{subId}");
-    }
-
-    /**
-     * @param {Forum.DeletePostsIdReactionsSubIdRequest} request
-     * @param {PostsClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Forum.UnauthorizedError}
-     * @throws {@link Forum.NotFoundError}
-     * @throws {@link Forum.TooManyRequestsError}
-     * @throws {@link Forum.InternalServerError}
-     *
-     * @example
-     *     await client.posts.deleteAReactionFromPost({
-     *         id: "id",
-     *         subId: "subId"
-     *     })
-     */
-    public deleteAReactionFromPost(
-        request: Forum.DeletePostsIdReactionsSubIdRequest,
-        requestOptions?: PostsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.DeletePostsIdReactionsSubIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteAReactionFromPost(request, requestOptions));
-    }
-
-    private async __deleteAReactionFromPost(
-        request: Forum.DeletePostsIdReactionsSubIdRequest,
-        requestOptions?: PostsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.DeletePostsIdReactionsSubIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id, subId } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -888,10 +749,7 @@ export class PostsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as Forum.DeletePostsIdReactionsSubIdResponse,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Forum.SuccessResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -931,7 +789,93 @@ export class PostsClient {
     }
 
     /**
-     * @param {Forum.GetPostsIdPostsRequest} request
+     * @param {Forum.GetPostReactionRequest} request
+     * @param {PostsClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Forum.UnauthorizedError}
+     * @throws {@link Forum.NotFoundError}
+     * @throws {@link Forum.TooManyRequestsError}
+     * @throws {@link Forum.InternalServerError}
+     *
+     * @example
+     *     await client.posts.getPostReaction({
+     *         id: "id",
+     *         subId: "subId"
+     *     })
+     */
+    public getPostReaction(
+        request: Forum.GetPostReactionRequest,
+        requestOptions?: PostsClient.RequestOptions,
+    ): core.HttpResponsePromise<Forum.GetPostReactionResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getPostReaction(request, requestOptions));
+    }
+
+    private async __getPostReaction(
+        request: Forum.GetPostReactionRequest,
+        requestOptions?: PostsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Forum.GetPostReactionResponse>> {
+        const { id, subId } = request;
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ForumEnvironment.Production,
+                `posts/${core.url.encodePathParam(id)}/reactions/${core.url.encodePathParam(subId)}`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryParameters: requestOptions?.queryParams,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Forum.GetPostReactionResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new Forum.UnauthorizedError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Forum.NotFoundError(_response.error.body as Forum.ErrorResponse, _response.rawResponse);
+                case 429:
+                    throw new Forum.TooManyRequestsError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Forum.InternalServerError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ForumError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/posts/{id}/reactions/{subId}");
+    }
+
+    /**
+     * Retrieve a paginated list of posts for Post.
+     *
+     * @param {Forum.ListPostPostsRequest} request
      * @param {PostsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -945,24 +889,40 @@ export class PostsClient {
      *     })
      */
     public listPostPosts(
-        request: Forum.GetPostsIdPostsRequest,
+        request: Forum.ListPostPostsRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetPostsIdPostsResponse> {
+    ): core.HttpResponsePromise<Forum.PostPostListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__listPostPosts(request, requestOptions));
     }
 
     private async __listPostPosts(
-        request: Forum.GetPostsIdPostsRequest,
+        request: Forum.ListPostPostsRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetPostsIdPostsResponse>> {
-        const { id, cursor, limit } = request;
+    ): Promise<core.WithRawResponse<Forum.PostPostListResponse>> {
+        const { id, limit, cursor, userId, sort, search, type: type_ } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (limit != null) {
+            _queryParams.limit = limit.toString();
+        }
+
         if (cursor != null) {
             _queryParams.cursor = cursor;
         }
 
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
+        if (userId != null) {
+            _queryParams.userId = userId;
+        }
+
+        if (sort != null) {
+            _queryParams.sort = sort;
+        }
+
+        if (search != null) {
+            _queryParams.search = search;
+        }
+
+        if (type_ != null) {
+            _queryParams.type = type_;
         }
 
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -988,7 +948,7 @@ export class PostsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetPostsIdPostsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.PostPostListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -1023,7 +983,7 @@ export class PostsClient {
     }
 
     /**
-     * @param {Forum.GetPostsIdPostsSubIdRequest} request
+     * @param {Forum.GetPostPostRequest} request
      * @param {PostsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -1032,22 +992,22 @@ export class PostsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.posts.getAPostFromPost({
+     *     await client.posts.getPostPost({
      *         id: "id",
      *         subId: "subId"
      *     })
      */
-    public getAPostFromPost(
-        request: Forum.GetPostsIdPostsSubIdRequest,
+    public getPostPost(
+        request: Forum.GetPostPostRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetPostsIdPostsSubIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getAPostFromPost(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.GetPostPostResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getPostPost(request, requestOptions));
     }
 
-    private async __getAPostFromPost(
-        request: Forum.GetPostsIdPostsSubIdRequest,
+    private async __getPostPost(
+        request: Forum.GetPostPostRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetPostsIdPostsSubIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.GetPostPostResponse>> {
         const { id, subId } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -1072,7 +1032,7 @@ export class PostsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetPostsIdPostsSubIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.GetPostPostResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -1107,7 +1067,7 @@ export class PostsClient {
     }
 
     /**
-     * @param {Forum.DeletePostsIdPostsSubIdRequest} request
+     * @param {Forum.DeletePostPostRequest} request
      * @param {PostsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -1116,22 +1076,22 @@ export class PostsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.posts.deleteAPostFromPost({
+     *     await client.posts.deletePostPost({
      *         id: "id",
      *         subId: "subId"
      *     })
      */
-    public deleteAPostFromPost(
-        request: Forum.DeletePostsIdPostsSubIdRequest,
+    public deletePostPost(
+        request: Forum.DeletePostPostRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.DeletePostsIdPostsSubIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteAPostFromPost(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.SuccessResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deletePostPost(request, requestOptions));
     }
 
-    private async __deleteAPostFromPost(
-        request: Forum.DeletePostsIdPostsSubIdRequest,
+    private async __deletePostPost(
+        request: Forum.DeletePostPostRequest,
         requestOptions?: PostsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.DeletePostsIdPostsSubIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id, subId } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -1156,10 +1116,7 @@ export class PostsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as Forum.DeletePostsIdPostsSubIdResponse,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Forum.SuccessResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

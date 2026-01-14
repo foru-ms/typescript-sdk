@@ -1,5 +1,5 @@
-export type { DeleteIntegrationsIdRequest } from "./DeleteIntegrationsIdRequest.js";
-export type { GetIntegrationsIdRequest } from "./GetIntegrationsIdRequest.js";
-export type { GetIntegrationsRequest } from "./GetIntegrationsRequest.js";
-export type { PatchIntegrationsIdRequest } from "./PatchIntegrationsIdRequest.js";
-export type { PostIntegrationsRequest } from "./PostIntegrationsRequest.js";
+export type { CreateIntegrationRequest } from "./CreateIntegrationRequest.js";
+export type { DeleteIntegrationRequest } from "./DeleteIntegrationRequest.js";
+export type { GetIntegrationRequest } from "./GetIntegrationRequest.js";
+export type { ListIntegrationsRequest } from "./ListIntegrationsRequest.js";
+export type { UpdateIntegrationRequest } from "./UpdateIntegrationRequest.js";

@@ -1,6 +1,5 @@
 export * from "./auth/client/requests/index.js";
 export * as auth from "./auth/index.js";
-export * from "./auth/types/index.js";
 export * from "./integrations/client/requests/index.js";
 export * as integrations from "./integrations/index.js";
 export * from "./integrations/types/index.js";
@@ -15,7 +14,6 @@ export * as privateMessages from "./privateMessages/index.js";
 export * from "./privateMessages/types/index.js";
 export * from "./reports/client/requests/index.js";
 export * as reports from "./reports/index.js";
-export * from "./reports/types/index.js";
 export * from "./roles/client/requests/index.js";
 export * as roles from "./roles/index.js";
 export * from "./roles/types/index.js";

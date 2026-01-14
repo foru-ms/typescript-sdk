@@ -5,7 +5,7 @@ import { ForumClient } from "../../src/Client";
 import { mockServerPool } from "../mock-server/MockServerPool";
 
 describe("SsOsClient", () => {
-    test("listAllSsOs (1)", async () => {
+    test("listSSOs (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -27,7 +27,7 @@ describe("SsOsClient", () => {
         };
         server.mockEndpoint().get("/sso").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.ssOs.listAllSsOs();
+        const response = await client.ssOs.listSsOs();
         expect(response).toEqual({
             data: {
                 items: [
@@ -46,7 +46,7 @@ describe("SsOsClient", () => {
         });
     });
 
-    test("listAllSsOs (2)", async () => {
+    test("listSSOs (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -54,11 +54,11 @@ describe("SsOsClient", () => {
         server.mockEndpoint().get("/sso").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.ssOs.listAllSsOs();
+            return await client.ssOs.listSsOs();
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("listAllSsOs (3)", async () => {
+    test("listSSOs (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -66,11 +66,11 @@ describe("SsOsClient", () => {
         server.mockEndpoint().get("/sso").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.ssOs.listAllSsOs();
+            return await client.ssOs.listSsOs();
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("listAllSsOs (4)", async () => {
+    test("listSSOs (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -78,11 +78,11 @@ describe("SsOsClient", () => {
         server.mockEndpoint().get("/sso").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.ssOs.listAllSsOs();
+            return await client.ssOs.listSsOs();
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("listAllSsOs (5)", async () => {
+    test("listSSOs (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -90,11 +90,11 @@ describe("SsOsClient", () => {
         server.mockEndpoint().get("/sso").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.ssOs.listAllSsOs();
+            return await client.ssOs.listSsOs();
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("createAnSso (1)", async () => {
+    test("createSSO (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -125,7 +125,7 @@ describe("SsOsClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.ssOs.createAnSso({
+        const response = await client.ssOs.createSso({
             name: "name",
             clientId: "clientId",
             clientSecret: "clientSecret",
@@ -146,7 +146,7 @@ describe("SsOsClient", () => {
         });
     });
 
-    test("createAnSso (2)", async () => {
+    test("createSSO (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -169,7 +169,7 @@ describe("SsOsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.ssOs.createAnSso({
+            return await client.ssOs.createSso({
                 name: "x",
                 clientId: "x",
                 clientSecret: "x",
@@ -181,7 +181,7 @@ describe("SsOsClient", () => {
         }).rejects.toThrow(Forum.BadRequestError);
     });
 
-    test("createAnSso (3)", async () => {
+    test("createSSO (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -204,7 +204,7 @@ describe("SsOsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.ssOs.createAnSso({
+            return await client.ssOs.createSso({
                 name: "x",
                 clientId: "x",
                 clientSecret: "x",
@@ -216,7 +216,7 @@ describe("SsOsClient", () => {
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("createAnSso (4)", async () => {
+    test("createSSO (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -239,7 +239,7 @@ describe("SsOsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.ssOs.createAnSso({
+            return await client.ssOs.createSso({
                 name: "x",
                 clientId: "x",
                 clientSecret: "x",
@@ -251,7 +251,7 @@ describe("SsOsClient", () => {
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("createAnSso (5)", async () => {
+    test("createSSO (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -274,7 +274,7 @@ describe("SsOsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.ssOs.createAnSso({
+            return await client.ssOs.createSso({
                 name: "x",
                 clientId: "x",
                 clientSecret: "x",
@@ -286,7 +286,7 @@ describe("SsOsClient", () => {
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("createAnSso (6)", async () => {
+    test("createSSO (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -309,7 +309,7 @@ describe("SsOsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.ssOs.createAnSso({
+            return await client.ssOs.createSso({
                 name: "x",
                 clientId: "x",
                 clientSecret: "x",
@@ -321,7 +321,7 @@ describe("SsOsClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("getAnSso (1)", async () => {
+    test("getSSO (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -337,7 +337,7 @@ describe("SsOsClient", () => {
         };
         server.mockEndpoint().get("/sso/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.ssOs.getAnSso({
+        const response = await client.ssOs.getSso({
             id: "id",
         });
         expect(response).toEqual({
@@ -352,7 +352,7 @@ describe("SsOsClient", () => {
         });
     });
 
-    test("getAnSso (2)", async () => {
+    test("getSSO (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -360,13 +360,13 @@ describe("SsOsClient", () => {
         server.mockEndpoint().get("/sso/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.ssOs.getAnSso({
+            return await client.ssOs.getSso({
                 id: "id",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("getAnSso (3)", async () => {
+    test("getSSO (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -374,13 +374,13 @@ describe("SsOsClient", () => {
         server.mockEndpoint().get("/sso/id").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.ssOs.getAnSso({
+            return await client.ssOs.getSso({
                 id: "id",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("getAnSso (4)", async () => {
+    test("getSSO (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -388,13 +388,13 @@ describe("SsOsClient", () => {
         server.mockEndpoint().get("/sso/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.ssOs.getAnSso({
+            return await client.ssOs.getSso({
                 id: "id",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("getAnSso (5)", async () => {
+    test("getSSO (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -402,13 +402,13 @@ describe("SsOsClient", () => {
         server.mockEndpoint().get("/sso/id").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.ssOs.getAnSso({
+            return await client.ssOs.getSso({
                 id: "id",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("getAnSso (6)", async () => {
+    test("getSSO (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -416,28 +416,30 @@ describe("SsOsClient", () => {
         server.mockEndpoint().get("/sso/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.ssOs.getAnSso({
+            return await client.ssOs.getSso({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("deleteAnSso (1)", async () => {
+    test("deleteSSO (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { success: true };
+        const rawResponseBody = { data: { success: true } };
         server.mockEndpoint().delete("/sso/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.ssOs.deleteAnSso({
+        const response = await client.ssOs.deleteSso({
             id: "id",
         });
         expect(response).toEqual({
-            success: true,
+            data: {
+                success: true,
+            },
         });
     });
 
-    test("deleteAnSso (2)", async () => {
+    test("deleteSSO (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -445,13 +447,13 @@ describe("SsOsClient", () => {
         server.mockEndpoint().delete("/sso/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.ssOs.deleteAnSso({
+            return await client.ssOs.deleteSso({
                 id: "id",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("deleteAnSso (3)", async () => {
+    test("deleteSSO (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -459,13 +461,13 @@ describe("SsOsClient", () => {
         server.mockEndpoint().delete("/sso/id").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.ssOs.deleteAnSso({
+            return await client.ssOs.deleteSso({
                 id: "id",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("deleteAnSso (4)", async () => {
+    test("deleteSSO (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -473,13 +475,13 @@ describe("SsOsClient", () => {
         server.mockEndpoint().delete("/sso/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.ssOs.deleteAnSso({
+            return await client.ssOs.deleteSso({
                 id: "id",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("deleteAnSso (5)", async () => {
+    test("deleteSSO (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -487,13 +489,13 @@ describe("SsOsClient", () => {
         server.mockEndpoint().delete("/sso/id").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.ssOs.deleteAnSso({
+            return await client.ssOs.deleteSso({
                 id: "id",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("deleteAnSso (6)", async () => {
+    test("deleteSSO (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -501,13 +503,13 @@ describe("SsOsClient", () => {
         server.mockEndpoint().delete("/sso/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.ssOs.deleteAnSso({
+            return await client.ssOs.deleteSso({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("updateAnSso (1)", async () => {
+    test("updateSSO (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -530,7 +532,7 @@ describe("SsOsClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.ssOs.updateAnSso({
+        const response = await client.ssOs.updateSso({
             id: "id",
         });
         expect(response).toEqual({
@@ -545,7 +547,7 @@ describe("SsOsClient", () => {
         });
     });
 
-    test("updateAnSso (2)", async () => {
+    test("updateSSO (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -560,13 +562,13 @@ describe("SsOsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.ssOs.updateAnSso({
+            return await client.ssOs.updateSso({
                 id: "id",
             });
         }).rejects.toThrow(Forum.BadRequestError);
     });
 
-    test("updateAnSso (3)", async () => {
+    test("updateSSO (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -581,13 +583,13 @@ describe("SsOsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.ssOs.updateAnSso({
+            return await client.ssOs.updateSso({
                 id: "id",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("updateAnSso (4)", async () => {
+    test("updateSSO (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -602,13 +604,13 @@ describe("SsOsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.ssOs.updateAnSso({
+            return await client.ssOs.updateSso({
                 id: "id",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("updateAnSso (5)", async () => {
+    test("updateSSO (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -623,13 +625,13 @@ describe("SsOsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.ssOs.updateAnSso({
+            return await client.ssOs.updateSso({
                 id: "id",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("updateAnSso (6)", async () => {
+    test("updateSSO (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -644,13 +646,13 @@ describe("SsOsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.ssOs.updateAnSso({
+            return await client.ssOs.updateSso({
                 id: "id",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("updateAnSso (7)", async () => {
+    test("updateSSO (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -665,7 +667,7 @@ describe("SsOsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.ssOs.updateAnSso({
+            return await client.ssOs.updateSso({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);

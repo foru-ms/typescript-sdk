@@ -15,6 +15,9 @@ export declare namespace NotificationsClient {
     export interface RequestOptions extends BaseRequestOptions {}
 }
 
+/**
+ * Operations for notifications
+ */
 export class NotificationsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<NotificationsClient.Options>;
 
@@ -23,7 +26,9 @@ export class NotificationsClient {
     }
 
     /**
-     * @param {Forum.GetNotificationsRequest} request
+     * Retrieve a paginated list of notifications. Use cursor for pagination.
+     *
+     * @param {Forum.ListNotificationsRequest} request
      * @param {NotificationsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -32,31 +37,35 @@ export class NotificationsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.notifications.listAllNotifications()
+     *     await client.notifications.listNotifications()
      */
-    public listAllNotifications(
-        request: Forum.GetNotificationsRequest = {},
+    public listNotifications(
+        request: Forum.ListNotificationsRequest = {},
         requestOptions?: NotificationsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetNotificationsResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__listAllNotifications(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.NotificationListResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__listNotifications(request, requestOptions));
     }
 
-    private async __listAllNotifications(
-        request: Forum.GetNotificationsRequest = {},
+    private async __listNotifications(
+        request: Forum.ListNotificationsRequest = {},
         requestOptions?: NotificationsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetNotificationsResponse>> {
-        const { page, limit, search } = request;
+    ): Promise<core.WithRawResponse<Forum.NotificationListResponse>> {
+        const { limit, cursor, status, userId } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (page != null) {
-            _queryParams.page = page.toString();
-        }
-
         if (limit != null) {
             _queryParams.limit = limit.toString();
         }
 
-        if (search != null) {
-            _queryParams.search = search;
+        if (cursor != null) {
+            _queryParams.cursor = cursor;
+        }
+
+        if (status != null) {
+            _queryParams.status = status;
+        }
+
+        if (userId != null) {
+            _queryParams.userId = userId;
         }
 
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -82,7 +91,7 @@ export class NotificationsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetNotificationsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.NotificationListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -120,7 +129,9 @@ export class NotificationsClient {
     }
 
     /**
-     * @param {Forum.PostNotificationsRequest} request
+     * Create a new notification.
+     *
+     * @param {Forum.CreateNotificationRequest} request
      * @param {NotificationsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -130,22 +141,22 @@ export class NotificationsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.notifications.createANotification({
+     *     await client.notifications.createNotification({
      *         userId: "userId",
      *         type: "type"
      *     })
      */
-    public createANotification(
-        request: Forum.PostNotificationsRequest,
+    public createNotification(
+        request: Forum.CreateNotificationRequest,
         requestOptions?: NotificationsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PostNotificationsResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__createANotification(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.NotificationResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__createNotification(request, requestOptions));
     }
 
-    private async __createANotification(
-        request: Forum.PostNotificationsRequest,
+    private async __createNotification(
+        request: Forum.CreateNotificationRequest,
         requestOptions?: NotificationsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PostNotificationsResponse>> {
+    ): Promise<core.WithRawResponse<Forum.NotificationResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -172,7 +183,7 @@ export class NotificationsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PostNotificationsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.NotificationResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -212,7 +223,9 @@ export class NotificationsClient {
     }
 
     /**
-     * @param {Forum.GetNotificationsIdRequest} request
+     * Retrieve a notification by ID or slug (if supported).
+     *
+     * @param {Forum.GetNotificationRequest} request
      * @param {NotificationsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -222,21 +235,21 @@ export class NotificationsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.notifications.getANotification({
+     *     await client.notifications.getNotification({
      *         id: "id"
      *     })
      */
-    public getANotification(
-        request: Forum.GetNotificationsIdRequest,
+    public getNotification(
+        request: Forum.GetNotificationRequest,
         requestOptions?: NotificationsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetNotificationsIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getANotification(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.NotificationResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getNotification(request, requestOptions));
     }
 
-    private async __getANotification(
-        request: Forum.GetNotificationsIdRequest,
+    private async __getNotification(
+        request: Forum.GetNotificationRequest,
         requestOptions?: NotificationsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetNotificationsIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.NotificationResponse>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -261,7 +274,7 @@ export class NotificationsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetNotificationsIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.NotificationResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -301,7 +314,9 @@ export class NotificationsClient {
     }
 
     /**
-     * @param {Forum.DeleteNotificationsIdRequest} request
+     * Permanently delete a notification.
+     *
+     * @param {Forum.DeleteNotificationRequest} request
      * @param {NotificationsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -311,21 +326,21 @@ export class NotificationsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.notifications.deleteANotification({
+     *     await client.notifications.deleteNotification({
      *         id: "id"
      *     })
      */
-    public deleteANotification(
-        request: Forum.DeleteNotificationsIdRequest,
+    public deleteNotification(
+        request: Forum.DeleteNotificationRequest,
         requestOptions?: NotificationsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.DeleteNotificationsIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteANotification(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.SuccessResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteNotification(request, requestOptions));
     }
 
-    private async __deleteANotification(
-        request: Forum.DeleteNotificationsIdRequest,
+    private async __deleteNotification(
+        request: Forum.DeleteNotificationRequest,
         requestOptions?: NotificationsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.DeleteNotificationsIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -350,7 +365,7 @@ export class NotificationsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.DeleteNotificationsIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.SuccessResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -390,7 +405,9 @@ export class NotificationsClient {
     }
 
     /**
-     * @param {Forum.PatchNotificationsIdRequest} request
+     * Update an existing notification. Only provided fields will be modified.
+     *
+     * @param {Forum.UpdateNotificationRequest} request
      * @param {NotificationsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -401,21 +418,21 @@ export class NotificationsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.notifications.updateANotification({
+     *     await client.notifications.updateNotification({
      *         id: "id"
      *     })
      */
-    public updateANotification(
-        request: Forum.PatchNotificationsIdRequest,
+    public updateNotification(
+        request: Forum.UpdateNotificationRequest,
         requestOptions?: NotificationsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PatchNotificationsIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__updateANotification(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.UpdateNotificationResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__updateNotification(request, requestOptions));
     }
 
-    private async __updateANotification(
-        request: Forum.PatchNotificationsIdRequest,
+    private async __updateNotification(
+        request: Forum.UpdateNotificationRequest,
         requestOptions?: NotificationsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PatchNotificationsIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.UpdateNotificationResponse>> {
         const { id, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -443,7 +460,7 @@ export class NotificationsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PatchNotificationsIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.UpdateNotificationResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

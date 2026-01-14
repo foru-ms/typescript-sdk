@@ -5,7 +5,7 @@ import { ForumClient } from "../../src/Client";
 import { mockServerPool } from "../mock-server/MockServerPool";
 
 describe("UsersClient", () => {
-    test("listAllUsers (1)", async () => {
+    test("listUsers (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -32,7 +32,7 @@ describe("UsersClient", () => {
         };
         server.mockEndpoint().get("/users").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.users.listAllUsers();
+        const response = await client.users.listUsers();
         expect(response).toEqual({
             data: {
                 items: [
@@ -56,7 +56,7 @@ describe("UsersClient", () => {
         });
     });
 
-    test("listAllUsers (2)", async () => {
+    test("listUsers (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -64,11 +64,11 @@ describe("UsersClient", () => {
         server.mockEndpoint().get("/users").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.users.listAllUsers();
+            return await client.users.listUsers();
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("listAllUsers (3)", async () => {
+    test("listUsers (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -76,11 +76,11 @@ describe("UsersClient", () => {
         server.mockEndpoint().get("/users").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.users.listAllUsers();
+            return await client.users.listUsers();
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("listAllUsers (4)", async () => {
+    test("listUsers (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -88,11 +88,11 @@ describe("UsersClient", () => {
         server.mockEndpoint().get("/users").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.users.listAllUsers();
+            return await client.users.listUsers();
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("listAllUsers (5)", async () => {
+    test("listUsers (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -100,11 +100,11 @@ describe("UsersClient", () => {
         server.mockEndpoint().get("/users").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.users.listAllUsers();
+            return await client.users.listUsers();
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("getAUser (1)", async () => {
+    test("getUser (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -128,7 +128,7 @@ describe("UsersClient", () => {
         };
         server.mockEndpoint().get("/users/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.users.getAUser({
+        const response = await client.users.getUser({
             id: "id",
         });
         expect(response).toEqual({
@@ -159,7 +159,7 @@ describe("UsersClient", () => {
         });
     });
 
-    test("getAUser (2)", async () => {
+    test("getUser (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -167,13 +167,13 @@ describe("UsersClient", () => {
         server.mockEndpoint().get("/users/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.users.getAUser({
+            return await client.users.getUser({
                 id: "id",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("getAUser (3)", async () => {
+    test("getUser (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -181,13 +181,13 @@ describe("UsersClient", () => {
         server.mockEndpoint().get("/users/id").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.users.getAUser({
+            return await client.users.getUser({
                 id: "id",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("getAUser (4)", async () => {
+    test("getUser (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -195,13 +195,13 @@ describe("UsersClient", () => {
         server.mockEndpoint().get("/users/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.users.getAUser({
+            return await client.users.getUser({
                 id: "id",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("getAUser (5)", async () => {
+    test("getUser (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -209,13 +209,13 @@ describe("UsersClient", () => {
         server.mockEndpoint().get("/users/id").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.users.getAUser({
+            return await client.users.getUser({
                 id: "id",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("getAUser (6)", async () => {
+    test("getUser (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -223,28 +223,30 @@ describe("UsersClient", () => {
         server.mockEndpoint().get("/users/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.users.getAUser({
+            return await client.users.getUser({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("deleteAUser (1)", async () => {
+    test("deleteUser (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { success: true };
+        const rawResponseBody = { data: { success: true } };
         server.mockEndpoint().delete("/users/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.users.deleteAUser({
+        const response = await client.users.deleteUser({
             id: "id",
         });
         expect(response).toEqual({
-            success: true,
+            data: {
+                success: true,
+            },
         });
     });
 
-    test("deleteAUser (2)", async () => {
+    test("deleteUser (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -252,13 +254,13 @@ describe("UsersClient", () => {
         server.mockEndpoint().delete("/users/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.users.deleteAUser({
+            return await client.users.deleteUser({
                 id: "id",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("deleteAUser (3)", async () => {
+    test("deleteUser (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -266,13 +268,13 @@ describe("UsersClient", () => {
         server.mockEndpoint().delete("/users/id").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.users.deleteAUser({
+            return await client.users.deleteUser({
                 id: "id",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("deleteAUser (4)", async () => {
+    test("deleteUser (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -280,13 +282,13 @@ describe("UsersClient", () => {
         server.mockEndpoint().delete("/users/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.users.deleteAUser({
+            return await client.users.deleteUser({
                 id: "id",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("deleteAUser (5)", async () => {
+    test("deleteUser (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -294,13 +296,13 @@ describe("UsersClient", () => {
         server.mockEndpoint().delete("/users/id").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.users.deleteAUser({
+            return await client.users.deleteUser({
                 id: "id",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("deleteAUser (6)", async () => {
+    test("deleteUser (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -308,13 +310,13 @@ describe("UsersClient", () => {
         server.mockEndpoint().delete("/users/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.users.deleteAUser({
+            return await client.users.deleteUser({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("updateAUser (1)", async () => {
+    test("updateUser (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -345,7 +347,7 @@ describe("UsersClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.users.updateAUser({
+        const response = await client.users.updateUser({
             id: "id",
         });
         expect(response).toEqual({
@@ -376,7 +378,7 @@ describe("UsersClient", () => {
         });
     });
 
-    test("updateAUser (2)", async () => {
+    test("updateUser (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -391,13 +393,13 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.updateAUser({
+            return await client.users.updateUser({
                 id: "id",
             });
         }).rejects.toThrow(Forum.BadRequestError);
     });
 
-    test("updateAUser (3)", async () => {
+    test("updateUser (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -412,13 +414,13 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.updateAUser({
+            return await client.users.updateUser({
                 id: "id",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("updateAUser (4)", async () => {
+    test("updateUser (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -433,13 +435,13 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.updateAUser({
+            return await client.users.updateUser({
                 id: "id",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("updateAUser (5)", async () => {
+    test("updateUser (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -454,13 +456,13 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.updateAUser({
+            return await client.users.updateUser({
                 id: "id",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("updateAUser (6)", async () => {
+    test("updateUser (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -475,13 +477,13 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.updateAUser({
+            return await client.users.updateUser({
                 id: "id",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("updateAUser (7)", async () => {
+    test("updateUser (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -496,7 +498,7 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.updateAUser({
+            return await client.users.updateUser({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);
@@ -506,7 +508,13 @@ describe("UsersClient", () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { data: { items: [{}], nextCursor: "nextCursor", count: 1 } };
+        const rawResponseBody = {
+            data: {
+                items: [{ id: "id", followerId: "followerId", followingId: "followingId", createdAt: "createdAt" }],
+                nextCursor: "nextCursor",
+                count: 1,
+            },
+        };
         server
             .mockEndpoint()
             .get("/users/id/followers")
@@ -520,7 +528,14 @@ describe("UsersClient", () => {
         });
         expect(response).toEqual({
             data: {
-                items: [{}],
+                items: [
+                    {
+                        id: "id",
+                        followerId: "followerId",
+                        followingId: "followingId",
+                        createdAt: "createdAt",
+                    },
+                ],
                 nextCursor: "nextCursor",
                 count: 1,
             },
@@ -607,11 +622,19 @@ describe("UsersClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("getAFollowerFromUser (1)", async () => {
+    test("getUserFollower (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { data: {} };
+        const rawResponseBody = {
+            data: {
+                id: "id",
+                followerId: "followerId",
+                followingId: "followingId",
+                follower: { id: "id", username: "username", displayName: "displayName" },
+                createdAt: "createdAt",
+            },
+        };
         server
             .mockEndpoint()
             .get("/users/id/followers/subId")
@@ -620,16 +643,26 @@ describe("UsersClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.users.getAFollowerFromUser({
+        const response = await client.users.getUserFollower({
             id: "id",
             subId: "subId",
         });
         expect(response).toEqual({
-            data: {},
+            data: {
+                id: "id",
+                followerId: "followerId",
+                followingId: "followingId",
+                follower: {
+                    id: "id",
+                    username: "username",
+                    displayName: "displayName",
+                },
+                createdAt: "createdAt",
+            },
         });
     });
 
-    test("getAFollowerFromUser (2)", async () => {
+    test("getUserFollower (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -643,14 +676,14 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.getAFollowerFromUser({
+            return await client.users.getUserFollower({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("getAFollowerFromUser (3)", async () => {
+    test("getUserFollower (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -664,14 +697,14 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.getAFollowerFromUser({
+            return await client.users.getUserFollower({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("getAFollowerFromUser (4)", async () => {
+    test("getUserFollower (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -685,14 +718,14 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.getAFollowerFromUser({
+            return await client.users.getUserFollower({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("getAFollowerFromUser (5)", async () => {
+    test("getUserFollower (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -706,18 +739,18 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.getAFollowerFromUser({
+            return await client.users.getUserFollower({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("deleteAFollowerFromUser (1)", async () => {
+    test("deleteUserFollower (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { success: true };
+        const rawResponseBody = { data: { success: true } };
         server
             .mockEndpoint()
             .delete("/users/id/followers/subId")
@@ -726,16 +759,18 @@ describe("UsersClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.users.deleteAFollowerFromUser({
+        const response = await client.users.deleteUserFollower({
             id: "id",
             subId: "subId",
         });
         expect(response).toEqual({
-            success: true,
+            data: {
+                success: true,
+            },
         });
     });
 
-    test("deleteAFollowerFromUser (2)", async () => {
+    test("deleteUserFollower (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -749,14 +784,14 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.deleteAFollowerFromUser({
+            return await client.users.deleteUserFollower({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("deleteAFollowerFromUser (3)", async () => {
+    test("deleteUserFollower (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -770,14 +805,14 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.deleteAFollowerFromUser({
+            return await client.users.deleteUserFollower({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("deleteAFollowerFromUser (4)", async () => {
+    test("deleteUserFollower (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -791,14 +826,14 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.deleteAFollowerFromUser({
+            return await client.users.deleteUserFollower({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("deleteAFollowerFromUser (5)", async () => {
+    test("deleteUserFollower (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -812,7 +847,7 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.deleteAFollowerFromUser({
+            return await client.users.deleteUserFollower({
                 id: "id",
                 subId: "subId",
             });
@@ -823,7 +858,13 @@ describe("UsersClient", () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { data: { items: [{}], nextCursor: "nextCursor", count: 1 } };
+        const rawResponseBody = {
+            data: {
+                items: [{ id: "id", followerId: "followerId", followingId: "followingId", createdAt: "createdAt" }],
+                nextCursor: "nextCursor",
+                count: 1,
+            },
+        };
         server
             .mockEndpoint()
             .get("/users/id/following")
@@ -837,7 +878,14 @@ describe("UsersClient", () => {
         });
         expect(response).toEqual({
             data: {
-                items: [{}],
+                items: [
+                    {
+                        id: "id",
+                        followerId: "followerId",
+                        followingId: "followingId",
+                        createdAt: "createdAt",
+                    },
+                ],
                 nextCursor: "nextCursor",
                 count: 1,
             },
@@ -924,11 +972,19 @@ describe("UsersClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("getAFollowingFromUser (1)", async () => {
+    test("getUserFollowing (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { data: {} };
+        const rawResponseBody = {
+            data: {
+                id: "id",
+                followerId: "followerId",
+                followingId: "followingId",
+                following: { id: "id", username: "username", displayName: "displayName" },
+                createdAt: "createdAt",
+            },
+        };
         server
             .mockEndpoint()
             .get("/users/id/following/subId")
@@ -937,16 +993,26 @@ describe("UsersClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.users.getAFollowingFromUser({
+        const response = await client.users.getUserFollowing({
             id: "id",
             subId: "subId",
         });
         expect(response).toEqual({
-            data: {},
+            data: {
+                id: "id",
+                followerId: "followerId",
+                followingId: "followingId",
+                following: {
+                    id: "id",
+                    username: "username",
+                    displayName: "displayName",
+                },
+                createdAt: "createdAt",
+            },
         });
     });
 
-    test("getAFollowingFromUser (2)", async () => {
+    test("getUserFollowing (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -960,14 +1026,14 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.getAFollowingFromUser({
+            return await client.users.getUserFollowing({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("getAFollowingFromUser (3)", async () => {
+    test("getUserFollowing (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -981,14 +1047,14 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.getAFollowingFromUser({
+            return await client.users.getUserFollowing({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("getAFollowingFromUser (4)", async () => {
+    test("getUserFollowing (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1002,14 +1068,14 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.getAFollowingFromUser({
+            return await client.users.getUserFollowing({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("getAFollowingFromUser (5)", async () => {
+    test("getUserFollowing (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1023,18 +1089,18 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.getAFollowingFromUser({
+            return await client.users.getUserFollowing({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("deleteAFollowingFromUser (1)", async () => {
+    test("deleteUserFollowing (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { success: true };
+        const rawResponseBody = { data: { success: true } };
         server
             .mockEndpoint()
             .delete("/users/id/following/subId")
@@ -1043,16 +1109,18 @@ describe("UsersClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.users.deleteAFollowingFromUser({
+        const response = await client.users.deleteUserFollowing({
             id: "id",
             subId: "subId",
         });
         expect(response).toEqual({
-            success: true,
+            data: {
+                success: true,
+            },
         });
     });
 
-    test("deleteAFollowingFromUser (2)", async () => {
+    test("deleteUserFollowing (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1066,14 +1134,14 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.deleteAFollowingFromUser({
+            return await client.users.deleteUserFollowing({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("deleteAFollowingFromUser (3)", async () => {
+    test("deleteUserFollowing (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1087,14 +1155,14 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.deleteAFollowingFromUser({
+            return await client.users.deleteUserFollowing({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("deleteAFollowingFromUser (4)", async () => {
+    test("deleteUserFollowing (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1108,14 +1176,14 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.deleteAFollowingFromUser({
+            return await client.users.deleteUserFollowing({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("deleteAFollowingFromUser (5)", async () => {
+    test("deleteUserFollowing (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1129,7 +1197,7 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.deleteAFollowingFromUser({
+            return await client.users.deleteUserFollowing({
                 id: "id",
                 subId: "subId",
             });

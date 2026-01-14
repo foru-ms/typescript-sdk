@@ -1,5 +1,5 @@
-export type { DeleteSsoIdRequest } from "./DeleteSsoIdRequest.js";
-export type { GetSsoIdRequest } from "./GetSsoIdRequest.js";
+export type { CreateSsoRequest } from "./CreateSsoRequest.js";
+export type { DeleteSsoRequest } from "./DeleteSsoRequest.js";
 export type { GetSsoRequest } from "./GetSsoRequest.js";
-export type { PatchSsoIdRequest } from "./PatchSsoIdRequest.js";
-export type { PostSsoRequest } from "./PostSsoRequest.js";
+export type { ListSsOsRequest } from "./ListSsOsRequest.js";
+export type { UpdateSsoRequest } from "./UpdateSsoRequest.js";

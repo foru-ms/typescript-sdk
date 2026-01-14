@@ -15,6 +15,9 @@ export declare namespace IntegrationsClient {
     export interface RequestOptions extends BaseRequestOptions {}
 }
 
+/**
+ * Operations for integrations
+ */
 export class IntegrationsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<IntegrationsClient.Options>;
 
@@ -23,7 +26,11 @@ export class IntegrationsClient {
     }
 
     /**
-     * @param {Forum.GetIntegrationsRequest} request
+     * Retrieve a paginated list of integrations. Use cursor for pagination.
+     *
+     * **Requires feature: integrations**
+     *
+     * @param {Forum.ListIntegrationsRequest} request
      * @param {IntegrationsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -32,31 +39,27 @@ export class IntegrationsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.integrations.listAllIntegrations()
+     *     await client.integrations.listIntegrations()
      */
-    public listAllIntegrations(
-        request: Forum.GetIntegrationsRequest = {},
+    public listIntegrations(
+        request: Forum.ListIntegrationsRequest = {},
         requestOptions?: IntegrationsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetIntegrationsResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__listAllIntegrations(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.IntegrationListResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__listIntegrations(request, requestOptions));
     }
 
-    private async __listAllIntegrations(
-        request: Forum.GetIntegrationsRequest = {},
+    private async __listIntegrations(
+        request: Forum.ListIntegrationsRequest = {},
         requestOptions?: IntegrationsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetIntegrationsResponse>> {
-        const { page, limit, search } = request;
+    ): Promise<core.WithRawResponse<Forum.IntegrationListResponse>> {
+        const { cursor, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (page != null) {
-            _queryParams.page = page.toString();
+        if (cursor != null) {
+            _queryParams.cursor = cursor;
         }
 
         if (limit != null) {
             _queryParams.limit = limit.toString();
-        }
-
-        if (search != null) {
-            _queryParams.search = search;
         }
 
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -82,7 +85,7 @@ export class IntegrationsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetIntegrationsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.IntegrationListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -120,7 +123,11 @@ export class IntegrationsClient {
     }
 
     /**
-     * @param {Forum.PostIntegrationsRequest} request
+     * Create an new integration.
+     *
+     * **Requires feature: integrations**
+     *
+     * @param {Forum.CreateIntegrationRequest} request
      * @param {IntegrationsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -130,24 +137,24 @@ export class IntegrationsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.integrations.createAnIntegration({
+     *     await client.integrations.createIntegration({
      *         type: "type",
      *         config: {
      *             "key": "value"
      *         }
      *     })
      */
-    public createAnIntegration(
-        request: Forum.PostIntegrationsRequest,
+    public createIntegration(
+        request: Forum.CreateIntegrationRequest,
         requestOptions?: IntegrationsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PostIntegrationsResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__createAnIntegration(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.IntegrationResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__createIntegration(request, requestOptions));
     }
 
-    private async __createAnIntegration(
-        request: Forum.PostIntegrationsRequest,
+    private async __createIntegration(
+        request: Forum.CreateIntegrationRequest,
         requestOptions?: IntegrationsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PostIntegrationsResponse>> {
+    ): Promise<core.WithRawResponse<Forum.IntegrationResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -174,7 +181,7 @@ export class IntegrationsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PostIntegrationsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.IntegrationResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -214,7 +221,11 @@ export class IntegrationsClient {
     }
 
     /**
-     * @param {Forum.GetIntegrationsIdRequest} request
+     * Retrieve an integration by ID or slug (if supported).
+     *
+     * **Requires feature: integrations**
+     *
+     * @param {Forum.GetIntegrationRequest} request
      * @param {IntegrationsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -224,21 +235,21 @@ export class IntegrationsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.integrations.getAnIntegration({
+     *     await client.integrations.getIntegration({
      *         id: "id"
      *     })
      */
-    public getAnIntegration(
-        request: Forum.GetIntegrationsIdRequest,
+    public getIntegration(
+        request: Forum.GetIntegrationRequest,
         requestOptions?: IntegrationsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetIntegrationsIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getAnIntegration(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.IntegrationResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getIntegration(request, requestOptions));
     }
 
-    private async __getAnIntegration(
-        request: Forum.GetIntegrationsIdRequest,
+    private async __getIntegration(
+        request: Forum.GetIntegrationRequest,
         requestOptions?: IntegrationsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetIntegrationsIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.IntegrationResponse>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -263,7 +274,7 @@ export class IntegrationsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetIntegrationsIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.IntegrationResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -303,7 +314,11 @@ export class IntegrationsClient {
     }
 
     /**
-     * @param {Forum.DeleteIntegrationsIdRequest} request
+     * Permanently delete an integration.
+     *
+     * **Requires feature: integrations**
+     *
+     * @param {Forum.DeleteIntegrationRequest} request
      * @param {IntegrationsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -313,21 +328,21 @@ export class IntegrationsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.integrations.deleteAnIntegration({
+     *     await client.integrations.deleteIntegration({
      *         id: "id"
      *     })
      */
-    public deleteAnIntegration(
-        request: Forum.DeleteIntegrationsIdRequest,
+    public deleteIntegration(
+        request: Forum.DeleteIntegrationRequest,
         requestOptions?: IntegrationsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.DeleteIntegrationsIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteAnIntegration(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.SuccessResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteIntegration(request, requestOptions));
     }
 
-    private async __deleteAnIntegration(
-        request: Forum.DeleteIntegrationsIdRequest,
+    private async __deleteIntegration(
+        request: Forum.DeleteIntegrationRequest,
         requestOptions?: IntegrationsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.DeleteIntegrationsIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -352,7 +367,7 @@ export class IntegrationsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.DeleteIntegrationsIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.SuccessResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -392,7 +407,11 @@ export class IntegrationsClient {
     }
 
     /**
-     * @param {Forum.PatchIntegrationsIdRequest} request
+     * Update an existing integration. Only provided fields will be modified.
+     *
+     * **Requires feature: integrations**
+     *
+     * @param {Forum.UpdateIntegrationRequest} request
      * @param {IntegrationsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -403,21 +422,21 @@ export class IntegrationsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.integrations.updateAnIntegration({
+     *     await client.integrations.updateIntegration({
      *         id: "id"
      *     })
      */
-    public updateAnIntegration(
-        request: Forum.PatchIntegrationsIdRequest,
+    public updateIntegration(
+        request: Forum.UpdateIntegrationRequest,
         requestOptions?: IntegrationsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PatchIntegrationsIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__updateAnIntegration(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.UpdateIntegrationResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__updateIntegration(request, requestOptions));
     }
 
-    private async __updateAnIntegration(
-        request: Forum.PatchIntegrationsIdRequest,
+    private async __updateIntegration(
+        request: Forum.UpdateIntegrationRequest,
         requestOptions?: IntegrationsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PatchIntegrationsIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.UpdateIntegrationResponse>> {
         const { id, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -445,7 +464,7 @@ export class IntegrationsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PatchIntegrationsIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.UpdateIntegrationResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

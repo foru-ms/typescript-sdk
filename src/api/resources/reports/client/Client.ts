@@ -15,6 +15,9 @@ export declare namespace ReportsClient {
     export interface RequestOptions extends BaseRequestOptions {}
 }
 
+/**
+ * Operations for reports
+ */
 export class ReportsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<ReportsClient.Options>;
 
@@ -23,7 +26,9 @@ export class ReportsClient {
     }
 
     /**
-     * @param {Forum.GetReportsRequest} request
+     * Retrieve a paginated list of reports. Use cursor for pagination.
+     *
+     * @param {Forum.ListReportsRequest} request
      * @param {ReportsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -32,31 +37,39 @@ export class ReportsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.reports.listAllReports()
+     *     await client.reports.listReports()
      */
-    public listAllReports(
-        request: Forum.GetReportsRequest = {},
+    public listReports(
+        request: Forum.ListReportsRequest = {},
         requestOptions?: ReportsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetReportsResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__listAllReports(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.ReportListResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__listReports(request, requestOptions));
     }
 
-    private async __listAllReports(
-        request: Forum.GetReportsRequest = {},
+    private async __listReports(
+        request: Forum.ListReportsRequest = {},
         requestOptions?: ReportsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetReportsResponse>> {
-        const { page, limit, search } = request;
+    ): Promise<core.WithRawResponse<Forum.ReportListResponse>> {
+        const { limit, cursor, status, reporterId, reportedId } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (page != null) {
-            _queryParams.page = page.toString();
-        }
-
         if (limit != null) {
             _queryParams.limit = limit.toString();
         }
 
-        if (search != null) {
-            _queryParams.search = search;
+        if (cursor != null) {
+            _queryParams.cursor = cursor;
+        }
+
+        if (status != null) {
+            _queryParams.status = status;
+        }
+
+        if (reporterId != null) {
+            _queryParams.reporterId = reporterId;
+        }
+
+        if (reportedId != null) {
+            _queryParams.reportedId = reportedId;
         }
 
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -82,7 +95,7 @@ export class ReportsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetReportsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.ReportListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -120,7 +133,9 @@ export class ReportsClient {
     }
 
     /**
-     * @param {Forum.PostReportsRequest} request
+     * Create a new report.
+     *
+     * @param {Forum.CreateReportRequest} request
      * @param {ReportsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -130,21 +145,21 @@ export class ReportsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.reports.createAReport({
+     *     await client.reports.createReport({
      *         type: "type"
      *     })
      */
-    public createAReport(
-        request: Forum.PostReportsRequest,
+    public createReport(
+        request: Forum.CreateReportRequest,
         requestOptions?: ReportsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PostReportsResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__createAReport(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.ReportResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__createReport(request, requestOptions));
     }
 
-    private async __createAReport(
-        request: Forum.PostReportsRequest,
+    private async __createReport(
+        request: Forum.CreateReportRequest,
         requestOptions?: ReportsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PostReportsResponse>> {
+    ): Promise<core.WithRawResponse<Forum.ReportResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -171,7 +186,7 @@ export class ReportsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PostReportsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.ReportResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -211,7 +226,9 @@ export class ReportsClient {
     }
 
     /**
-     * @param {Forum.GetReportsIdRequest} request
+     * Retrieve a report by ID or slug (if supported).
+     *
+     * @param {Forum.GetReportRequest} request
      * @param {ReportsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -221,21 +238,21 @@ export class ReportsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.reports.getAReport({
+     *     await client.reports.getReport({
      *         id: "id"
      *     })
      */
-    public getAReport(
-        request: Forum.GetReportsIdRequest,
+    public getReport(
+        request: Forum.GetReportRequest,
         requestOptions?: ReportsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetReportsIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getAReport(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.ReportResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getReport(request, requestOptions));
     }
 
-    private async __getAReport(
-        request: Forum.GetReportsIdRequest,
+    private async __getReport(
+        request: Forum.GetReportRequest,
         requestOptions?: ReportsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetReportsIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.ReportResponse>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -260,7 +277,7 @@ export class ReportsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetReportsIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.ReportResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -300,7 +317,9 @@ export class ReportsClient {
     }
 
     /**
-     * @param {Forum.DeleteReportsIdRequest} request
+     * Permanently delete a report.
+     *
+     * @param {Forum.DeleteReportRequest} request
      * @param {ReportsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -310,21 +329,21 @@ export class ReportsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.reports.deleteAReport({
+     *     await client.reports.deleteReport({
      *         id: "id"
      *     })
      */
-    public deleteAReport(
-        request: Forum.DeleteReportsIdRequest,
+    public deleteReport(
+        request: Forum.DeleteReportRequest,
         requestOptions?: ReportsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.DeleteReportsIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteAReport(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.SuccessResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteReport(request, requestOptions));
     }
 
-    private async __deleteAReport(
-        request: Forum.DeleteReportsIdRequest,
+    private async __deleteReport(
+        request: Forum.DeleteReportRequest,
         requestOptions?: ReportsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.DeleteReportsIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -349,7 +368,7 @@ export class ReportsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.DeleteReportsIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.SuccessResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

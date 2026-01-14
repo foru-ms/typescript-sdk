@@ -1,8 +1,8 @@
-export type { DeletePrivateMessagesIdRepliesSubIdRequest } from "./DeletePrivateMessagesIdRepliesSubIdRequest.js";
-export type { DeletePrivateMessagesIdRequest } from "./DeletePrivateMessagesIdRequest.js";
-export type { GetPrivateMessagesIdRepliesRequest } from "./GetPrivateMessagesIdRepliesRequest.js";
-export type { GetPrivateMessagesIdRepliesSubIdRequest } from "./GetPrivateMessagesIdRepliesSubIdRequest.js";
-export type { GetPrivateMessagesIdRequest } from "./GetPrivateMessagesIdRequest.js";
-export type { GetPrivateMessagesRequest } from "./GetPrivateMessagesRequest.js";
-export type { PostPrivateMessagesIdRepliesRequest } from "./PostPrivateMessagesIdRepliesRequest.js";
-export type { PostPrivateMessagesRequest } from "./PostPrivateMessagesRequest.js";
+export type { CreatePrivateMessageReplyRequest } from "./CreatePrivateMessageReplyRequest.js";
+export type { CreatePrivateMessageRequest } from "./CreatePrivateMessageRequest.js";
+export type { DeletePrivateMessageReplyRequest } from "./DeletePrivateMessageReplyRequest.js";
+export type { DeletePrivateMessageRequest } from "./DeletePrivateMessageRequest.js";
+export type { GetPrivateMessageReplyRequest } from "./GetPrivateMessageReplyRequest.js";
+export type { GetPrivateMessageRequest } from "./GetPrivateMessageRequest.js";
+export type { ListPrivateMessageRepliesRequest } from "./ListPrivateMessageRepliesRequest.js";
+export type { ListPrivateMessagesRequest } from "./ListPrivateMessagesRequest.js";

@@ -15,6 +15,9 @@ export declare namespace UsersClient {
     export interface RequestOptions extends BaseRequestOptions {}
 }
 
+/**
+ * Operations for users
+ */
 export class UsersClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<UsersClient.Options>;
 
@@ -23,7 +26,9 @@ export class UsersClient {
     }
 
     /**
-     * @param {Forum.GetUsersRequest} request
+     * Retrieve a paginated list of users. Use cursor for pagination.
+     *
+     * @param {Forum.ListUsersRequest} request
      * @param {UsersClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -32,31 +37,35 @@ export class UsersClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.users.listAllUsers()
+     *     await client.users.listUsers()
      */
-    public listAllUsers(
-        request: Forum.GetUsersRequest = {},
+    public listUsers(
+        request: Forum.ListUsersRequest = {},
         requestOptions?: UsersClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetUsersResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__listAllUsers(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.UserListResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__listUsers(request, requestOptions));
     }
 
-    private async __listAllUsers(
-        request: Forum.GetUsersRequest = {},
+    private async __listUsers(
+        request: Forum.ListUsersRequest = {},
         requestOptions?: UsersClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetUsersResponse>> {
-        const { page, limit, search } = request;
+    ): Promise<core.WithRawResponse<Forum.UserListResponse>> {
+        const { limit, cursor, search, sort } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (page != null) {
-            _queryParams.page = page.toString();
-        }
-
         if (limit != null) {
             _queryParams.limit = limit.toString();
         }
 
+        if (cursor != null) {
+            _queryParams.cursor = cursor;
+        }
+
         if (search != null) {
             _queryParams.search = search;
+        }
+
+        if (sort != null) {
+            _queryParams.sort = sort;
         }
 
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -82,7 +91,7 @@ export class UsersClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetUsersResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.UserListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -120,7 +129,9 @@ export class UsersClient {
     }
 
     /**
-     * @param {Forum.GetUsersIdRequest} request
+     * Retrieve a user by ID or slug (if supported).
+     *
+     * @param {Forum.GetUserRequest} request
      * @param {UsersClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -130,21 +141,21 @@ export class UsersClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.users.getAUser({
+     *     await client.users.getUser({
      *         id: "id"
      *     })
      */
-    public getAUser(
-        request: Forum.GetUsersIdRequest,
+    public getUser(
+        request: Forum.GetUserRequest,
         requestOptions?: UsersClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetUsersIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getAUser(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.UserResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getUser(request, requestOptions));
     }
 
-    private async __getAUser(
-        request: Forum.GetUsersIdRequest,
+    private async __getUser(
+        request: Forum.GetUserRequest,
         requestOptions?: UsersClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetUsersIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.UserResponse>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -169,7 +180,7 @@ export class UsersClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetUsersIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.UserResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -209,7 +220,9 @@ export class UsersClient {
     }
 
     /**
-     * @param {Forum.DeleteUsersIdRequest} request
+     * Permanently delete a user.
+     *
+     * @param {Forum.DeleteUserRequest} request
      * @param {UsersClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -219,21 +232,21 @@ export class UsersClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.users.deleteAUser({
+     *     await client.users.deleteUser({
      *         id: "id"
      *     })
      */
-    public deleteAUser(
-        request: Forum.DeleteUsersIdRequest,
+    public deleteUser(
+        request: Forum.DeleteUserRequest,
         requestOptions?: UsersClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.DeleteUsersIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteAUser(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.SuccessResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteUser(request, requestOptions));
     }
 
-    private async __deleteAUser(
-        request: Forum.DeleteUsersIdRequest,
+    private async __deleteUser(
+        request: Forum.DeleteUserRequest,
         requestOptions?: UsersClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.DeleteUsersIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -258,7 +271,7 @@ export class UsersClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.DeleteUsersIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.SuccessResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -298,7 +311,9 @@ export class UsersClient {
     }
 
     /**
-     * @param {Forum.PatchUsersIdRequest} request
+     * Update an existing user. Only provided fields will be modified.
+     *
+     * @param {Forum.UpdateUserRequest} request
      * @param {UsersClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -309,21 +324,21 @@ export class UsersClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.users.updateAUser({
+     *     await client.users.updateUser({
      *         id: "id"
      *     })
      */
-    public updateAUser(
-        request: Forum.PatchUsersIdRequest,
+    public updateUser(
+        request: Forum.UpdateUserRequest,
         requestOptions?: UsersClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PatchUsersIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__updateAUser(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.UpdateUserResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__updateUser(request, requestOptions));
     }
 
-    private async __updateAUser(
-        request: Forum.PatchUsersIdRequest,
+    private async __updateUser(
+        request: Forum.UpdateUserRequest,
         requestOptions?: UsersClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PatchUsersIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.UpdateUserResponse>> {
         const { id, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -351,7 +366,7 @@ export class UsersClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PatchUsersIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.UpdateUserResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -393,7 +408,9 @@ export class UsersClient {
     }
 
     /**
-     * @param {Forum.GetUsersIdFollowersRequest} request
+     * Retrieve a paginated list of followers for User.
+     *
+     * @param {Forum.ListUserFollowersRequest} request
      * @param {UsersClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -407,24 +424,24 @@ export class UsersClient {
      *     })
      */
     public listUserFollowers(
-        request: Forum.GetUsersIdFollowersRequest,
+        request: Forum.ListUserFollowersRequest,
         requestOptions?: UsersClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetUsersIdFollowersResponse> {
+    ): core.HttpResponsePromise<Forum.UserFollowerListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__listUserFollowers(request, requestOptions));
     }
 
     private async __listUserFollowers(
-        request: Forum.GetUsersIdFollowersRequest,
+        request: Forum.ListUserFollowersRequest,
         requestOptions?: UsersClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetUsersIdFollowersResponse>> {
-        const { id, cursor, limit } = request;
+    ): Promise<core.WithRawResponse<Forum.UserFollowerListResponse>> {
+        const { id, limit, cursor } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
         if (limit != null) {
             _queryParams.limit = limit.toString();
+        }
+
+        if (cursor != null) {
+            _queryParams.cursor = cursor;
         }
 
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -450,7 +467,7 @@ export class UsersClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetUsersIdFollowersResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.UserFollowerListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -485,7 +502,7 @@ export class UsersClient {
     }
 
     /**
-     * @param {Forum.GetUsersIdFollowersSubIdRequest} request
+     * @param {Forum.GetUserFollowerRequest} request
      * @param {UsersClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -494,22 +511,22 @@ export class UsersClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.users.getAFollowerFromUser({
+     *     await client.users.getUserFollower({
      *         id: "id",
      *         subId: "subId"
      *     })
      */
-    public getAFollowerFromUser(
-        request: Forum.GetUsersIdFollowersSubIdRequest,
+    public getUserFollower(
+        request: Forum.GetUserFollowerRequest,
         requestOptions?: UsersClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetUsersIdFollowersSubIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getAFollowerFromUser(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.GetUserFollowerResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getUserFollower(request, requestOptions));
     }
 
-    private async __getAFollowerFromUser(
-        request: Forum.GetUsersIdFollowersSubIdRequest,
+    private async __getUserFollower(
+        request: Forum.GetUserFollowerRequest,
         requestOptions?: UsersClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetUsersIdFollowersSubIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.GetUserFollowerResponse>> {
         const { id, subId } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -534,10 +551,7 @@ export class UsersClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as Forum.GetUsersIdFollowersSubIdResponse,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Forum.GetUserFollowerResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -572,7 +586,7 @@ export class UsersClient {
     }
 
     /**
-     * @param {Forum.DeleteUsersIdFollowersSubIdRequest} request
+     * @param {Forum.DeleteUserFollowerRequest} request
      * @param {UsersClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -581,22 +595,22 @@ export class UsersClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.users.deleteAFollowerFromUser({
+     *     await client.users.deleteUserFollower({
      *         id: "id",
      *         subId: "subId"
      *     })
      */
-    public deleteAFollowerFromUser(
-        request: Forum.DeleteUsersIdFollowersSubIdRequest,
+    public deleteUserFollower(
+        request: Forum.DeleteUserFollowerRequest,
         requestOptions?: UsersClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.DeleteUsersIdFollowersSubIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteAFollowerFromUser(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.SuccessResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteUserFollower(request, requestOptions));
     }
 
-    private async __deleteAFollowerFromUser(
-        request: Forum.DeleteUsersIdFollowersSubIdRequest,
+    private async __deleteUserFollower(
+        request: Forum.DeleteUserFollowerRequest,
         requestOptions?: UsersClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.DeleteUsersIdFollowersSubIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id, subId } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -621,10 +635,7 @@ export class UsersClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as Forum.DeleteUsersIdFollowersSubIdResponse,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Forum.SuccessResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -664,7 +675,9 @@ export class UsersClient {
     }
 
     /**
-     * @param {Forum.GetUsersIdFollowingRequest} request
+     * Retrieve a paginated list of following for User.
+     *
+     * @param {Forum.ListUserFollowingRequest} request
      * @param {UsersClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -678,24 +691,24 @@ export class UsersClient {
      *     })
      */
     public listUserFollowing(
-        request: Forum.GetUsersIdFollowingRequest,
+        request: Forum.ListUserFollowingRequest,
         requestOptions?: UsersClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetUsersIdFollowingResponse> {
+    ): core.HttpResponsePromise<Forum.UserFollowingListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__listUserFollowing(request, requestOptions));
     }
 
     private async __listUserFollowing(
-        request: Forum.GetUsersIdFollowingRequest,
+        request: Forum.ListUserFollowingRequest,
         requestOptions?: UsersClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetUsersIdFollowingResponse>> {
-        const { id, cursor, limit } = request;
+    ): Promise<core.WithRawResponse<Forum.UserFollowingListResponse>> {
+        const { id, limit, cursor } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
         if (limit != null) {
             _queryParams.limit = limit.toString();
+        }
+
+        if (cursor != null) {
+            _queryParams.cursor = cursor;
         }
 
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -721,7 +734,7 @@ export class UsersClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetUsersIdFollowingResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.UserFollowingListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -756,7 +769,7 @@ export class UsersClient {
     }
 
     /**
-     * @param {Forum.GetUsersIdFollowingSubIdRequest} request
+     * @param {Forum.GetUserFollowingRequest} request
      * @param {UsersClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -765,22 +778,22 @@ export class UsersClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.users.getAFollowingFromUser({
+     *     await client.users.getUserFollowing({
      *         id: "id",
      *         subId: "subId"
      *     })
      */
-    public getAFollowingFromUser(
-        request: Forum.GetUsersIdFollowingSubIdRequest,
+    public getUserFollowing(
+        request: Forum.GetUserFollowingRequest,
         requestOptions?: UsersClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetUsersIdFollowingSubIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getAFollowingFromUser(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.GetUserFollowingResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getUserFollowing(request, requestOptions));
     }
 
-    private async __getAFollowingFromUser(
-        request: Forum.GetUsersIdFollowingSubIdRequest,
+    private async __getUserFollowing(
+        request: Forum.GetUserFollowingRequest,
         requestOptions?: UsersClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetUsersIdFollowingSubIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.GetUserFollowingResponse>> {
         const { id, subId } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -805,10 +818,7 @@ export class UsersClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as Forum.GetUsersIdFollowingSubIdResponse,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Forum.GetUserFollowingResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -843,7 +853,7 @@ export class UsersClient {
     }
 
     /**
-     * @param {Forum.DeleteUsersIdFollowingSubIdRequest} request
+     * @param {Forum.DeleteUserFollowingRequest} request
      * @param {UsersClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -852,22 +862,22 @@ export class UsersClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.users.deleteAFollowingFromUser({
+     *     await client.users.deleteUserFollowing({
      *         id: "id",
      *         subId: "subId"
      *     })
      */
-    public deleteAFollowingFromUser(
-        request: Forum.DeleteUsersIdFollowingSubIdRequest,
+    public deleteUserFollowing(
+        request: Forum.DeleteUserFollowingRequest,
         requestOptions?: UsersClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.DeleteUsersIdFollowingSubIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteAFollowingFromUser(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.SuccessResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteUserFollowing(request, requestOptions));
     }
 
-    private async __deleteAFollowingFromUser(
-        request: Forum.DeleteUsersIdFollowingSubIdRequest,
+    private async __deleteUserFollowing(
+        request: Forum.DeleteUserFollowingRequest,
         requestOptions?: UsersClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.DeleteUsersIdFollowingSubIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id, subId } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -892,10 +902,7 @@ export class UsersClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as Forum.DeleteUsersIdFollowingSubIdResponse,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Forum.SuccessResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

@@ -15,6 +15,9 @@ export declare namespace RolesClient {
     export interface RequestOptions extends BaseRequestOptions {}
 }
 
+/**
+ * Operations for roles
+ */
 export class RolesClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<RolesClient.Options>;
 
@@ -23,7 +26,9 @@ export class RolesClient {
     }
 
     /**
-     * @param {Forum.GetRolesRequest} request
+     * Retrieve a paginated list of roles. Use cursor for pagination.
+     *
+     * @param {Forum.ListRolesRequest} request
      * @param {RolesClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -32,31 +37,27 @@ export class RolesClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.roles.listAllRoles()
+     *     await client.roles.listRoles()
      */
-    public listAllRoles(
-        request: Forum.GetRolesRequest = {},
+    public listRoles(
+        request: Forum.ListRolesRequest = {},
         requestOptions?: RolesClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetRolesResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__listAllRoles(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.RoleListResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__listRoles(request, requestOptions));
     }
 
-    private async __listAllRoles(
-        request: Forum.GetRolesRequest = {},
+    private async __listRoles(
+        request: Forum.ListRolesRequest = {},
         requestOptions?: RolesClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetRolesResponse>> {
-        const { page, limit, search } = request;
+    ): Promise<core.WithRawResponse<Forum.RoleListResponse>> {
+        const { cursor, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (page != null) {
-            _queryParams.page = page.toString();
+        if (cursor != null) {
+            _queryParams.cursor = cursor;
         }
 
         if (limit != null) {
             _queryParams.limit = limit.toString();
-        }
-
-        if (search != null) {
-            _queryParams.search = search;
         }
 
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -82,7 +83,7 @@ export class RolesClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetRolesResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.RoleListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -120,7 +121,9 @@ export class RolesClient {
     }
 
     /**
-     * @param {Forum.PostRolesRequest} request
+     * Create a new role.
+     *
+     * @param {Forum.CreateRoleRequest} request
      * @param {RolesClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -130,21 +133,21 @@ export class RolesClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.roles.createARole({
+     *     await client.roles.createRole({
      *         name: "name"
      *     })
      */
-    public createARole(
-        request: Forum.PostRolesRequest,
+    public createRole(
+        request: Forum.CreateRoleRequest,
         requestOptions?: RolesClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PostRolesResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__createARole(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.RoleResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__createRole(request, requestOptions));
     }
 
-    private async __createARole(
-        request: Forum.PostRolesRequest,
+    private async __createRole(
+        request: Forum.CreateRoleRequest,
         requestOptions?: RolesClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PostRolesResponse>> {
+    ): Promise<core.WithRawResponse<Forum.RoleResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -171,7 +174,7 @@ export class RolesClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PostRolesResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.RoleResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -211,7 +214,9 @@ export class RolesClient {
     }
 
     /**
-     * @param {Forum.GetRolesIdRequest} request
+     * Retrieve a role by ID or slug (if supported).
+     *
+     * @param {Forum.GetRoleRequest} request
      * @param {RolesClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -221,21 +226,21 @@ export class RolesClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.roles.getARole({
+     *     await client.roles.getRole({
      *         id: "id"
      *     })
      */
-    public getARole(
-        request: Forum.GetRolesIdRequest,
+    public getRole(
+        request: Forum.GetRoleRequest,
         requestOptions?: RolesClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetRolesIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getARole(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.RoleResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getRole(request, requestOptions));
     }
 
-    private async __getARole(
-        request: Forum.GetRolesIdRequest,
+    private async __getRole(
+        request: Forum.GetRoleRequest,
         requestOptions?: RolesClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetRolesIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.RoleResponse>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -260,7 +265,7 @@ export class RolesClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetRolesIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.RoleResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -300,7 +305,9 @@ export class RolesClient {
     }
 
     /**
-     * @param {Forum.DeleteRolesIdRequest} request
+     * Permanently delete a role.
+     *
+     * @param {Forum.DeleteRoleRequest} request
      * @param {RolesClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -310,21 +317,21 @@ export class RolesClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.roles.deleteARole({
+     *     await client.roles.deleteRole({
      *         id: "id"
      *     })
      */
-    public deleteARole(
-        request: Forum.DeleteRolesIdRequest,
+    public deleteRole(
+        request: Forum.DeleteRoleRequest,
         requestOptions?: RolesClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.DeleteRolesIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteARole(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.SuccessResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteRole(request, requestOptions));
     }
 
-    private async __deleteARole(
-        request: Forum.DeleteRolesIdRequest,
+    private async __deleteRole(
+        request: Forum.DeleteRoleRequest,
         requestOptions?: RolesClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.DeleteRolesIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -349,7 +356,7 @@ export class RolesClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.DeleteRolesIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.SuccessResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -389,7 +396,9 @@ export class RolesClient {
     }
 
     /**
-     * @param {Forum.PatchRolesIdRequest} request
+     * Update an existing role. Only provided fields will be modified.
+     *
+     * @param {Forum.UpdateRoleRequest} request
      * @param {RolesClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -400,21 +409,21 @@ export class RolesClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.roles.updateARole({
+     *     await client.roles.updateRole({
      *         id: "id"
      *     })
      */
-    public updateARole(
-        request: Forum.PatchRolesIdRequest,
+    public updateRole(
+        request: Forum.UpdateRoleRequest,
         requestOptions?: RolesClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PatchRolesIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__updateARole(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.UpdateRoleResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__updateRole(request, requestOptions));
     }
 
-    private async __updateARole(
-        request: Forum.PatchRolesIdRequest,
+    private async __updateRole(
+        request: Forum.UpdateRoleRequest,
         requestOptions?: RolesClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PatchRolesIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.UpdateRoleResponse>> {
         const { id, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -442,7 +451,7 @@ export class RolesClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PatchRolesIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.UpdateRoleResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

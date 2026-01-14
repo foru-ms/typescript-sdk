@@ -15,6 +15,9 @@ export declare namespace WebhooksClient {
     export interface RequestOptions extends BaseRequestOptions {}
 }
 
+/**
+ * Operations for webhooks
+ */
 export class WebhooksClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<WebhooksClient.Options>;
 
@@ -23,7 +26,11 @@ export class WebhooksClient {
     }
 
     /**
-     * @param {Forum.GetWebhooksRequest} request
+     * Retrieve a paginated list of webhooks. Use cursor for pagination.
+     *
+     * **Requires feature: webhooks**
+     *
+     * @param {Forum.ListWebhooksRequest} request
      * @param {WebhooksClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -32,31 +39,27 @@ export class WebhooksClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.webhooks.listAllWebhooks()
+     *     await client.webhooks.listWebhooks()
      */
-    public listAllWebhooks(
-        request: Forum.GetWebhooksRequest = {},
+    public listWebhooks(
+        request: Forum.ListWebhooksRequest = {},
         requestOptions?: WebhooksClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetWebhooksResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__listAllWebhooks(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.WebhookListResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__listWebhooks(request, requestOptions));
     }
 
-    private async __listAllWebhooks(
-        request: Forum.GetWebhooksRequest = {},
+    private async __listWebhooks(
+        request: Forum.ListWebhooksRequest = {},
         requestOptions?: WebhooksClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetWebhooksResponse>> {
-        const { page, limit, search } = request;
+    ): Promise<core.WithRawResponse<Forum.WebhookListResponse>> {
+        const { limit, cursor } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (page != null) {
-            _queryParams.page = page.toString();
-        }
-
         if (limit != null) {
             _queryParams.limit = limit.toString();
         }
 
-        if (search != null) {
-            _queryParams.search = search;
+        if (cursor != null) {
+            _queryParams.cursor = cursor;
         }
 
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -82,7 +85,7 @@ export class WebhooksClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetWebhooksResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.WebhookListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -120,7 +123,11 @@ export class WebhooksClient {
     }
 
     /**
-     * @param {Forum.PostWebhooksRequest} request
+     * Create a new webhook.
+     *
+     * **Requires feature: webhooks**
+     *
+     * @param {Forum.CreateWebhookRequest} request
      * @param {WebhooksClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -130,23 +137,23 @@ export class WebhooksClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.webhooks.createAWebhook({
+     *     await client.webhooks.createWebhook({
      *         name: "name",
      *         url: "url",
      *         events: ["events"]
      *     })
      */
-    public createAWebhook(
-        request: Forum.PostWebhooksRequest,
+    public createWebhook(
+        request: Forum.CreateWebhookRequest,
         requestOptions?: WebhooksClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PostWebhooksResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__createAWebhook(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.WebhookResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__createWebhook(request, requestOptions));
     }
 
-    private async __createAWebhook(
-        request: Forum.PostWebhooksRequest,
+    private async __createWebhook(
+        request: Forum.CreateWebhookRequest,
         requestOptions?: WebhooksClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PostWebhooksResponse>> {
+    ): Promise<core.WithRawResponse<Forum.WebhookResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -173,7 +180,7 @@ export class WebhooksClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PostWebhooksResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.WebhookResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -213,7 +220,11 @@ export class WebhooksClient {
     }
 
     /**
-     * @param {Forum.GetWebhooksIdRequest} request
+     * Retrieve a webhook by ID or slug (if supported).
+     *
+     * **Requires feature: webhooks**
+     *
+     * @param {Forum.GetWebhookRequest} request
      * @param {WebhooksClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -223,21 +234,21 @@ export class WebhooksClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.webhooks.getAWebhook({
+     *     await client.webhooks.getWebhook({
      *         id: "id"
      *     })
      */
-    public getAWebhook(
-        request: Forum.GetWebhooksIdRequest,
+    public getWebhook(
+        request: Forum.GetWebhookRequest,
         requestOptions?: WebhooksClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetWebhooksIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getAWebhook(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.WebhookResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getWebhook(request, requestOptions));
     }
 
-    private async __getAWebhook(
-        request: Forum.GetWebhooksIdRequest,
+    private async __getWebhook(
+        request: Forum.GetWebhookRequest,
         requestOptions?: WebhooksClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetWebhooksIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.WebhookResponse>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -262,7 +273,7 @@ export class WebhooksClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetWebhooksIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.WebhookResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -302,7 +313,11 @@ export class WebhooksClient {
     }
 
     /**
-     * @param {Forum.DeleteWebhooksIdRequest} request
+     * Permanently delete a webhook.
+     *
+     * **Requires feature: webhooks**
+     *
+     * @param {Forum.DeleteWebhookRequest} request
      * @param {WebhooksClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -312,21 +327,21 @@ export class WebhooksClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.webhooks.deleteAWebhook({
+     *     await client.webhooks.deleteWebhook({
      *         id: "id"
      *     })
      */
-    public deleteAWebhook(
-        request: Forum.DeleteWebhooksIdRequest,
+    public deleteWebhook(
+        request: Forum.DeleteWebhookRequest,
         requestOptions?: WebhooksClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.DeleteWebhooksIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteAWebhook(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.SuccessResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteWebhook(request, requestOptions));
     }
 
-    private async __deleteAWebhook(
-        request: Forum.DeleteWebhooksIdRequest,
+    private async __deleteWebhook(
+        request: Forum.DeleteWebhookRequest,
         requestOptions?: WebhooksClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.DeleteWebhooksIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -351,7 +366,7 @@ export class WebhooksClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.DeleteWebhooksIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.SuccessResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -391,7 +406,11 @@ export class WebhooksClient {
     }
 
     /**
-     * @param {Forum.GetWebhooksIdDeliveriesRequest} request
+     * Retrieve a paginated list of deliveries for Webhook.
+     *
+     * **Requires feature: webhooks**
+     *
+     * @param {Forum.ListWebhookDeliveriesRequest} request
      * @param {WebhooksClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -405,16 +424,16 @@ export class WebhooksClient {
      *     })
      */
     public listWebhookDeliveries(
-        request: Forum.GetWebhooksIdDeliveriesRequest,
+        request: Forum.ListWebhookDeliveriesRequest,
         requestOptions?: WebhooksClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetWebhooksIdDeliveriesResponse> {
+    ): core.HttpResponsePromise<Forum.WebhookDeliveryListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__listWebhookDeliveries(request, requestOptions));
     }
 
     private async __listWebhookDeliveries(
-        request: Forum.GetWebhooksIdDeliveriesRequest,
+        request: Forum.ListWebhookDeliveriesRequest,
         requestOptions?: WebhooksClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetWebhooksIdDeliveriesResponse>> {
+    ): Promise<core.WithRawResponse<Forum.WebhookDeliveryListResponse>> {
         const { id, cursor, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (cursor != null) {
@@ -448,10 +467,7 @@ export class WebhooksClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as Forum.GetWebhooksIdDeliveriesResponse,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Forum.WebhookDeliveryListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -486,7 +502,7 @@ export class WebhooksClient {
     }
 
     /**
-     * @param {Forum.GetWebhooksIdDeliveriesSubIdRequest} request
+     * @param {Forum.GetWebhookDeliveryRequest} request
      * @param {WebhooksClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -495,22 +511,22 @@ export class WebhooksClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.webhooks.getADeliveryFromWebhook({
+     *     await client.webhooks.getWebhookDelivery({
      *         id: "id",
      *         subId: "subId"
      *     })
      */
-    public getADeliveryFromWebhook(
-        request: Forum.GetWebhooksIdDeliveriesSubIdRequest,
+    public getWebhookDelivery(
+        request: Forum.GetWebhookDeliveryRequest,
         requestOptions?: WebhooksClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetWebhooksIdDeliveriesSubIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getADeliveryFromWebhook(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.GetWebhookDeliveryResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getWebhookDelivery(request, requestOptions));
     }
 
-    private async __getADeliveryFromWebhook(
-        request: Forum.GetWebhooksIdDeliveriesSubIdRequest,
+    private async __getWebhookDelivery(
+        request: Forum.GetWebhookDeliveryRequest,
         requestOptions?: WebhooksClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetWebhooksIdDeliveriesSubIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.GetWebhookDeliveryResponse>> {
         const { id, subId } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -535,10 +551,7 @@ export class WebhooksClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as Forum.GetWebhooksIdDeliveriesSubIdResponse,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Forum.GetWebhookDeliveryResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -578,7 +591,7 @@ export class WebhooksClient {
     }
 
     /**
-     * @param {Forum.DeleteWebhooksIdDeliveriesSubIdRequest} request
+     * @param {Forum.DeleteWebhookDeliveryRequest} request
      * @param {WebhooksClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -587,22 +600,22 @@ export class WebhooksClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.webhooks.deleteADeliveryFromWebhook({
+     *     await client.webhooks.deleteWebhookDelivery({
      *         id: "id",
      *         subId: "subId"
      *     })
      */
-    public deleteADeliveryFromWebhook(
-        request: Forum.DeleteWebhooksIdDeliveriesSubIdRequest,
+    public deleteWebhookDelivery(
+        request: Forum.DeleteWebhookDeliveryRequest,
         requestOptions?: WebhooksClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.DeleteWebhooksIdDeliveriesSubIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteADeliveryFromWebhook(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.SuccessResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteWebhookDelivery(request, requestOptions));
     }
 
-    private async __deleteADeliveryFromWebhook(
-        request: Forum.DeleteWebhooksIdDeliveriesSubIdRequest,
+    private async __deleteWebhookDelivery(
+        request: Forum.DeleteWebhookDeliveryRequest,
         requestOptions?: WebhooksClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.DeleteWebhooksIdDeliveriesSubIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id, subId } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -627,10 +640,7 @@ export class WebhooksClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as Forum.DeleteWebhooksIdDeliveriesSubIdResponse,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Forum.SuccessResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

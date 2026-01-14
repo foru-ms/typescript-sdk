@@ -1,4 +1,4 @@
-export type { DeleteReportsIdRequest } from "./DeleteReportsIdRequest.js";
-export type { GetReportsIdRequest } from "./GetReportsIdRequest.js";
-export type { GetReportsRequest } from "./GetReportsRequest.js";
-export type { PostReportsRequest } from "./PostReportsRequest.js";
+export type { CreateReportRequest } from "./CreateReportRequest.js";
+export type { DeleteReportRequest } from "./DeleteReportRequest.js";
+export type { GetReportRequest } from "./GetReportRequest.js";
+export type { ListReportsRequest } from "./ListReportsRequest.js";

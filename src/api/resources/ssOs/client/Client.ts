@@ -15,6 +15,9 @@ export declare namespace SsOsClient {
     export interface RequestOptions extends BaseRequestOptions {}
 }
 
+/**
+ * Operations for sso
+ */
 export class SsOsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<SsOsClient.Options>;
 
@@ -23,7 +26,11 @@ export class SsOsClient {
     }
 
     /**
-     * @param {Forum.GetSsoRequest} request
+     * Retrieve a paginated list of ssos. Use cursor for pagination.
+     *
+     * **Requires feature: sso**
+     *
+     * @param {Forum.ListSsOsRequest} request
      * @param {SsOsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -32,31 +39,27 @@ export class SsOsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.ssOs.listAllSsOs()
+     *     await client.ssOs.listSsOs()
      */
-    public listAllSsOs(
-        request: Forum.GetSsoRequest = {},
+    public listSsOs(
+        request: Forum.ListSsOsRequest = {},
         requestOptions?: SsOsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetSsoResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__listAllSsOs(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.SsoListResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__listSsOs(request, requestOptions));
     }
 
-    private async __listAllSsOs(
-        request: Forum.GetSsoRequest = {},
+    private async __listSsOs(
+        request: Forum.ListSsOsRequest = {},
         requestOptions?: SsOsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetSsoResponse>> {
-        const { page, limit, search } = request;
+    ): Promise<core.WithRawResponse<Forum.SsoListResponse>> {
+        const { cursor, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (page != null) {
-            _queryParams.page = page.toString();
+        if (cursor != null) {
+            _queryParams.cursor = cursor;
         }
 
         if (limit != null) {
             _queryParams.limit = limit.toString();
-        }
-
-        if (search != null) {
-            _queryParams.search = search;
         }
 
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -82,7 +85,7 @@ export class SsOsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetSsoResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.SsoListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -120,7 +123,11 @@ export class SsOsClient {
     }
 
     /**
-     * @param {Forum.PostSsoRequest} request
+     * Create an new sso.
+     *
+     * **Requires feature: sso**
+     *
+     * @param {Forum.CreateSsoRequest} request
      * @param {SsOsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -130,7 +137,7 @@ export class SsOsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.ssOs.createAnSso({
+     *     await client.ssOs.createSso({
      *         name: "name",
      *         clientId: "clientId",
      *         clientSecret: "clientSecret",
@@ -140,17 +147,17 @@ export class SsOsClient {
      *         userInfoEndpoint: "userInfoEndpoint"
      *     })
      */
-    public createAnSso(
-        request: Forum.PostSsoRequest,
+    public createSso(
+        request: Forum.CreateSsoRequest,
         requestOptions?: SsOsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PostSsoResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__createAnSso(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.SsoResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__createSso(request, requestOptions));
     }
 
-    private async __createAnSso(
-        request: Forum.PostSsoRequest,
+    private async __createSso(
+        request: Forum.CreateSsoRequest,
         requestOptions?: SsOsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PostSsoResponse>> {
+    ): Promise<core.WithRawResponse<Forum.SsoResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -177,7 +184,7 @@ export class SsOsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PostSsoResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.SsoResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -217,7 +224,11 @@ export class SsOsClient {
     }
 
     /**
-     * @param {Forum.GetSsoIdRequest} request
+     * Retrieve an sso by ID or slug (if supported).
+     *
+     * **Requires feature: sso**
+     *
+     * @param {Forum.GetSsoRequest} request
      * @param {SsOsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -227,21 +238,21 @@ export class SsOsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.ssOs.getAnSso({
+     *     await client.ssOs.getSso({
      *         id: "id"
      *     })
      */
-    public getAnSso(
-        request: Forum.GetSsoIdRequest,
+    public getSso(
+        request: Forum.GetSsoRequest,
         requestOptions?: SsOsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.GetSsoIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getAnSso(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.SsoResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getSso(request, requestOptions));
     }
 
-    private async __getAnSso(
-        request: Forum.GetSsoIdRequest,
+    private async __getSso(
+        request: Forum.GetSsoRequest,
         requestOptions?: SsOsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.GetSsoIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.SsoResponse>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -266,7 +277,7 @@ export class SsOsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.GetSsoIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.SsoResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -306,7 +317,11 @@ export class SsOsClient {
     }
 
     /**
-     * @param {Forum.DeleteSsoIdRequest} request
+     * Permanently delete an sso.
+     *
+     * **Requires feature: sso**
+     *
+     * @param {Forum.DeleteSsoRequest} request
      * @param {SsOsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -316,21 +331,21 @@ export class SsOsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.ssOs.deleteAnSso({
+     *     await client.ssOs.deleteSso({
      *         id: "id"
      *     })
      */
-    public deleteAnSso(
-        request: Forum.DeleteSsoIdRequest,
+    public deleteSso(
+        request: Forum.DeleteSsoRequest,
         requestOptions?: SsOsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.DeleteSsoIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteAnSso(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.SuccessResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteSso(request, requestOptions));
     }
 
-    private async __deleteAnSso(
-        request: Forum.DeleteSsoIdRequest,
+    private async __deleteSso(
+        request: Forum.DeleteSsoRequest,
         requestOptions?: SsOsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.DeleteSsoIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -355,7 +370,7 @@ export class SsOsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.DeleteSsoIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.SuccessResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -395,7 +410,11 @@ export class SsOsClient {
     }
 
     /**
-     * @param {Forum.PatchSsoIdRequest} request
+     * Update an existing sso. Only provided fields will be modified.
+     *
+     * **Requires feature: sso**
+     *
+     * @param {Forum.UpdateSsoRequest} request
      * @param {SsOsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.BadRequestError}
@@ -406,21 +425,21 @@ export class SsOsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.ssOs.updateAnSso({
+     *     await client.ssOs.updateSso({
      *         id: "id"
      *     })
      */
-    public updateAnSso(
-        request: Forum.PatchSsoIdRequest,
+    public updateSso(
+        request: Forum.UpdateSsoRequest,
         requestOptions?: SsOsClient.RequestOptions,
-    ): core.HttpResponsePromise<Forum.PatchSsoIdResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__updateAnSso(request, requestOptions));
+    ): core.HttpResponsePromise<Forum.UpdateSsoResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__updateSso(request, requestOptions));
     }
 
-    private async __updateAnSso(
-        request: Forum.PatchSsoIdRequest,
+    private async __updateSso(
+        request: Forum.UpdateSsoRequest,
         requestOptions?: SsOsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Forum.PatchSsoIdResponse>> {
+    ): Promise<core.WithRawResponse<Forum.UpdateSsoResponse>> {
         const { id, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -448,7 +467,7 @@ export class SsOsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Forum.PatchSsoIdResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Forum.UpdateSsoResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

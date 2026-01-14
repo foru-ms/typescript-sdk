@@ -1,4 +1,4 @@
-export type { PostAuthForgotPasswordRequest } from "./PostAuthForgotPasswordRequest.js";
-export type { PostAuthLoginRequest } from "./PostAuthLoginRequest.js";
-export type { PostAuthRegisterRequest } from "./PostAuthRegisterRequest.js";
-export type { PostAuthResetPasswordRequest } from "./PostAuthResetPasswordRequest.js";
+export type { ForgotPasswordAuthRequest } from "./ForgotPasswordAuthRequest.js";
+export type { LoginAuthRequest } from "./LoginAuthRequest.js";
+export type { RegisterAuthRequest } from "./RegisterAuthRequest.js";
+export type { ResetPasswordAuthRequest } from "./ResetPasswordAuthRequest.js";

@@ -5,7 +5,7 @@ import { ForumClient } from "../../src/Client";
 import { mockServerPool } from "../mock-server/MockServerPool";
 
 describe("IntegrationsClient", () => {
-    test("listAllIntegrations (1)", async () => {
+    test("listIntegrations (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -27,7 +27,7 @@ describe("IntegrationsClient", () => {
         };
         server.mockEndpoint().get("/integrations").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.integrations.listAllIntegrations();
+        const response = await client.integrations.listIntegrations();
         expect(response).toEqual({
             data: {
                 items: [
@@ -46,7 +46,7 @@ describe("IntegrationsClient", () => {
         });
     });
 
-    test("listAllIntegrations (2)", async () => {
+    test("listIntegrations (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -54,11 +54,11 @@ describe("IntegrationsClient", () => {
         server.mockEndpoint().get("/integrations").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.integrations.listAllIntegrations();
+            return await client.integrations.listIntegrations();
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("listAllIntegrations (3)", async () => {
+    test("listIntegrations (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -66,11 +66,11 @@ describe("IntegrationsClient", () => {
         server.mockEndpoint().get("/integrations").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.integrations.listAllIntegrations();
+            return await client.integrations.listIntegrations();
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("listAllIntegrations (4)", async () => {
+    test("listIntegrations (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -78,11 +78,11 @@ describe("IntegrationsClient", () => {
         server.mockEndpoint().get("/integrations").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.integrations.listAllIntegrations();
+            return await client.integrations.listIntegrations();
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("listAllIntegrations (5)", async () => {
+    test("listIntegrations (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -90,11 +90,11 @@ describe("IntegrationsClient", () => {
         server.mockEndpoint().get("/integrations").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.integrations.listAllIntegrations();
+            return await client.integrations.listIntegrations();
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("createAnIntegration (1)", async () => {
+    test("createIntegration (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { type: "type", config: { key: "value" } };
@@ -117,7 +117,7 @@ describe("IntegrationsClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.integrations.createAnIntegration({
+        const response = await client.integrations.createIntegration({
             type: "type",
             config: {
                 key: "value",
@@ -135,7 +135,7 @@ describe("IntegrationsClient", () => {
         });
     });
 
-    test("createAnIntegration (2)", async () => {
+    test("createIntegration (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { type: "x", config: { config: { key: "value" } } };
@@ -150,7 +150,7 @@ describe("IntegrationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.integrations.createAnIntegration({
+            return await client.integrations.createIntegration({
                 type: "x",
                 config: {
                     config: {
@@ -161,7 +161,7 @@ describe("IntegrationsClient", () => {
         }).rejects.toThrow(Forum.BadRequestError);
     });
 
-    test("createAnIntegration (3)", async () => {
+    test("createIntegration (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { type: "x", config: { config: { key: "value" } } };
@@ -176,7 +176,7 @@ describe("IntegrationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.integrations.createAnIntegration({
+            return await client.integrations.createIntegration({
                 type: "x",
                 config: {
                     config: {
@@ -187,7 +187,7 @@ describe("IntegrationsClient", () => {
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("createAnIntegration (4)", async () => {
+    test("createIntegration (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { type: "x", config: { config: { key: "value" } } };
@@ -202,7 +202,7 @@ describe("IntegrationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.integrations.createAnIntegration({
+            return await client.integrations.createIntegration({
                 type: "x",
                 config: {
                     config: {
@@ -213,7 +213,7 @@ describe("IntegrationsClient", () => {
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("createAnIntegration (5)", async () => {
+    test("createIntegration (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { type: "x", config: { config: { key: "value" } } };
@@ -228,7 +228,7 @@ describe("IntegrationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.integrations.createAnIntegration({
+            return await client.integrations.createIntegration({
                 type: "x",
                 config: {
                     config: {
@@ -239,7 +239,7 @@ describe("IntegrationsClient", () => {
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("createAnIntegration (6)", async () => {
+    test("createIntegration (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { type: "x", config: { config: { key: "value" } } };
@@ -254,7 +254,7 @@ describe("IntegrationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.integrations.createAnIntegration({
+            return await client.integrations.createIntegration({
                 type: "x",
                 config: {
                     config: {
@@ -265,7 +265,7 @@ describe("IntegrationsClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("getAnIntegration (1)", async () => {
+    test("getIntegration (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -281,7 +281,7 @@ describe("IntegrationsClient", () => {
         };
         server.mockEndpoint().get("/integrations/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.integrations.getAnIntegration({
+        const response = await client.integrations.getIntegration({
             id: "id",
         });
         expect(response).toEqual({
@@ -296,7 +296,7 @@ describe("IntegrationsClient", () => {
         });
     });
 
-    test("getAnIntegration (2)", async () => {
+    test("getIntegration (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -304,13 +304,13 @@ describe("IntegrationsClient", () => {
         server.mockEndpoint().get("/integrations/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.integrations.getAnIntegration({
+            return await client.integrations.getIntegration({
                 id: "id",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("getAnIntegration (3)", async () => {
+    test("getIntegration (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -318,13 +318,13 @@ describe("IntegrationsClient", () => {
         server.mockEndpoint().get("/integrations/id").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.integrations.getAnIntegration({
+            return await client.integrations.getIntegration({
                 id: "id",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("getAnIntegration (4)", async () => {
+    test("getIntegration (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -332,13 +332,13 @@ describe("IntegrationsClient", () => {
         server.mockEndpoint().get("/integrations/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.integrations.getAnIntegration({
+            return await client.integrations.getIntegration({
                 id: "id",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("getAnIntegration (5)", async () => {
+    test("getIntegration (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -346,13 +346,13 @@ describe("IntegrationsClient", () => {
         server.mockEndpoint().get("/integrations/id").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.integrations.getAnIntegration({
+            return await client.integrations.getIntegration({
                 id: "id",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("getAnIntegration (6)", async () => {
+    test("getIntegration (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -360,17 +360,17 @@ describe("IntegrationsClient", () => {
         server.mockEndpoint().get("/integrations/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.integrations.getAnIntegration({
+            return await client.integrations.getIntegration({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("deleteAnIntegration (1)", async () => {
+    test("deleteIntegration (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { success: true };
+        const rawResponseBody = { data: { success: true } };
         server
             .mockEndpoint()
             .delete("/integrations/id")
@@ -379,15 +379,17 @@ describe("IntegrationsClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.integrations.deleteAnIntegration({
+        const response = await client.integrations.deleteIntegration({
             id: "id",
         });
         expect(response).toEqual({
-            success: true,
+            data: {
+                success: true,
+            },
         });
     });
 
-    test("deleteAnIntegration (2)", async () => {
+    test("deleteIntegration (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -401,13 +403,13 @@ describe("IntegrationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.integrations.deleteAnIntegration({
+            return await client.integrations.deleteIntegration({
                 id: "id",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("deleteAnIntegration (3)", async () => {
+    test("deleteIntegration (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -421,13 +423,13 @@ describe("IntegrationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.integrations.deleteAnIntegration({
+            return await client.integrations.deleteIntegration({
                 id: "id",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("deleteAnIntegration (4)", async () => {
+    test("deleteIntegration (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -441,13 +443,13 @@ describe("IntegrationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.integrations.deleteAnIntegration({
+            return await client.integrations.deleteIntegration({
                 id: "id",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("deleteAnIntegration (5)", async () => {
+    test("deleteIntegration (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -461,13 +463,13 @@ describe("IntegrationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.integrations.deleteAnIntegration({
+            return await client.integrations.deleteIntegration({
                 id: "id",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("deleteAnIntegration (6)", async () => {
+    test("deleteIntegration (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -481,13 +483,13 @@ describe("IntegrationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.integrations.deleteAnIntegration({
+            return await client.integrations.deleteIntegration({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("updateAnIntegration (1)", async () => {
+    test("updateIntegration (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -510,7 +512,7 @@ describe("IntegrationsClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.integrations.updateAnIntegration({
+        const response = await client.integrations.updateIntegration({
             id: "id",
         });
         expect(response).toEqual({
@@ -525,7 +527,7 @@ describe("IntegrationsClient", () => {
         });
     });
 
-    test("updateAnIntegration (2)", async () => {
+    test("updateIntegration (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -540,13 +542,13 @@ describe("IntegrationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.integrations.updateAnIntegration({
+            return await client.integrations.updateIntegration({
                 id: "id",
             });
         }).rejects.toThrow(Forum.BadRequestError);
     });
 
-    test("updateAnIntegration (3)", async () => {
+    test("updateIntegration (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -561,13 +563,13 @@ describe("IntegrationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.integrations.updateAnIntegration({
+            return await client.integrations.updateIntegration({
                 id: "id",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("updateAnIntegration (4)", async () => {
+    test("updateIntegration (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -582,13 +584,13 @@ describe("IntegrationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.integrations.updateAnIntegration({
+            return await client.integrations.updateIntegration({
                 id: "id",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("updateAnIntegration (5)", async () => {
+    test("updateIntegration (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -603,13 +605,13 @@ describe("IntegrationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.integrations.updateAnIntegration({
+            return await client.integrations.updateIntegration({
                 id: "id",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("updateAnIntegration (6)", async () => {
+    test("updateIntegration (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -624,13 +626,13 @@ describe("IntegrationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.integrations.updateAnIntegration({
+            return await client.integrations.updateIntegration({
                 id: "id",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("updateAnIntegration (7)", async () => {
+    test("updateIntegration (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -645,7 +647,7 @@ describe("IntegrationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.integrations.updateAnIntegration({
+            return await client.integrations.updateIntegration({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);

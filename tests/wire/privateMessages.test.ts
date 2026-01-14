@@ -5,7 +5,7 @@ import { ForumClient } from "../../src/Client";
 import { mockServerPool } from "../mock-server/MockServerPool";
 
 describe("PrivateMessagesClient", () => {
-    test("listAllPrivateMessages (1)", async () => {
+    test("listPrivate Messages (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -27,7 +27,7 @@ describe("PrivateMessagesClient", () => {
         };
         server.mockEndpoint().get("/private-messages").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.privateMessages.listAllPrivateMessages();
+        const response = await client.privateMessages.listPrivateMessages();
         expect(response).toEqual({
             data: {
                 items: [
@@ -46,7 +46,7 @@ describe("PrivateMessagesClient", () => {
         });
     });
 
-    test("listAllPrivateMessages (2)", async () => {
+    test("listPrivate Messages (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -54,11 +54,11 @@ describe("PrivateMessagesClient", () => {
         server.mockEndpoint().get("/private-messages").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.privateMessages.listAllPrivateMessages();
+            return await client.privateMessages.listPrivateMessages();
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("listAllPrivateMessages (3)", async () => {
+    test("listPrivate Messages (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -66,11 +66,11 @@ describe("PrivateMessagesClient", () => {
         server.mockEndpoint().get("/private-messages").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.privateMessages.listAllPrivateMessages();
+            return await client.privateMessages.listPrivateMessages();
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("listAllPrivateMessages (4)", async () => {
+    test("listPrivate Messages (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -78,11 +78,11 @@ describe("PrivateMessagesClient", () => {
         server.mockEndpoint().get("/private-messages").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.privateMessages.listAllPrivateMessages();
+            return await client.privateMessages.listPrivateMessages();
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("listAllPrivateMessages (5)", async () => {
+    test("listPrivate Messages (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -90,11 +90,11 @@ describe("PrivateMessagesClient", () => {
         server.mockEndpoint().get("/private-messages").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.privateMessages.listAllPrivateMessages();
+            return await client.privateMessages.listPrivateMessages();
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("createAPrivateMessage (1)", async () => {
+    test("createPrivate Message (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { recipientId: "recipientId", body: "body" };
@@ -121,7 +121,7 @@ describe("PrivateMessagesClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.privateMessages.createAPrivateMessage({
+        const response = await client.privateMessages.createPrivateMessage({
             recipientId: "recipientId",
             body: "body",
         });
@@ -143,7 +143,7 @@ describe("PrivateMessagesClient", () => {
         });
     });
 
-    test("createAPrivateMessage (2)", async () => {
+    test("createPrivate Message (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { recipientId: "recipientId", body: "x" };
@@ -158,14 +158,14 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.createAPrivateMessage({
+            return await client.privateMessages.createPrivateMessage({
                 recipientId: "recipientId",
                 body: "x",
             });
         }).rejects.toThrow(Forum.BadRequestError);
     });
 
-    test("createAPrivateMessage (3)", async () => {
+    test("createPrivate Message (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { recipientId: "recipientId", body: "x" };
@@ -180,14 +180,14 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.createAPrivateMessage({
+            return await client.privateMessages.createPrivateMessage({
                 recipientId: "recipientId",
                 body: "x",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("createAPrivateMessage (4)", async () => {
+    test("createPrivate Message (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { recipientId: "recipientId", body: "x" };
@@ -202,14 +202,14 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.createAPrivateMessage({
+            return await client.privateMessages.createPrivateMessage({
                 recipientId: "recipientId",
                 body: "x",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("createAPrivateMessage (5)", async () => {
+    test("createPrivate Message (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { recipientId: "recipientId", body: "x" };
@@ -224,14 +224,14 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.createAPrivateMessage({
+            return await client.privateMessages.createPrivateMessage({
                 recipientId: "recipientId",
                 body: "x",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("createAPrivateMessage (6)", async () => {
+    test("createPrivate Message (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { recipientId: "recipientId", body: "x" };
@@ -246,14 +246,14 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.createAPrivateMessage({
+            return await client.privateMessages.createPrivateMessage({
                 recipientId: "recipientId",
                 body: "x",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("getAPrivateMessage (1)", async () => {
+    test("getPrivate Message (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -279,7 +279,7 @@ describe("PrivateMessagesClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.privateMessages.getAPrivateMessage({
+        const response = await client.privateMessages.getPrivateMessage({
             id: "id",
         });
         expect(response).toEqual({
@@ -300,7 +300,7 @@ describe("PrivateMessagesClient", () => {
         });
     });
 
-    test("getAPrivateMessage (2)", async () => {
+    test("getPrivate Message (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -314,13 +314,13 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.getAPrivateMessage({
+            return await client.privateMessages.getPrivateMessage({
                 id: "id",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("getAPrivateMessage (3)", async () => {
+    test("getPrivate Message (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -334,13 +334,13 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.getAPrivateMessage({
+            return await client.privateMessages.getPrivateMessage({
                 id: "id",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("getAPrivateMessage (4)", async () => {
+    test("getPrivate Message (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -354,13 +354,13 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.getAPrivateMessage({
+            return await client.privateMessages.getPrivateMessage({
                 id: "id",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("getAPrivateMessage (5)", async () => {
+    test("getPrivate Message (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -374,13 +374,13 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.getAPrivateMessage({
+            return await client.privateMessages.getPrivateMessage({
                 id: "id",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("getAPrivateMessage (6)", async () => {
+    test("getPrivate Message (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -394,17 +394,17 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.getAPrivateMessage({
+            return await client.privateMessages.getPrivateMessage({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("deleteAPrivateMessage (1)", async () => {
+    test("deletePrivate Message (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { success: true };
+        const rawResponseBody = { data: { success: true } };
         server
             .mockEndpoint()
             .delete("/private-messages/id")
@@ -413,15 +413,17 @@ describe("PrivateMessagesClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.privateMessages.deleteAPrivateMessage({
+        const response = await client.privateMessages.deletePrivateMessage({
             id: "id",
         });
         expect(response).toEqual({
-            success: true,
+            data: {
+                success: true,
+            },
         });
     });
 
-    test("deleteAPrivateMessage (2)", async () => {
+    test("deletePrivate Message (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -435,13 +437,13 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.deleteAPrivateMessage({
+            return await client.privateMessages.deletePrivateMessage({
                 id: "id",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("deleteAPrivateMessage (3)", async () => {
+    test("deletePrivate Message (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -455,13 +457,13 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.deleteAPrivateMessage({
+            return await client.privateMessages.deletePrivateMessage({
                 id: "id",
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
 
-    test("deleteAPrivateMessage (4)", async () => {
+    test("deletePrivate Message (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -475,13 +477,13 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.deleteAPrivateMessage({
+            return await client.privateMessages.deletePrivateMessage({
                 id: "id",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("deleteAPrivateMessage (5)", async () => {
+    test("deletePrivate Message (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -495,13 +497,13 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.deleteAPrivateMessage({
+            return await client.privateMessages.deletePrivateMessage({
                 id: "id",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("deleteAPrivateMessage (6)", async () => {
+    test("deletePrivate Message (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -515,17 +517,33 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.deleteAPrivateMessage({
+            return await client.privateMessages.deletePrivateMessage({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("listPrivateMessageReplies (1)", async () => {
+    test("listPrivate MessageReplies (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { data: { items: [{}], nextCursor: "nextCursor", count: 1 } };
+        const rawResponseBody = {
+            data: {
+                items: [
+                    {
+                        id: "id",
+                        parentId: null,
+                        senderId: "senderId",
+                        recipientId: "recipientId",
+                        body: "body",
+                        status: null,
+                        createdAt: "createdAt",
+                    },
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
+            },
+        };
         server
             .mockEndpoint()
             .get("/private-messages/id/replies")
@@ -539,14 +557,24 @@ describe("PrivateMessagesClient", () => {
         });
         expect(response).toEqual({
             data: {
-                items: [{}],
+                items: [
+                    {
+                        id: "id",
+                        parentId: null,
+                        senderId: "senderId",
+                        recipientId: "recipientId",
+                        body: "body",
+                        status: null,
+                        createdAt: "createdAt",
+                    },
+                ],
                 nextCursor: "nextCursor",
                 count: 1,
             },
         });
     });
 
-    test("listPrivateMessageReplies (2)", async () => {
+    test("listPrivate MessageReplies (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -566,7 +594,7 @@ describe("PrivateMessagesClient", () => {
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("listPrivateMessageReplies (3)", async () => {
+    test("listPrivate MessageReplies (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -586,7 +614,7 @@ describe("PrivateMessagesClient", () => {
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("listPrivateMessageReplies (4)", async () => {
+    test("listPrivate MessageReplies (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -606,7 +634,7 @@ describe("PrivateMessagesClient", () => {
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("listPrivateMessageReplies (5)", async () => {
+    test("listPrivate MessageReplies (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -626,11 +654,21 @@ describe("PrivateMessagesClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("createAReplyInPrivateMessage (1)", async () => {
+    test("createPrivate MessageReply (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { recipientId: "recipientId", body: "body" };
-        const rawResponseBody = { data: {} };
+        const rawResponseBody = {
+            data: {
+                id: "id",
+                parentId: "parentId",
+                senderId: "senderId",
+                recipientId: "recipientId",
+                body: "body",
+                status: "status",
+                createdAt: "createdAt",
+            },
+        };
         server
             .mockEndpoint()
             .post("/private-messages/id/replies")
@@ -640,17 +678,25 @@ describe("PrivateMessagesClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.privateMessages.createAReplyInPrivateMessage({
+        const response = await client.privateMessages.createPrivateMessageReply({
             id: "id",
             recipientId: "recipientId",
             body: "body",
         });
         expect(response).toEqual({
-            data: {},
+            data: {
+                id: "id",
+                parentId: "parentId",
+                senderId: "senderId",
+                recipientId: "recipientId",
+                body: "body",
+                status: "status",
+                createdAt: "createdAt",
+            },
         });
     });
 
-    test("createAReplyInPrivateMessage (2)", async () => {
+    test("createPrivate MessageReply (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { recipientId: "recipientId", body: "x" };
@@ -665,7 +711,7 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.createAReplyInPrivateMessage({
+            return await client.privateMessages.createPrivateMessageReply({
                 id: "id",
                 recipientId: "recipientId",
                 body: "x",
@@ -673,7 +719,7 @@ describe("PrivateMessagesClient", () => {
         }).rejects.toThrow(Forum.BadRequestError);
     });
 
-    test("createAReplyInPrivateMessage (3)", async () => {
+    test("createPrivate MessageReply (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { recipientId: "recipientId", body: "x" };
@@ -688,7 +734,7 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.createAReplyInPrivateMessage({
+            return await client.privateMessages.createPrivateMessageReply({
                 id: "id",
                 recipientId: "recipientId",
                 body: "x",
@@ -696,7 +742,7 @@ describe("PrivateMessagesClient", () => {
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("createAReplyInPrivateMessage (4)", async () => {
+    test("createPrivate MessageReply (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { recipientId: "recipientId", body: "x" };
@@ -711,7 +757,7 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.createAReplyInPrivateMessage({
+            return await client.privateMessages.createPrivateMessageReply({
                 id: "id",
                 recipientId: "recipientId",
                 body: "x",
@@ -719,7 +765,7 @@ describe("PrivateMessagesClient", () => {
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("createAReplyInPrivateMessage (5)", async () => {
+    test("createPrivate MessageReply (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { recipientId: "recipientId", body: "x" };
@@ -734,7 +780,7 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.createAReplyInPrivateMessage({
+            return await client.privateMessages.createPrivateMessageReply({
                 id: "id",
                 recipientId: "recipientId",
                 body: "x",
@@ -742,7 +788,7 @@ describe("PrivateMessagesClient", () => {
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("createAReplyInPrivateMessage (6)", async () => {
+    test("createPrivate MessageReply (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { recipientId: "recipientId", body: "x" };
@@ -757,7 +803,7 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.createAReplyInPrivateMessage({
+            return await client.privateMessages.createPrivateMessageReply({
                 id: "id",
                 recipientId: "recipientId",
                 body: "x",
@@ -765,11 +811,21 @@ describe("PrivateMessagesClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("getAReplyFromPrivateMessage (1)", async () => {
+    test("getPrivate MessageReply (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { data: {} };
+        const rawResponseBody = {
+            data: {
+                id: "id",
+                parentId: "parentId",
+                senderId: "senderId",
+                recipientId: "recipientId",
+                body: "body",
+                status: "status",
+                createdAt: "createdAt",
+            },
+        };
         server
             .mockEndpoint()
             .get("/private-messages/id/replies/subId")
@@ -778,16 +834,24 @@ describe("PrivateMessagesClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.privateMessages.getAReplyFromPrivateMessage({
+        const response = await client.privateMessages.getPrivateMessageReply({
             id: "id",
             subId: "subId",
         });
         expect(response).toEqual({
-            data: {},
+            data: {
+                id: "id",
+                parentId: "parentId",
+                senderId: "senderId",
+                recipientId: "recipientId",
+                body: "body",
+                status: "status",
+                createdAt: "createdAt",
+            },
         });
     });
 
-    test("getAReplyFromPrivateMessage (2)", async () => {
+    test("getPrivate MessageReply (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -801,14 +865,14 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.getAReplyFromPrivateMessage({
+            return await client.privateMessages.getPrivateMessageReply({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("getAReplyFromPrivateMessage (3)", async () => {
+    test("getPrivate MessageReply (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -822,14 +886,14 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.getAReplyFromPrivateMessage({
+            return await client.privateMessages.getPrivateMessageReply({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("getAReplyFromPrivateMessage (4)", async () => {
+    test("getPrivate MessageReply (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -843,14 +907,14 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.getAReplyFromPrivateMessage({
+            return await client.privateMessages.getPrivateMessageReply({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("getAReplyFromPrivateMessage (5)", async () => {
+    test("getPrivate MessageReply (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -864,18 +928,18 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.getAReplyFromPrivateMessage({
+            return await client.privateMessages.getPrivateMessageReply({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("deleteAReplyFromPrivateMessage (1)", async () => {
+    test("deletePrivate MessageReply (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { success: true };
+        const rawResponseBody = { data: { success: true } };
         server
             .mockEndpoint()
             .delete("/private-messages/id/replies/subId")
@@ -884,16 +948,18 @@ describe("PrivateMessagesClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.privateMessages.deleteAReplyFromPrivateMessage({
+        const response = await client.privateMessages.deletePrivateMessageReply({
             id: "id",
             subId: "subId",
         });
         expect(response).toEqual({
-            success: true,
+            data: {
+                success: true,
+            },
         });
     });
 
-    test("deleteAReplyFromPrivateMessage (2)", async () => {
+    test("deletePrivate MessageReply (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -907,14 +973,14 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.deleteAReplyFromPrivateMessage({
+            return await client.privateMessages.deletePrivateMessageReply({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("deleteAReplyFromPrivateMessage (3)", async () => {
+    test("deletePrivate MessageReply (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -928,14 +994,14 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.deleteAReplyFromPrivateMessage({
+            return await client.privateMessages.deletePrivateMessageReply({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("deleteAReplyFromPrivateMessage (4)", async () => {
+    test("deletePrivate MessageReply (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -949,14 +1015,14 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.deleteAReplyFromPrivateMessage({
+            return await client.privateMessages.deletePrivateMessageReply({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("deleteAReplyFromPrivateMessage (5)", async () => {
+    test("deletePrivate MessageReply (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -970,7 +1036,7 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.deleteAReplyFromPrivateMessage({
+            return await client.privateMessages.deletePrivateMessageReply({
                 id: "id",
                 subId: "subId",
             });

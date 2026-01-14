@@ -1,6 +1,6 @@
 # Reference
 ## Auth
-<details><summary><code>client.auth.<a href="/src/api/resources/auth/client/Client.ts">register</a>({ ...params }) -> Forum.PostAuthRegisterResponse</code></summary>
+<details><summary><code>client.auth.<a href="/src/api/resources/auth/client/Client.ts">registerAuth</a>({ ...params }) -> Forum.RegisterResponse</code></summary>
 <dl>
 <dd>
 
@@ -27,7 +27,7 @@ Register a new user in your forum instance. Requires API key for instance identi
 <dd>
 
 ```typescript
-await client.auth.register({
+await client.auth.registerAuth({
     username: "username",
     email: "email",
     password: "password"
@@ -47,7 +47,7 @@ await client.auth.register({
 <dl>
 <dd>
 
-**request:** `Forum.PostAuthRegisterRequest` 
+**request:** `Forum.RegisterAuthRequest` 
     
 </dd>
 </dl>
@@ -67,7 +67,7 @@ await client.auth.register({
 </dl>
 </details>
 
-<details><summary><code>client.auth.<a href="/src/api/resources/auth/client/Client.ts">login</a>({ ...params }) -> Forum.PostAuthLoginResponse</code></summary>
+<details><summary><code>client.auth.<a href="/src/api/resources/auth/client/Client.ts">loginAuth</a>({ ...params }) -> Forum.LoginResponse</code></summary>
 <dl>
 <dd>
 
@@ -94,7 +94,7 @@ Authenticate an existing user. Requires API key for instance identification. Ret
 <dd>
 
 ```typescript
-await client.auth.login({
+await client.auth.loginAuth({
     login: "login",
     password: "password"
 });
@@ -113,7 +113,7 @@ await client.auth.login({
 <dl>
 <dd>
 
-**request:** `Forum.PostAuthLoginRequest` 
+**request:** `Forum.LoginAuthRequest` 
     
 </dd>
 </dl>
@@ -133,7 +133,7 @@ await client.auth.login({
 </dl>
 </details>
 
-<details><summary><code>client.auth.<a href="/src/api/resources/auth/client/Client.ts">getCurrentUser</a>() -> Forum.GetAuthMeResponse</code></summary>
+<details><summary><code>client.auth.<a href="/src/api/resources/auth/client/Client.ts">meAuth</a>() -> Forum.MeResponse</code></summary>
 <dl>
 <dd>
 
@@ -146,7 +146,7 @@ await client.auth.login({
 <dd>
 
 ```typescript
-await client.auth.getCurrentUser();
+await client.auth.meAuth();
 
 ```
 </dd>
@@ -174,7 +174,7 @@ await client.auth.getCurrentUser();
 </dl>
 </details>
 
-<details><summary><code>client.auth.<a href="/src/api/resources/auth/client/Client.ts">requestPasswordReset</a>({ ...params }) -> Forum.PostAuthForgotPasswordResponse</code></summary>
+<details><summary><code>client.auth.<a href="/src/api/resources/auth/client/Client.ts">forgotPasswordAuth</a>({ ...params }) -> Forum.ForgotPasswordResponse</code></summary>
 <dl>
 <dd>
 
@@ -201,7 +201,7 @@ Request a password reset email. Requires API key for instance identification.
 <dd>
 
 ```typescript
-await client.auth.requestPasswordReset({
+await client.auth.forgotPasswordAuth({
     email: "email"
 });
 
@@ -219,7 +219,7 @@ await client.auth.requestPasswordReset({
 <dl>
 <dd>
 
-**request:** `Forum.PostAuthForgotPasswordRequest` 
+**request:** `Forum.ForgotPasswordAuthRequest` 
     
 </dd>
 </dl>
@@ -239,7 +239,7 @@ await client.auth.requestPasswordReset({
 </dl>
 </details>
 
-<details><summary><code>client.auth.<a href="/src/api/resources/auth/client/Client.ts">resetPassword</a>({ ...params }) -> Forum.PostAuthResetPasswordResponse</code></summary>
+<details><summary><code>client.auth.<a href="/src/api/resources/auth/client/Client.ts">resetPasswordAuth</a>({ ...params }) -> Forum.ResetPasswordResponse</code></summary>
 <dl>
 <dd>
 
@@ -266,7 +266,7 @@ Reset password using a reset token. Requires API key for instance identification
 <dd>
 
 ```typescript
-await client.auth.resetPassword({
+await client.auth.resetPasswordAuth({
     password: "password"
 });
 
@@ -284,7 +284,7 @@ await client.auth.resetPassword({
 <dl>
 <dd>
 
-**request:** `Forum.PostAuthResetPasswordRequest` 
+**request:** `Forum.ResetPasswordAuthRequest` 
     
 </dd>
 </dl>
@@ -305,9 +305,23 @@ await client.auth.resetPassword({
 </details>
 
 ## Tags
-<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">listAllTags</a>({ ...params }) -> Forum.GetTagsResponse</code></summary>
+<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">listTags</a>({ ...params }) -> Forum.TagListResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of tags. Use cursor for pagination.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -318,7 +332,7 @@ await client.auth.resetPassword({
 <dd>
 
 ```typescript
-await client.tags.listAllTags();
+await client.tags.listTags();
 
 ```
 </dd>
@@ -334,7 +348,7 @@ await client.tags.listAllTags();
 <dl>
 <dd>
 
-**request:** `Forum.GetTagsRequest` 
+**request:** `Forum.ListTagsRequest` 
     
 </dd>
 </dl>
@@ -354,9 +368,23 @@ await client.tags.listAllTags();
 </dl>
 </details>
 
-<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">createATag</a>({ ...params }) -> Forum.PostTagsResponse</code></summary>
+<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">createTag</a>({ ...params }) -> Forum.TagResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new tag.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -367,7 +395,7 @@ await client.tags.listAllTags();
 <dd>
 
 ```typescript
-await client.tags.createATag({
+await client.tags.createTag({
     name: "name"
 });
 
@@ -385,7 +413,7 @@ await client.tags.createATag({
 <dl>
 <dd>
 
-**request:** `Forum.PostTagsRequest` 
+**request:** `Forum.CreateTagRequest` 
     
 </dd>
 </dl>
@@ -405,9 +433,23 @@ await client.tags.createATag({
 </dl>
 </details>
 
-<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">getATag</a>({ ...params }) -> Forum.GetTagsIdResponse</code></summary>
+<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">getTag</a>({ ...params }) -> Forum.TagResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a tag by ID or slug (if supported).
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -418,7 +460,7 @@ await client.tags.createATag({
 <dd>
 
 ```typescript
-await client.tags.getATag({
+await client.tags.getTag({
     id: "id"
 });
 
@@ -436,7 +478,7 @@ await client.tags.getATag({
 <dl>
 <dd>
 
-**request:** `Forum.GetTagsIdRequest` 
+**request:** `Forum.GetTagRequest` 
     
 </dd>
 </dl>
@@ -456,9 +498,23 @@ await client.tags.getATag({
 </dl>
 </details>
 
-<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">deleteATag</a>({ ...params }) -> Forum.DeleteTagsIdResponse</code></summary>
+<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">deleteTag</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Permanently delete a tag.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -469,7 +525,7 @@ await client.tags.getATag({
 <dd>
 
 ```typescript
-await client.tags.deleteATag({
+await client.tags.deleteTag({
     id: "id"
 });
 
@@ -487,7 +543,7 @@ await client.tags.deleteATag({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteTagsIdRequest` 
+**request:** `Forum.DeleteTagRequest` 
     
 </dd>
 </dl>
@@ -507,9 +563,23 @@ await client.tags.deleteATag({
 </dl>
 </details>
 
-<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">updateATag</a>({ ...params }) -> Forum.PatchTagsIdResponse</code></summary>
+<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">updateTag</a>({ ...params }) -> Forum.UpdateTagResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an existing tag. Only provided fields will be modified.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -520,7 +590,7 @@ await client.tags.deleteATag({
 <dd>
 
 ```typescript
-await client.tags.updateATag({
+await client.tags.updateTag({
     id: "id"
 });
 
@@ -538,7 +608,7 @@ await client.tags.updateATag({
 <dl>
 <dd>
 
-**request:** `Forum.PatchTagsIdRequest` 
+**request:** `Forum.UpdateTagRequest` 
     
 </dd>
 </dl>
@@ -558,9 +628,23 @@ await client.tags.updateATag({
 </dl>
 </details>
 
-<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">listTagSubscribers</a>({ ...params }) -> Forum.GetTagsIdSubscribersResponse</code></summary>
+<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">listTagSubscribers</a>({ ...params }) -> Forum.TagSubscriberListResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of subscribers for Tag.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -589,7 +673,7 @@ await client.tags.listTagSubscribers({
 <dl>
 <dd>
 
-**request:** `Forum.GetTagsIdSubscribersRequest` 
+**request:** `Forum.ListTagSubscribersRequest` 
     
 </dd>
 </dl>
@@ -609,7 +693,7 @@ await client.tags.listTagSubscribers({
 </dl>
 </details>
 
-<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">getASubscriberFromTag</a>({ ...params }) -> Forum.GetTagsIdSubscribersSubIdResponse</code></summary>
+<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">getTagSubscriber</a>({ ...params }) -> Forum.GetTagSubscriberResponse</code></summary>
 <dl>
 <dd>
 
@@ -622,7 +706,7 @@ await client.tags.listTagSubscribers({
 <dd>
 
 ```typescript
-await client.tags.getASubscriberFromTag({
+await client.tags.getTagSubscriber({
     id: "id",
     subId: "subId"
 });
@@ -641,7 +725,7 @@ await client.tags.getASubscriberFromTag({
 <dl>
 <dd>
 
-**request:** `Forum.GetTagsIdSubscribersSubIdRequest` 
+**request:** `Forum.GetTagSubscriberRequest` 
     
 </dd>
 </dl>
@@ -661,7 +745,7 @@ await client.tags.getASubscriberFromTag({
 </dl>
 </details>
 
-<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">deleteASubscriberFromTag</a>({ ...params }) -> Forum.DeleteTagsIdSubscribersSubIdResponse</code></summary>
+<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">deleteTagSubscriber</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -674,7 +758,7 @@ await client.tags.getASubscriberFromTag({
 <dd>
 
 ```typescript
-await client.tags.deleteASubscriberFromTag({
+await client.tags.deleteTagSubscriber({
     id: "id",
     subId: "subId"
 });
@@ -693,7 +777,7 @@ await client.tags.deleteASubscriberFromTag({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteTagsIdSubscribersSubIdRequest` 
+**request:** `Forum.DeleteTagSubscriberRequest` 
     
 </dd>
 </dl>
@@ -714,9 +798,23 @@ await client.tags.deleteASubscriberFromTag({
 </details>
 
 ## Threads
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">listAllThreads</a>({ ...params }) -> Forum.GetThreadsResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">listThreads</a>({ ...params }) -> Forum.ThreadListResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of threads. Use cursor for pagination.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -727,7 +825,7 @@ await client.tags.deleteASubscriberFromTag({
 <dd>
 
 ```typescript
-await client.threads.listAllThreads();
+await client.threads.listThreads();
 
 ```
 </dd>
@@ -743,7 +841,7 @@ await client.threads.listAllThreads();
 <dl>
 <dd>
 
-**request:** `Forum.GetThreadsRequest` 
+**request:** `Forum.ListThreadsRequest` 
     
 </dd>
 </dl>
@@ -763,9 +861,23 @@ await client.threads.listAllThreads();
 </dl>
 </details>
 
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">createAThread</a>({ ...params }) -> Forum.PostThreadsResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">createThread</a>({ ...params }) -> Forum.ThreadResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new thread.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -776,7 +888,7 @@ await client.threads.listAllThreads();
 <dd>
 
 ```typescript
-await client.threads.createAThread({
+await client.threads.createThread({
     title: "title",
     body: "body"
 });
@@ -795,7 +907,7 @@ await client.threads.createAThread({
 <dl>
 <dd>
 
-**request:** `Forum.PostThreadsRequest` 
+**request:** `Forum.CreateThreadRequest` 
     
 </dd>
 </dl>
@@ -815,9 +927,23 @@ await client.threads.createAThread({
 </dl>
 </details>
 
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">getAThread</a>({ ...params }) -> Forum.GetThreadsIdResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">getThread</a>({ ...params }) -> Forum.ThreadResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a thread by ID or slug (if supported).
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -828,7 +954,7 @@ await client.threads.createAThread({
 <dd>
 
 ```typescript
-await client.threads.getAThread({
+await client.threads.getThread({
     id: "id"
 });
 
@@ -846,7 +972,7 @@ await client.threads.getAThread({
 <dl>
 <dd>
 
-**request:** `Forum.GetThreadsIdRequest` 
+**request:** `Forum.GetThreadRequest` 
     
 </dd>
 </dl>
@@ -866,9 +992,23 @@ await client.threads.getAThread({
 </dl>
 </details>
 
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">deleteAThread</a>({ ...params }) -> Forum.DeleteThreadsIdResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">deleteThread</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Permanently delete a thread.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -879,7 +1019,7 @@ await client.threads.getAThread({
 <dd>
 
 ```typescript
-await client.threads.deleteAThread({
+await client.threads.deleteThread({
     id: "id"
 });
 
@@ -897,7 +1037,7 @@ await client.threads.deleteAThread({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteThreadsIdRequest` 
+**request:** `Forum.DeleteThreadRequest` 
     
 </dd>
 </dl>
@@ -917,9 +1057,23 @@ await client.threads.deleteAThread({
 </dl>
 </details>
 
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">updateAThread</a>({ ...params }) -> Forum.PatchThreadsIdResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">updateThread</a>({ ...params }) -> Forum.UpdateThreadResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an existing thread. Only provided fields will be modified.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -930,7 +1084,7 @@ await client.threads.deleteAThread({
 <dd>
 
 ```typescript
-await client.threads.updateAThread({
+await client.threads.updateThread({
     id: "id"
 });
 
@@ -948,7 +1102,7 @@ await client.threads.updateAThread({
 <dl>
 <dd>
 
-**request:** `Forum.PatchThreadsIdRequest` 
+**request:** `Forum.UpdateThreadRequest` 
     
 </dd>
 </dl>
@@ -968,9 +1122,23 @@ await client.threads.updateAThread({
 </dl>
 </details>
 
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">listThreadPosts</a>({ ...params }) -> Forum.GetThreadsIdPostsResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">listThreadPosts</a>({ ...params }) -> Forum.ThreadPostListResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of posts for Thread.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -999,7 +1167,7 @@ await client.threads.listThreadPosts({
 <dl>
 <dd>
 
-**request:** `Forum.GetThreadsIdPostsRequest` 
+**request:** `Forum.ListThreadPostsRequest` 
     
 </dd>
 </dl>
@@ -1019,7 +1187,7 @@ await client.threads.listThreadPosts({
 </dl>
 </details>
 
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">getAPostFromThread</a>({ ...params }) -> Forum.GetThreadsIdPostsSubIdResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">getThreadPost</a>({ ...params }) -> Forum.GetThreadPostResponse</code></summary>
 <dl>
 <dd>
 
@@ -1032,7 +1200,7 @@ await client.threads.listThreadPosts({
 <dd>
 
 ```typescript
-await client.threads.getAPostFromThread({
+await client.threads.getThreadPost({
     id: "id",
     subId: "subId"
 });
@@ -1051,7 +1219,7 @@ await client.threads.getAPostFromThread({
 <dl>
 <dd>
 
-**request:** `Forum.GetThreadsIdPostsSubIdRequest` 
+**request:** `Forum.GetThreadPostRequest` 
     
 </dd>
 </dl>
@@ -1071,7 +1239,7 @@ await client.threads.getAPostFromThread({
 </dl>
 </details>
 
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">deleteAPostFromThread</a>({ ...params }) -> Forum.DeleteThreadsIdPostsSubIdResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">deleteThreadPost</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -1084,7 +1252,7 @@ await client.threads.getAPostFromThread({
 <dd>
 
 ```typescript
-await client.threads.deleteAPostFromThread({
+await client.threads.deleteThreadPost({
     id: "id",
     subId: "subId"
 });
@@ -1103,7 +1271,7 @@ await client.threads.deleteAPostFromThread({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteThreadsIdPostsSubIdRequest` 
+**request:** `Forum.DeleteThreadPostRequest` 
     
 </dd>
 </dl>
@@ -1123,9 +1291,23 @@ await client.threads.deleteAPostFromThread({
 </dl>
 </details>
 
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">listThreadReactions</a>({ ...params }) -> Forum.GetThreadsIdReactionsResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">listThreadReactions</a>({ ...params }) -> Forum.ThreadReactionListResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of reactions for Thread.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -1154,7 +1336,7 @@ await client.threads.listThreadReactions({
 <dl>
 <dd>
 
-**request:** `Forum.GetThreadsIdReactionsRequest` 
+**request:** `Forum.ListThreadReactionsRequest` 
     
 </dd>
 </dl>
@@ -1174,9 +1356,23 @@ await client.threads.listThreadReactions({
 </dl>
 </details>
 
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">createAReactionInThread</a>({ ...params }) -> Forum.PostThreadsIdReactionsResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">createThreadReaction</a>({ ...params }) -> Forum.ThreadReactionResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a Reaction in Thread.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -1187,7 +1383,7 @@ await client.threads.listThreadReactions({
 <dd>
 
 ```typescript
-await client.threads.createAReactionInThread({
+await client.threads.createThreadReaction({
     id: "id",
     type: "LIKE"
 });
@@ -1206,7 +1402,7 @@ await client.threads.createAReactionInThread({
 <dl>
 <dd>
 
-**request:** `Forum.PostThreadsIdReactionsRequest` 
+**request:** `Forum.CreateThreadReactionRequest` 
     
 </dd>
 </dl>
@@ -1226,7 +1422,111 @@ await client.threads.createAReactionInThread({
 </dl>
 </details>
 
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">removeYourReactionFromThread</a>({ ...params }) -> Forum.DeleteThreadsIdReactionsResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">deleteThreadReaction</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.threads.deleteThreadReaction({
+    id: "id",
+    subId: "subId"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.DeleteThreadReactionRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ThreadsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">getThreadReaction</a>({ ...params }) -> Forum.GetThreadReactionResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.threads.getThreadReaction({
+    id: "id",
+    subId: "subId"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.GetThreadReactionRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ThreadsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">listThreadSubscribers</a>({ ...params }) -> Forum.ThreadSubscriberListResponse</code></summary>
 <dl>
 <dd>
 
@@ -1238,166 +1538,11 @@ await client.threads.createAReactionInThread({
 <dl>
 <dd>
 
-Removes the authenticated user's reaction. No subId needed.
+Retrieve a paginated list of subscribers for Thread.
 </dd>
 </dl>
 </dd>
 </dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.threads.removeYourReactionFromThread({
-    id: "id"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Forum.DeleteThreadsIdReactionsRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ThreadsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">getAReactionFromThread</a>({ ...params }) -> Forum.GetThreadsIdReactionsSubIdResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.threads.getAReactionFromThread({
-    id: "id",
-    subId: "subId"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Forum.GetThreadsIdReactionsSubIdRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ThreadsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">deleteAReactionFromThread</a>({ ...params }) -> Forum.DeleteThreadsIdReactionsSubIdResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.threads.deleteAReactionFromThread({
-    id: "id",
-    subId: "subId"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Forum.DeleteThreadsIdReactionsSubIdRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ThreadsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">listThreadSubscribers</a>({ ...params }) -> Forum.GetThreadsIdSubscribersResponse</code></summary>
-<dl>
-<dd>
 
 #### 🔌 Usage
 
@@ -1426,7 +1571,7 @@ await client.threads.listThreadSubscribers({
 <dl>
 <dd>
 
-**request:** `Forum.GetThreadsIdSubscribersRequest` 
+**request:** `Forum.ListThreadSubscribersRequest` 
     
 </dd>
 </dl>
@@ -1446,7 +1591,7 @@ await client.threads.listThreadSubscribers({
 </dl>
 </details>
 
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">getASubscriberFromThread</a>({ ...params }) -> Forum.GetThreadsIdSubscribersSubIdResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">getThreadSubscriber</a>({ ...params }) -> Forum.GetThreadSubscriberResponse</code></summary>
 <dl>
 <dd>
 
@@ -1459,7 +1604,7 @@ await client.threads.listThreadSubscribers({
 <dd>
 
 ```typescript
-await client.threads.getASubscriberFromThread({
+await client.threads.getThreadSubscriber({
     id: "id",
     subId: "subId"
 });
@@ -1478,7 +1623,7 @@ await client.threads.getASubscriberFromThread({
 <dl>
 <dd>
 
-**request:** `Forum.GetThreadsIdSubscribersSubIdRequest` 
+**request:** `Forum.GetThreadSubscriberRequest` 
     
 </dd>
 </dl>
@@ -1498,7 +1643,7 @@ await client.threads.getASubscriberFromThread({
 </dl>
 </details>
 
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">deleteASubscriberFromThread</a>({ ...params }) -> Forum.DeleteThreadsIdSubscribersSubIdResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">deleteThreadSubscriber</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -1511,7 +1656,7 @@ await client.threads.getASubscriberFromThread({
 <dd>
 
 ```typescript
-await client.threads.deleteASubscriberFromThread({
+await client.threads.deleteThreadSubscriber({
     id: "id",
     subId: "subId"
 });
@@ -1530,7 +1675,7 @@ await client.threads.deleteASubscriberFromThread({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteThreadsIdSubscribersSubIdRequest` 
+**request:** `Forum.DeleteThreadSubscriberRequest` 
     
 </dd>
 </dl>
@@ -1550,7 +1695,7 @@ await client.threads.deleteASubscriberFromThread({
 </dl>
 </details>
 
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">getThreadPoll</a>({ ...params }) -> Forum.GetThreadsIdPollResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">getThreadPoll</a>({ ...params }) -> Forum.ThreadPollResponse</code></summary>
 <dl>
 <dd>
 
@@ -1581,7 +1726,7 @@ await client.threads.getThreadPoll({
 <dl>
 <dd>
 
-**request:** `Forum.GetThreadsIdPollRequest` 
+**request:** `Forum.GetThreadPollRequest` 
     
 </dd>
 </dl>
@@ -1601,7 +1746,7 @@ await client.threads.getThreadPoll({
 </dl>
 </details>
 
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">createThreadPoll</a>({ ...params }) -> Forum.PostThreadsIdPollResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">createThreadPoll</a>({ ...params }) -> Forum.ThreadPollResponse</code></summary>
 <dl>
 <dd>
 
@@ -1636,7 +1781,7 @@ await client.threads.createThreadPoll({
 <dl>
 <dd>
 
-**request:** `Forum.PostThreadsIdPollRequest` 
+**request:** `Forum.CreateThreadPollRequest` 
     
 </dd>
 </dl>
@@ -1656,7 +1801,7 @@ await client.threads.createThreadPoll({
 </dl>
 </details>
 
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">updateThreadPoll</a>({ ...params }) -> Forum.PatchThreadsIdPollResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">updateThreadPoll</a>({ ...params }) -> Forum.ThreadPollResponse</code></summary>
 <dl>
 <dd>
 
@@ -1687,7 +1832,7 @@ await client.threads.updateThreadPoll({
 <dl>
 <dd>
 
-**request:** `Forum.PatchThreadsIdPollRequest` 
+**request:** `Forum.UpdateThreadPollRequest` 
     
 </dd>
 </dl>
@@ -1708,9 +1853,23 @@ await client.threads.updateThreadPoll({
 </details>
 
 ## Posts
-<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">listAllPosts</a>({ ...params }) -> Forum.GetPostsResponse</code></summary>
+<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">listPosts</a>({ ...params }) -> Forum.PostListResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of posts. Use cursor for pagination.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -1721,7 +1880,7 @@ await client.threads.updateThreadPoll({
 <dd>
 
 ```typescript
-await client.posts.listAllPosts();
+await client.posts.listPosts();
 
 ```
 </dd>
@@ -1737,7 +1896,7 @@ await client.posts.listAllPosts();
 <dl>
 <dd>
 
-**request:** `Forum.GetPostsRequest` 
+**request:** `Forum.ListPostsRequest` 
     
 </dd>
 </dl>
@@ -1757,9 +1916,23 @@ await client.posts.listAllPosts();
 </dl>
 </details>
 
-<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">createAPost</a>({ ...params }) -> Forum.PostPostsResponse</code></summary>
+<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">createPost</a>({ ...params }) -> Forum.PostResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new post.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -1770,7 +1943,7 @@ await client.posts.listAllPosts();
 <dd>
 
 ```typescript
-await client.posts.createAPost({
+await client.posts.createPost({
     threadId: "threadId",
     body: "body"
 });
@@ -1789,7 +1962,7 @@ await client.posts.createAPost({
 <dl>
 <dd>
 
-**request:** `Forum.PostPostsRequest` 
+**request:** `Forum.CreatePostRequest` 
     
 </dd>
 </dl>
@@ -1809,9 +1982,23 @@ await client.posts.createAPost({
 </dl>
 </details>
 
-<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">getAPost</a>({ ...params }) -> Forum.GetPostsIdResponse</code></summary>
+<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">getPost</a>({ ...params }) -> Forum.PostResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a post by ID or slug (if supported).
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -1822,7 +2009,7 @@ await client.posts.createAPost({
 <dd>
 
 ```typescript
-await client.posts.getAPost({
+await client.posts.getPost({
     id: "id"
 });
 
@@ -1840,7 +2027,7 @@ await client.posts.getAPost({
 <dl>
 <dd>
 
-**request:** `Forum.GetPostsIdRequest` 
+**request:** `Forum.GetPostRequest` 
     
 </dd>
 </dl>
@@ -1860,9 +2047,23 @@ await client.posts.getAPost({
 </dl>
 </details>
 
-<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">deleteAPost</a>({ ...params }) -> Forum.DeletePostsIdResponse</code></summary>
+<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">deletePost</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Permanently delete a post.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -1873,7 +2074,7 @@ await client.posts.getAPost({
 <dd>
 
 ```typescript
-await client.posts.deleteAPost({
+await client.posts.deletePost({
     id: "id"
 });
 
@@ -1891,7 +2092,7 @@ await client.posts.deleteAPost({
 <dl>
 <dd>
 
-**request:** `Forum.DeletePostsIdRequest` 
+**request:** `Forum.DeletePostRequest` 
     
 </dd>
 </dl>
@@ -1911,9 +2112,23 @@ await client.posts.deleteAPost({
 </dl>
 </details>
 
-<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">updateAPost</a>({ ...params }) -> Forum.PatchPostsIdResponse</code></summary>
+<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">updatePost</a>({ ...params }) -> Forum.UpdatePostResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an existing post. Only provided fields will be modified.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -1924,7 +2139,7 @@ await client.posts.deleteAPost({
 <dd>
 
 ```typescript
-await client.posts.updateAPost({
+await client.posts.updatePost({
     id: "id"
 });
 
@@ -1942,7 +2157,7 @@ await client.posts.updateAPost({
 <dl>
 <dd>
 
-**request:** `Forum.PatchPostsIdRequest` 
+**request:** `Forum.UpdatePostRequest` 
     
 </dd>
 </dl>
@@ -1962,9 +2177,23 @@ await client.posts.updateAPost({
 </dl>
 </details>
 
-<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">listPostReactions</a>({ ...params }) -> Forum.GetPostsIdReactionsResponse</code></summary>
+<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">listPostReactions</a>({ ...params }) -> Forum.PostReactionListResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of reactions for Post.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -1993,7 +2222,7 @@ await client.posts.listPostReactions({
 <dl>
 <dd>
 
-**request:** `Forum.GetPostsIdReactionsRequest` 
+**request:** `Forum.ListPostReactionsRequest` 
     
 </dd>
 </dl>
@@ -2013,9 +2242,23 @@ await client.posts.listPostReactions({
 </dl>
 </details>
 
-<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">createAReactionInPost</a>({ ...params }) -> Forum.PostPostsIdReactionsResponse</code></summary>
+<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">createPostReaction</a>({ ...params }) -> Forum.PostReactionResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a Reaction in Post.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -2026,7 +2269,7 @@ await client.posts.listPostReactions({
 <dd>
 
 ```typescript
-await client.posts.createAReactionInPost({
+await client.posts.createPostReaction({
     id: "id",
     type: "LIKE"
 });
@@ -2045,7 +2288,7 @@ await client.posts.createAReactionInPost({
 <dl>
 <dd>
 
-**request:** `Forum.PostPostsIdReactionsRequest` 
+**request:** `Forum.CreatePostReactionRequest` 
     
 </dd>
 </dl>
@@ -2065,7 +2308,111 @@ await client.posts.createAReactionInPost({
 </dl>
 </details>
 
-<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">removeYourReactionFromPost</a>({ ...params }) -> Forum.DeletePostsIdReactionsResponse</code></summary>
+<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">deletePostReaction</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.posts.deletePostReaction({
+    id: "id",
+    subId: "subId"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.DeletePostReactionRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PostsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">getPostReaction</a>({ ...params }) -> Forum.GetPostReactionResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.posts.getPostReaction({
+    id: "id",
+    subId: "subId"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.GetPostReactionRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PostsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">listPostPosts</a>({ ...params }) -> Forum.PostPostListResponse</code></summary>
 <dl>
 <dd>
 
@@ -2077,166 +2424,11 @@ await client.posts.createAReactionInPost({
 <dl>
 <dd>
 
-Removes the authenticated user's reaction. No subId needed.
+Retrieve a paginated list of posts for Post.
 </dd>
 </dl>
 </dd>
 </dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.posts.removeYourReactionFromPost({
-    id: "id"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Forum.DeletePostsIdReactionsRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `PostsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">getAReactionFromPost</a>({ ...params }) -> Forum.GetPostsIdReactionsSubIdResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.posts.getAReactionFromPost({
-    id: "id",
-    subId: "subId"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Forum.GetPostsIdReactionsSubIdRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `PostsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">deleteAReactionFromPost</a>({ ...params }) -> Forum.DeletePostsIdReactionsSubIdResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.posts.deleteAReactionFromPost({
-    id: "id",
-    subId: "subId"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Forum.DeletePostsIdReactionsSubIdRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `PostsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">listPostPosts</a>({ ...params }) -> Forum.GetPostsIdPostsResponse</code></summary>
-<dl>
-<dd>
 
 #### 🔌 Usage
 
@@ -2265,7 +2457,7 @@ await client.posts.listPostPosts({
 <dl>
 <dd>
 
-**request:** `Forum.GetPostsIdPostsRequest` 
+**request:** `Forum.ListPostPostsRequest` 
     
 </dd>
 </dl>
@@ -2285,7 +2477,7 @@ await client.posts.listPostPosts({
 </dl>
 </details>
 
-<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">getAPostFromPost</a>({ ...params }) -> Forum.GetPostsIdPostsSubIdResponse</code></summary>
+<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">getPostPost</a>({ ...params }) -> Forum.GetPostPostResponse</code></summary>
 <dl>
 <dd>
 
@@ -2298,7 +2490,7 @@ await client.posts.listPostPosts({
 <dd>
 
 ```typescript
-await client.posts.getAPostFromPost({
+await client.posts.getPostPost({
     id: "id",
     subId: "subId"
 });
@@ -2317,7 +2509,7 @@ await client.posts.getAPostFromPost({
 <dl>
 <dd>
 
-**request:** `Forum.GetPostsIdPostsSubIdRequest` 
+**request:** `Forum.GetPostPostRequest` 
     
 </dd>
 </dl>
@@ -2337,7 +2529,7 @@ await client.posts.getAPostFromPost({
 </dl>
 </details>
 
-<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">deleteAPostFromPost</a>({ ...params }) -> Forum.DeletePostsIdPostsSubIdResponse</code></summary>
+<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">deletePostPost</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -2350,7 +2542,7 @@ await client.posts.getAPostFromPost({
 <dd>
 
 ```typescript
-await client.posts.deleteAPostFromPost({
+await client.posts.deletePostPost({
     id: "id",
     subId: "subId"
 });
@@ -2369,7 +2561,7 @@ await client.posts.deleteAPostFromPost({
 <dl>
 <dd>
 
-**request:** `Forum.DeletePostsIdPostsSubIdRequest` 
+**request:** `Forum.DeletePostPostRequest` 
     
 </dd>
 </dl>
@@ -2389,10 +2581,24 @@ await client.posts.deleteAPostFromPost({
 </dl>
 </details>
 
-## PrivateMessages
-<details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">listAllPrivateMessages</a>({ ...params }) -> Forum.GetPrivateMessagesResponse</code></summary>
+## Private Messages
+<details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">listPrivateMessages</a>({ ...params }) -> Forum.PrivateMessageListResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of private messages. Use cursor for pagination.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -2403,7 +2609,7 @@ await client.posts.deleteAPostFromPost({
 <dd>
 
 ```typescript
-await client.privateMessages.listAllPrivateMessages();
+await client.privateMessages.listPrivateMessages();
 
 ```
 </dd>
@@ -2419,7 +2625,7 @@ await client.privateMessages.listAllPrivateMessages();
 <dl>
 <dd>
 
-**request:** `Forum.GetPrivateMessagesRequest` 
+**request:** `Forum.ListPrivateMessagesRequest` 
     
 </dd>
 </dl>
@@ -2439,9 +2645,23 @@ await client.privateMessages.listAllPrivateMessages();
 </dl>
 </details>
 
-<details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">createAPrivateMessage</a>({ ...params }) -> Forum.PostPrivateMessagesResponse</code></summary>
+<details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">createPrivateMessage</a>({ ...params }) -> Forum.PrivateMessageResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new private message.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -2452,7 +2672,7 @@ await client.privateMessages.listAllPrivateMessages();
 <dd>
 
 ```typescript
-await client.privateMessages.createAPrivateMessage({
+await client.privateMessages.createPrivateMessage({
     recipientId: "recipientId",
     body: "body"
 });
@@ -2471,7 +2691,7 @@ await client.privateMessages.createAPrivateMessage({
 <dl>
 <dd>
 
-**request:** `Forum.PostPrivateMessagesRequest` 
+**request:** `Forum.CreatePrivateMessageRequest` 
     
 </dd>
 </dl>
@@ -2491,9 +2711,23 @@ await client.privateMessages.createAPrivateMessage({
 </dl>
 </details>
 
-<details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">getAPrivateMessage</a>({ ...params }) -> Forum.GetPrivateMessagesIdResponse</code></summary>
+<details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">getPrivateMessage</a>({ ...params }) -> Forum.PrivateMessageResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a private message by ID or slug (if supported).
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -2504,7 +2738,7 @@ await client.privateMessages.createAPrivateMessage({
 <dd>
 
 ```typescript
-await client.privateMessages.getAPrivateMessage({
+await client.privateMessages.getPrivateMessage({
     id: "id"
 });
 
@@ -2522,7 +2756,7 @@ await client.privateMessages.getAPrivateMessage({
 <dl>
 <dd>
 
-**request:** `Forum.GetPrivateMessagesIdRequest` 
+**request:** `Forum.GetPrivateMessageRequest` 
     
 </dd>
 </dl>
@@ -2542,9 +2776,23 @@ await client.privateMessages.getAPrivateMessage({
 </dl>
 </details>
 
-<details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">deleteAPrivateMessage</a>({ ...params }) -> Forum.DeletePrivateMessagesIdResponse</code></summary>
+<details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">deletePrivateMessage</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Permanently delete a private message.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -2555,7 +2803,7 @@ await client.privateMessages.getAPrivateMessage({
 <dd>
 
 ```typescript
-await client.privateMessages.deleteAPrivateMessage({
+await client.privateMessages.deletePrivateMessage({
     id: "id"
 });
 
@@ -2573,7 +2821,7 @@ await client.privateMessages.deleteAPrivateMessage({
 <dl>
 <dd>
 
-**request:** `Forum.DeletePrivateMessagesIdRequest` 
+**request:** `Forum.DeletePrivateMessageRequest` 
     
 </dd>
 </dl>
@@ -2593,9 +2841,23 @@ await client.privateMessages.deleteAPrivateMessage({
 </dl>
 </details>
 
-<details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">listPrivateMessageReplies</a>({ ...params }) -> Forum.GetPrivateMessagesIdRepliesResponse</code></summary>
+<details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">listPrivateMessageReplies</a>({ ...params }) -> Forum.PrivateMessageReplyListResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of replies for Private Message.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -2624,7 +2886,7 @@ await client.privateMessages.listPrivateMessageReplies({
 <dl>
 <dd>
 
-**request:** `Forum.GetPrivateMessagesIdRepliesRequest` 
+**request:** `Forum.ListPrivateMessageRepliesRequest` 
     
 </dd>
 </dl>
@@ -2644,9 +2906,23 @@ await client.privateMessages.listPrivateMessageReplies({
 </dl>
 </details>
 
-<details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">createAReplyInPrivateMessage</a>({ ...params }) -> Forum.PostPrivateMessagesIdRepliesResponse</code></summary>
+<details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">createPrivateMessageReply</a>({ ...params }) -> Forum.PrivateMessageReplyResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a Reply in Private Message.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -2657,7 +2933,7 @@ await client.privateMessages.listPrivateMessageReplies({
 <dd>
 
 ```typescript
-await client.privateMessages.createAReplyInPrivateMessage({
+await client.privateMessages.createPrivateMessageReply({
     id: "id",
     recipientId: "recipientId",
     body: "body"
@@ -2677,7 +2953,7 @@ await client.privateMessages.createAReplyInPrivateMessage({
 <dl>
 <dd>
 
-**request:** `Forum.PostPrivateMessagesIdRepliesRequest` 
+**request:** `Forum.CreatePrivateMessageReplyRequest` 
     
 </dd>
 </dl>
@@ -2697,7 +2973,7 @@ await client.privateMessages.createAReplyInPrivateMessage({
 </dl>
 </details>
 
-<details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">getAReplyFromPrivateMessage</a>({ ...params }) -> Forum.GetPrivateMessagesIdRepliesSubIdResponse</code></summary>
+<details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">getPrivateMessageReply</a>({ ...params }) -> Forum.GetPrivateMessageReplyResponse</code></summary>
 <dl>
 <dd>
 
@@ -2710,7 +2986,7 @@ await client.privateMessages.createAReplyInPrivateMessage({
 <dd>
 
 ```typescript
-await client.privateMessages.getAReplyFromPrivateMessage({
+await client.privateMessages.getPrivateMessageReply({
     id: "id",
     subId: "subId"
 });
@@ -2729,7 +3005,7 @@ await client.privateMessages.getAReplyFromPrivateMessage({
 <dl>
 <dd>
 
-**request:** `Forum.GetPrivateMessagesIdRepliesSubIdRequest` 
+**request:** `Forum.GetPrivateMessageReplyRequest` 
     
 </dd>
 </dl>
@@ -2749,7 +3025,7 @@ await client.privateMessages.getAReplyFromPrivateMessage({
 </dl>
 </details>
 
-<details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">deleteAReplyFromPrivateMessage</a>({ ...params }) -> Forum.DeletePrivateMessagesIdRepliesSubIdResponse</code></summary>
+<details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">deletePrivateMessageReply</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -2762,7 +3038,7 @@ await client.privateMessages.getAReplyFromPrivateMessage({
 <dd>
 
 ```typescript
-await client.privateMessages.deleteAReplyFromPrivateMessage({
+await client.privateMessages.deletePrivateMessageReply({
     id: "id",
     subId: "subId"
 });
@@ -2781,7 +3057,7 @@ await client.privateMessages.deleteAReplyFromPrivateMessage({
 <dl>
 <dd>
 
-**request:** `Forum.DeletePrivateMessagesIdRepliesSubIdRequest` 
+**request:** `Forum.DeletePrivateMessageReplyRequest` 
     
 </dd>
 </dl>
@@ -2802,9 +3078,23 @@ await client.privateMessages.deleteAReplyFromPrivateMessage({
 </details>
 
 ## Users
-<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">listAllUsers</a>({ ...params }) -> Forum.GetUsersResponse</code></summary>
+<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">listUsers</a>({ ...params }) -> Forum.UserListResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of users. Use cursor for pagination.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -2815,7 +3105,7 @@ await client.privateMessages.deleteAReplyFromPrivateMessage({
 <dd>
 
 ```typescript
-await client.users.listAllUsers();
+await client.users.listUsers();
 
 ```
 </dd>
@@ -2831,7 +3121,7 @@ await client.users.listAllUsers();
 <dl>
 <dd>
 
-**request:** `Forum.GetUsersRequest` 
+**request:** `Forum.ListUsersRequest` 
     
 </dd>
 </dl>
@@ -2851,9 +3141,23 @@ await client.users.listAllUsers();
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">getAUser</a>({ ...params }) -> Forum.GetUsersIdResponse</code></summary>
+<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">getUser</a>({ ...params }) -> Forum.UserResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a user by ID or slug (if supported).
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -2864,7 +3168,7 @@ await client.users.listAllUsers();
 <dd>
 
 ```typescript
-await client.users.getAUser({
+await client.users.getUser({
     id: "id"
 });
 
@@ -2882,7 +3186,7 @@ await client.users.getAUser({
 <dl>
 <dd>
 
-**request:** `Forum.GetUsersIdRequest` 
+**request:** `Forum.GetUserRequest` 
     
 </dd>
 </dl>
@@ -2902,9 +3206,23 @@ await client.users.getAUser({
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">deleteAUser</a>({ ...params }) -> Forum.DeleteUsersIdResponse</code></summary>
+<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">deleteUser</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Permanently delete a user.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -2915,7 +3233,7 @@ await client.users.getAUser({
 <dd>
 
 ```typescript
-await client.users.deleteAUser({
+await client.users.deleteUser({
     id: "id"
 });
 
@@ -2933,7 +3251,7 @@ await client.users.deleteAUser({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteUsersIdRequest` 
+**request:** `Forum.DeleteUserRequest` 
     
 </dd>
 </dl>
@@ -2953,9 +3271,23 @@ await client.users.deleteAUser({
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">updateAUser</a>({ ...params }) -> Forum.PatchUsersIdResponse</code></summary>
+<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">updateUser</a>({ ...params }) -> Forum.UpdateUserResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an existing user. Only provided fields will be modified.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -2966,7 +3298,7 @@ await client.users.deleteAUser({
 <dd>
 
 ```typescript
-await client.users.updateAUser({
+await client.users.updateUser({
     id: "id"
 });
 
@@ -2984,7 +3316,7 @@ await client.users.updateAUser({
 <dl>
 <dd>
 
-**request:** `Forum.PatchUsersIdRequest` 
+**request:** `Forum.UpdateUserRequest` 
     
 </dd>
 </dl>
@@ -3004,9 +3336,23 @@ await client.users.updateAUser({
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">listUserFollowers</a>({ ...params }) -> Forum.GetUsersIdFollowersResponse</code></summary>
+<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">listUserFollowers</a>({ ...params }) -> Forum.UserFollowerListResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of followers for User.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3035,7 +3381,7 @@ await client.users.listUserFollowers({
 <dl>
 <dd>
 
-**request:** `Forum.GetUsersIdFollowersRequest` 
+**request:** `Forum.ListUserFollowersRequest` 
     
 </dd>
 </dl>
@@ -3055,7 +3401,7 @@ await client.users.listUserFollowers({
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">getAFollowerFromUser</a>({ ...params }) -> Forum.GetUsersIdFollowersSubIdResponse</code></summary>
+<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">getUserFollower</a>({ ...params }) -> Forum.GetUserFollowerResponse</code></summary>
 <dl>
 <dd>
 
@@ -3068,7 +3414,7 @@ await client.users.listUserFollowers({
 <dd>
 
 ```typescript
-await client.users.getAFollowerFromUser({
+await client.users.getUserFollower({
     id: "id",
     subId: "subId"
 });
@@ -3087,7 +3433,7 @@ await client.users.getAFollowerFromUser({
 <dl>
 <dd>
 
-**request:** `Forum.GetUsersIdFollowersSubIdRequest` 
+**request:** `Forum.GetUserFollowerRequest` 
     
 </dd>
 </dl>
@@ -3107,7 +3453,7 @@ await client.users.getAFollowerFromUser({
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">deleteAFollowerFromUser</a>({ ...params }) -> Forum.DeleteUsersIdFollowersSubIdResponse</code></summary>
+<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">deleteUserFollower</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -3120,7 +3466,7 @@ await client.users.getAFollowerFromUser({
 <dd>
 
 ```typescript
-await client.users.deleteAFollowerFromUser({
+await client.users.deleteUserFollower({
     id: "id",
     subId: "subId"
 });
@@ -3139,7 +3485,7 @@ await client.users.deleteAFollowerFromUser({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteUsersIdFollowersSubIdRequest` 
+**request:** `Forum.DeleteUserFollowerRequest` 
     
 </dd>
 </dl>
@@ -3159,9 +3505,23 @@ await client.users.deleteAFollowerFromUser({
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">listUserFollowing</a>({ ...params }) -> Forum.GetUsersIdFollowingResponse</code></summary>
+<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">listUserFollowing</a>({ ...params }) -> Forum.UserFollowingListResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of following for User.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3190,7 +3550,7 @@ await client.users.listUserFollowing({
 <dl>
 <dd>
 
-**request:** `Forum.GetUsersIdFollowingRequest` 
+**request:** `Forum.ListUserFollowingRequest` 
     
 </dd>
 </dl>
@@ -3210,7 +3570,7 @@ await client.users.listUserFollowing({
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">getAFollowingFromUser</a>({ ...params }) -> Forum.GetUsersIdFollowingSubIdResponse</code></summary>
+<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">getUserFollowing</a>({ ...params }) -> Forum.GetUserFollowingResponse</code></summary>
 <dl>
 <dd>
 
@@ -3223,7 +3583,7 @@ await client.users.listUserFollowing({
 <dd>
 
 ```typescript
-await client.users.getAFollowingFromUser({
+await client.users.getUserFollowing({
     id: "id",
     subId: "subId"
 });
@@ -3242,7 +3602,7 @@ await client.users.getAFollowingFromUser({
 <dl>
 <dd>
 
-**request:** `Forum.GetUsersIdFollowingSubIdRequest` 
+**request:** `Forum.GetUserFollowingRequest` 
     
 </dd>
 </dl>
@@ -3262,7 +3622,7 @@ await client.users.getAFollowingFromUser({
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">deleteAFollowingFromUser</a>({ ...params }) -> Forum.DeleteUsersIdFollowingSubIdResponse</code></summary>
+<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">deleteUserFollowing</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -3275,7 +3635,7 @@ await client.users.getAFollowingFromUser({
 <dd>
 
 ```typescript
-await client.users.deleteAFollowingFromUser({
+await client.users.deleteUserFollowing({
     id: "id",
     subId: "subId"
 });
@@ -3294,7 +3654,7 @@ await client.users.deleteAFollowingFromUser({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteUsersIdFollowingSubIdRequest` 
+**request:** `Forum.DeleteUserFollowingRequest` 
     
 </dd>
 </dl>
@@ -3315,9 +3675,23 @@ await client.users.deleteAFollowingFromUser({
 </details>
 
 ## Roles
-<details><summary><code>client.roles.<a href="/src/api/resources/roles/client/Client.ts">listAllRoles</a>({ ...params }) -> Forum.GetRolesResponse</code></summary>
+<details><summary><code>client.roles.<a href="/src/api/resources/roles/client/Client.ts">listRoles</a>({ ...params }) -> Forum.RoleListResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of roles. Use cursor for pagination.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3328,7 +3702,7 @@ await client.users.deleteAFollowingFromUser({
 <dd>
 
 ```typescript
-await client.roles.listAllRoles();
+await client.roles.listRoles();
 
 ```
 </dd>
@@ -3344,7 +3718,7 @@ await client.roles.listAllRoles();
 <dl>
 <dd>
 
-**request:** `Forum.GetRolesRequest` 
+**request:** `Forum.ListRolesRequest` 
     
 </dd>
 </dl>
@@ -3364,9 +3738,23 @@ await client.roles.listAllRoles();
 </dl>
 </details>
 
-<details><summary><code>client.roles.<a href="/src/api/resources/roles/client/Client.ts">createARole</a>({ ...params }) -> Forum.PostRolesResponse</code></summary>
+<details><summary><code>client.roles.<a href="/src/api/resources/roles/client/Client.ts">createRole</a>({ ...params }) -> Forum.RoleResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new role.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3377,7 +3765,7 @@ await client.roles.listAllRoles();
 <dd>
 
 ```typescript
-await client.roles.createARole({
+await client.roles.createRole({
     name: "name"
 });
 
@@ -3395,7 +3783,7 @@ await client.roles.createARole({
 <dl>
 <dd>
 
-**request:** `Forum.PostRolesRequest` 
+**request:** `Forum.CreateRoleRequest` 
     
 </dd>
 </dl>
@@ -3415,9 +3803,23 @@ await client.roles.createARole({
 </dl>
 </details>
 
-<details><summary><code>client.roles.<a href="/src/api/resources/roles/client/Client.ts">getARole</a>({ ...params }) -> Forum.GetRolesIdResponse</code></summary>
+<details><summary><code>client.roles.<a href="/src/api/resources/roles/client/Client.ts">getRole</a>({ ...params }) -> Forum.RoleResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a role by ID or slug (if supported).
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3428,7 +3830,7 @@ await client.roles.createARole({
 <dd>
 
 ```typescript
-await client.roles.getARole({
+await client.roles.getRole({
     id: "id"
 });
 
@@ -3446,7 +3848,7 @@ await client.roles.getARole({
 <dl>
 <dd>
 
-**request:** `Forum.GetRolesIdRequest` 
+**request:** `Forum.GetRoleRequest` 
     
 </dd>
 </dl>
@@ -3466,9 +3868,23 @@ await client.roles.getARole({
 </dl>
 </details>
 
-<details><summary><code>client.roles.<a href="/src/api/resources/roles/client/Client.ts">deleteARole</a>({ ...params }) -> Forum.DeleteRolesIdResponse</code></summary>
+<details><summary><code>client.roles.<a href="/src/api/resources/roles/client/Client.ts">deleteRole</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Permanently delete a role.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3479,7 +3895,7 @@ await client.roles.getARole({
 <dd>
 
 ```typescript
-await client.roles.deleteARole({
+await client.roles.deleteRole({
     id: "id"
 });
 
@@ -3497,7 +3913,7 @@ await client.roles.deleteARole({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteRolesIdRequest` 
+**request:** `Forum.DeleteRoleRequest` 
     
 </dd>
 </dl>
@@ -3517,9 +3933,23 @@ await client.roles.deleteARole({
 </dl>
 </details>
 
-<details><summary><code>client.roles.<a href="/src/api/resources/roles/client/Client.ts">updateARole</a>({ ...params }) -> Forum.PatchRolesIdResponse</code></summary>
+<details><summary><code>client.roles.<a href="/src/api/resources/roles/client/Client.ts">updateRole</a>({ ...params }) -> Forum.UpdateRoleResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an existing role. Only provided fields will be modified.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3530,7 +3960,7 @@ await client.roles.deleteARole({
 <dd>
 
 ```typescript
-await client.roles.updateARole({
+await client.roles.updateRole({
     id: "id"
 });
 
@@ -3548,7 +3978,7 @@ await client.roles.updateARole({
 <dl>
 <dd>
 
-**request:** `Forum.PatchRolesIdRequest` 
+**request:** `Forum.UpdateRoleRequest` 
     
 </dd>
 </dl>
@@ -3569,9 +3999,23 @@ await client.roles.updateARole({
 </details>
 
 ## Reports
-<details><summary><code>client.reports.<a href="/src/api/resources/reports/client/Client.ts">listAllReports</a>({ ...params }) -> Forum.GetReportsResponse</code></summary>
+<details><summary><code>client.reports.<a href="/src/api/resources/reports/client/Client.ts">listReports</a>({ ...params }) -> Forum.ReportListResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of reports. Use cursor for pagination.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3582,7 +4026,7 @@ await client.roles.updateARole({
 <dd>
 
 ```typescript
-await client.reports.listAllReports();
+await client.reports.listReports();
 
 ```
 </dd>
@@ -3598,7 +4042,7 @@ await client.reports.listAllReports();
 <dl>
 <dd>
 
-**request:** `Forum.GetReportsRequest` 
+**request:** `Forum.ListReportsRequest` 
     
 </dd>
 </dl>
@@ -3618,9 +4062,23 @@ await client.reports.listAllReports();
 </dl>
 </details>
 
-<details><summary><code>client.reports.<a href="/src/api/resources/reports/client/Client.ts">createAReport</a>({ ...params }) -> Forum.PostReportsResponse</code></summary>
+<details><summary><code>client.reports.<a href="/src/api/resources/reports/client/Client.ts">createReport</a>({ ...params }) -> Forum.ReportResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new report.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3631,7 +4089,7 @@ await client.reports.listAllReports();
 <dd>
 
 ```typescript
-await client.reports.createAReport({
+await client.reports.createReport({
     type: "type"
 });
 
@@ -3649,7 +4107,7 @@ await client.reports.createAReport({
 <dl>
 <dd>
 
-**request:** `Forum.PostReportsRequest` 
+**request:** `Forum.CreateReportRequest` 
     
 </dd>
 </dl>
@@ -3669,9 +4127,23 @@ await client.reports.createAReport({
 </dl>
 </details>
 
-<details><summary><code>client.reports.<a href="/src/api/resources/reports/client/Client.ts">getAReport</a>({ ...params }) -> Forum.GetReportsIdResponse</code></summary>
+<details><summary><code>client.reports.<a href="/src/api/resources/reports/client/Client.ts">getReport</a>({ ...params }) -> Forum.ReportResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a report by ID or slug (if supported).
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3682,7 +4154,7 @@ await client.reports.createAReport({
 <dd>
 
 ```typescript
-await client.reports.getAReport({
+await client.reports.getReport({
     id: "id"
 });
 
@@ -3700,7 +4172,7 @@ await client.reports.getAReport({
 <dl>
 <dd>
 
-**request:** `Forum.GetReportsIdRequest` 
+**request:** `Forum.GetReportRequest` 
     
 </dd>
 </dl>
@@ -3720,9 +4192,23 @@ await client.reports.getAReport({
 </dl>
 </details>
 
-<details><summary><code>client.reports.<a href="/src/api/resources/reports/client/Client.ts">deleteAReport</a>({ ...params }) -> Forum.DeleteReportsIdResponse</code></summary>
+<details><summary><code>client.reports.<a href="/src/api/resources/reports/client/Client.ts">deleteReport</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Permanently delete a report.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3733,7 +4219,7 @@ await client.reports.getAReport({
 <dd>
 
 ```typescript
-await client.reports.deleteAReport({
+await client.reports.deleteReport({
     id: "id"
 });
 
@@ -3751,7 +4237,7 @@ await client.reports.deleteAReport({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteReportsIdRequest` 
+**request:** `Forum.DeleteReportRequest` 
     
 </dd>
 </dl>
@@ -3772,9 +4258,23 @@ await client.reports.deleteAReport({
 </details>
 
 ## Notifications
-<details><summary><code>client.notifications.<a href="/src/api/resources/notifications/client/Client.ts">listAllNotifications</a>({ ...params }) -> Forum.GetNotificationsResponse</code></summary>
+<details><summary><code>client.notifications.<a href="/src/api/resources/notifications/client/Client.ts">listNotifications</a>({ ...params }) -> Forum.NotificationListResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of notifications. Use cursor for pagination.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3785,7 +4285,7 @@ await client.reports.deleteAReport({
 <dd>
 
 ```typescript
-await client.notifications.listAllNotifications();
+await client.notifications.listNotifications();
 
 ```
 </dd>
@@ -3801,7 +4301,7 @@ await client.notifications.listAllNotifications();
 <dl>
 <dd>
 
-**request:** `Forum.GetNotificationsRequest` 
+**request:** `Forum.ListNotificationsRequest` 
     
 </dd>
 </dl>
@@ -3821,9 +4321,23 @@ await client.notifications.listAllNotifications();
 </dl>
 </details>
 
-<details><summary><code>client.notifications.<a href="/src/api/resources/notifications/client/Client.ts">createANotification</a>({ ...params }) -> Forum.PostNotificationsResponse</code></summary>
+<details><summary><code>client.notifications.<a href="/src/api/resources/notifications/client/Client.ts">createNotification</a>({ ...params }) -> Forum.NotificationResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new notification.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3834,7 +4348,7 @@ await client.notifications.listAllNotifications();
 <dd>
 
 ```typescript
-await client.notifications.createANotification({
+await client.notifications.createNotification({
     userId: "userId",
     type: "type"
 });
@@ -3853,7 +4367,7 @@ await client.notifications.createANotification({
 <dl>
 <dd>
 
-**request:** `Forum.PostNotificationsRequest` 
+**request:** `Forum.CreateNotificationRequest` 
     
 </dd>
 </dl>
@@ -3873,9 +4387,23 @@ await client.notifications.createANotification({
 </dl>
 </details>
 
-<details><summary><code>client.notifications.<a href="/src/api/resources/notifications/client/Client.ts">getANotification</a>({ ...params }) -> Forum.GetNotificationsIdResponse</code></summary>
+<details><summary><code>client.notifications.<a href="/src/api/resources/notifications/client/Client.ts">getNotification</a>({ ...params }) -> Forum.NotificationResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a notification by ID or slug (if supported).
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3886,7 +4414,7 @@ await client.notifications.createANotification({
 <dd>
 
 ```typescript
-await client.notifications.getANotification({
+await client.notifications.getNotification({
     id: "id"
 });
 
@@ -3904,7 +4432,7 @@ await client.notifications.getANotification({
 <dl>
 <dd>
 
-**request:** `Forum.GetNotificationsIdRequest` 
+**request:** `Forum.GetNotificationRequest` 
     
 </dd>
 </dl>
@@ -3924,9 +4452,23 @@ await client.notifications.getANotification({
 </dl>
 </details>
 
-<details><summary><code>client.notifications.<a href="/src/api/resources/notifications/client/Client.ts">deleteANotification</a>({ ...params }) -> Forum.DeleteNotificationsIdResponse</code></summary>
+<details><summary><code>client.notifications.<a href="/src/api/resources/notifications/client/Client.ts">deleteNotification</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Permanently delete a notification.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3937,7 +4479,7 @@ await client.notifications.getANotification({
 <dd>
 
 ```typescript
-await client.notifications.deleteANotification({
+await client.notifications.deleteNotification({
     id: "id"
 });
 
@@ -3955,7 +4497,7 @@ await client.notifications.deleteANotification({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteNotificationsIdRequest` 
+**request:** `Forum.DeleteNotificationRequest` 
     
 </dd>
 </dl>
@@ -3975,9 +4517,23 @@ await client.notifications.deleteANotification({
 </dl>
 </details>
 
-<details><summary><code>client.notifications.<a href="/src/api/resources/notifications/client/Client.ts">updateANotification</a>({ ...params }) -> Forum.PatchNotificationsIdResponse</code></summary>
+<details><summary><code>client.notifications.<a href="/src/api/resources/notifications/client/Client.ts">updateNotification</a>({ ...params }) -> Forum.UpdateNotificationResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an existing notification. Only provided fields will be modified.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3988,7 +4544,7 @@ await client.notifications.deleteANotification({
 <dd>
 
 ```typescript
-await client.notifications.updateANotification({
+await client.notifications.updateNotification({
     id: "id"
 });
 
@@ -4006,7 +4562,7 @@ await client.notifications.updateANotification({
 <dl>
 <dd>
 
-**request:** `Forum.PatchNotificationsIdRequest` 
+**request:** `Forum.UpdateNotificationRequest` 
     
 </dd>
 </dl>
@@ -4027,9 +4583,25 @@ await client.notifications.updateANotification({
 </details>
 
 ## Webhooks
-<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">listAllWebhooks</a>({ ...params }) -> Forum.GetWebhooksResponse</code></summary>
+<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">listWebhooks</a>({ ...params }) -> Forum.WebhookListResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of webhooks. Use cursor for pagination.
+
+**Requires feature: webhooks**
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4040,7 +4612,7 @@ await client.notifications.updateANotification({
 <dd>
 
 ```typescript
-await client.webhooks.listAllWebhooks();
+await client.webhooks.listWebhooks();
 
 ```
 </dd>
@@ -4056,7 +4628,7 @@ await client.webhooks.listAllWebhooks();
 <dl>
 <dd>
 
-**request:** `Forum.GetWebhooksRequest` 
+**request:** `Forum.ListWebhooksRequest` 
     
 </dd>
 </dl>
@@ -4076,9 +4648,25 @@ await client.webhooks.listAllWebhooks();
 </dl>
 </details>
 
-<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">createAWebhook</a>({ ...params }) -> Forum.PostWebhooksResponse</code></summary>
+<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">createWebhook</a>({ ...params }) -> Forum.WebhookResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new webhook.
+
+**Requires feature: webhooks**
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4089,7 +4677,7 @@ await client.webhooks.listAllWebhooks();
 <dd>
 
 ```typescript
-await client.webhooks.createAWebhook({
+await client.webhooks.createWebhook({
     name: "name",
     url: "url",
     events: ["events"]
@@ -4109,7 +4697,7 @@ await client.webhooks.createAWebhook({
 <dl>
 <dd>
 
-**request:** `Forum.PostWebhooksRequest` 
+**request:** `Forum.CreateWebhookRequest` 
     
 </dd>
 </dl>
@@ -4129,9 +4717,25 @@ await client.webhooks.createAWebhook({
 </dl>
 </details>
 
-<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">getAWebhook</a>({ ...params }) -> Forum.GetWebhooksIdResponse</code></summary>
+<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">getWebhook</a>({ ...params }) -> Forum.WebhookResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a webhook by ID or slug (if supported).
+
+**Requires feature: webhooks**
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4142,7 +4746,7 @@ await client.webhooks.createAWebhook({
 <dd>
 
 ```typescript
-await client.webhooks.getAWebhook({
+await client.webhooks.getWebhook({
     id: "id"
 });
 
@@ -4160,7 +4764,7 @@ await client.webhooks.getAWebhook({
 <dl>
 <dd>
 
-**request:** `Forum.GetWebhooksIdRequest` 
+**request:** `Forum.GetWebhookRequest` 
     
 </dd>
 </dl>
@@ -4180,9 +4784,25 @@ await client.webhooks.getAWebhook({
 </dl>
 </details>
 
-<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">deleteAWebhook</a>({ ...params }) -> Forum.DeleteWebhooksIdResponse</code></summary>
+<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">deleteWebhook</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Permanently delete a webhook.
+
+**Requires feature: webhooks**
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4193,7 +4813,7 @@ await client.webhooks.getAWebhook({
 <dd>
 
 ```typescript
-await client.webhooks.deleteAWebhook({
+await client.webhooks.deleteWebhook({
     id: "id"
 });
 
@@ -4211,7 +4831,7 @@ await client.webhooks.deleteAWebhook({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteWebhooksIdRequest` 
+**request:** `Forum.DeleteWebhookRequest` 
     
 </dd>
 </dl>
@@ -4231,9 +4851,25 @@ await client.webhooks.deleteAWebhook({
 </dl>
 </details>
 
-<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">listWebhookDeliveries</a>({ ...params }) -> Forum.GetWebhooksIdDeliveriesResponse</code></summary>
+<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">listWebhookDeliveries</a>({ ...params }) -> Forum.WebhookDeliveryListResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of deliveries for Webhook.
+
+**Requires feature: webhooks**
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4262,7 +4898,7 @@ await client.webhooks.listWebhookDeliveries({
 <dl>
 <dd>
 
-**request:** `Forum.GetWebhooksIdDeliveriesRequest` 
+**request:** `Forum.ListWebhookDeliveriesRequest` 
     
 </dd>
 </dl>
@@ -4282,7 +4918,7 @@ await client.webhooks.listWebhookDeliveries({
 </dl>
 </details>
 
-<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">getADeliveryFromWebhook</a>({ ...params }) -> Forum.GetWebhooksIdDeliveriesSubIdResponse</code></summary>
+<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">getWebhookDelivery</a>({ ...params }) -> Forum.GetWebhookDeliveryResponse</code></summary>
 <dl>
 <dd>
 
@@ -4295,7 +4931,7 @@ await client.webhooks.listWebhookDeliveries({
 <dd>
 
 ```typescript
-await client.webhooks.getADeliveryFromWebhook({
+await client.webhooks.getWebhookDelivery({
     id: "id",
     subId: "subId"
 });
@@ -4314,7 +4950,7 @@ await client.webhooks.getADeliveryFromWebhook({
 <dl>
 <dd>
 
-**request:** `Forum.GetWebhooksIdDeliveriesSubIdRequest` 
+**request:** `Forum.GetWebhookDeliveryRequest` 
     
 </dd>
 </dl>
@@ -4334,7 +4970,7 @@ await client.webhooks.getADeliveryFromWebhook({
 </dl>
 </details>
 
-<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">deleteADeliveryFromWebhook</a>({ ...params }) -> Forum.DeleteWebhooksIdDeliveriesSubIdResponse</code></summary>
+<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">deleteWebhookDelivery</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -4347,7 +4983,7 @@ await client.webhooks.getADeliveryFromWebhook({
 <dd>
 
 ```typescript
-await client.webhooks.deleteADeliveryFromWebhook({
+await client.webhooks.deleteWebhookDelivery({
     id: "id",
     subId: "subId"
 });
@@ -4366,7 +5002,7 @@ await client.webhooks.deleteADeliveryFromWebhook({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteWebhooksIdDeliveriesSubIdRequest` 
+**request:** `Forum.DeleteWebhookDeliveryRequest` 
     
 </dd>
 </dl>
@@ -4387,9 +5023,25 @@ await client.webhooks.deleteADeliveryFromWebhook({
 </details>
 
 ## Integrations
-<details><summary><code>client.integrations.<a href="/src/api/resources/integrations/client/Client.ts">listAllIntegrations</a>({ ...params }) -> Forum.GetIntegrationsResponse</code></summary>
+<details><summary><code>client.integrations.<a href="/src/api/resources/integrations/client/Client.ts">listIntegrations</a>({ ...params }) -> Forum.IntegrationListResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of integrations. Use cursor for pagination.
+
+**Requires feature: integrations**
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4400,7 +5052,7 @@ await client.webhooks.deleteADeliveryFromWebhook({
 <dd>
 
 ```typescript
-await client.integrations.listAllIntegrations();
+await client.integrations.listIntegrations();
 
 ```
 </dd>
@@ -4416,7 +5068,7 @@ await client.integrations.listAllIntegrations();
 <dl>
 <dd>
 
-**request:** `Forum.GetIntegrationsRequest` 
+**request:** `Forum.ListIntegrationsRequest` 
     
 </dd>
 </dl>
@@ -4436,9 +5088,25 @@ await client.integrations.listAllIntegrations();
 </dl>
 </details>
 
-<details><summary><code>client.integrations.<a href="/src/api/resources/integrations/client/Client.ts">createAnIntegration</a>({ ...params }) -> Forum.PostIntegrationsResponse</code></summary>
+<details><summary><code>client.integrations.<a href="/src/api/resources/integrations/client/Client.ts">createIntegration</a>({ ...params }) -> Forum.IntegrationResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create an new integration.
+
+**Requires feature: integrations**
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4449,7 +5117,7 @@ await client.integrations.listAllIntegrations();
 <dd>
 
 ```typescript
-await client.integrations.createAnIntegration({
+await client.integrations.createIntegration({
     type: "type",
     config: {
         "key": "value"
@@ -4470,7 +5138,7 @@ await client.integrations.createAnIntegration({
 <dl>
 <dd>
 
-**request:** `Forum.PostIntegrationsRequest` 
+**request:** `Forum.CreateIntegrationRequest` 
     
 </dd>
 </dl>
@@ -4490,9 +5158,25 @@ await client.integrations.createAnIntegration({
 </dl>
 </details>
 
-<details><summary><code>client.integrations.<a href="/src/api/resources/integrations/client/Client.ts">getAnIntegration</a>({ ...params }) -> Forum.GetIntegrationsIdResponse</code></summary>
+<details><summary><code>client.integrations.<a href="/src/api/resources/integrations/client/Client.ts">getIntegration</a>({ ...params }) -> Forum.IntegrationResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve an integration by ID or slug (if supported).
+
+**Requires feature: integrations**
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4503,7 +5187,7 @@ await client.integrations.createAnIntegration({
 <dd>
 
 ```typescript
-await client.integrations.getAnIntegration({
+await client.integrations.getIntegration({
     id: "id"
 });
 
@@ -4521,7 +5205,7 @@ await client.integrations.getAnIntegration({
 <dl>
 <dd>
 
-**request:** `Forum.GetIntegrationsIdRequest` 
+**request:** `Forum.GetIntegrationRequest` 
     
 </dd>
 </dl>
@@ -4541,9 +5225,25 @@ await client.integrations.getAnIntegration({
 </dl>
 </details>
 
-<details><summary><code>client.integrations.<a href="/src/api/resources/integrations/client/Client.ts">deleteAnIntegration</a>({ ...params }) -> Forum.DeleteIntegrationsIdResponse</code></summary>
+<details><summary><code>client.integrations.<a href="/src/api/resources/integrations/client/Client.ts">deleteIntegration</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Permanently delete an integration.
+
+**Requires feature: integrations**
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4554,7 +5254,7 @@ await client.integrations.getAnIntegration({
 <dd>
 
 ```typescript
-await client.integrations.deleteAnIntegration({
+await client.integrations.deleteIntegration({
     id: "id"
 });
 
@@ -4572,7 +5272,7 @@ await client.integrations.deleteAnIntegration({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteIntegrationsIdRequest` 
+**request:** `Forum.DeleteIntegrationRequest` 
     
 </dd>
 </dl>
@@ -4592,9 +5292,25 @@ await client.integrations.deleteAnIntegration({
 </dl>
 </details>
 
-<details><summary><code>client.integrations.<a href="/src/api/resources/integrations/client/Client.ts">updateAnIntegration</a>({ ...params }) -> Forum.PatchIntegrationsIdResponse</code></summary>
+<details><summary><code>client.integrations.<a href="/src/api/resources/integrations/client/Client.ts">updateIntegration</a>({ ...params }) -> Forum.UpdateIntegrationResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an existing integration. Only provided fields will be modified.
+
+**Requires feature: integrations**
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4605,7 +5321,7 @@ await client.integrations.deleteAnIntegration({
 <dd>
 
 ```typescript
-await client.integrations.updateAnIntegration({
+await client.integrations.updateIntegration({
     id: "id"
 });
 
@@ -4623,7 +5339,7 @@ await client.integrations.updateAnIntegration({
 <dl>
 <dd>
 
-**request:** `Forum.PatchIntegrationsIdRequest` 
+**request:** `Forum.UpdateIntegrationRequest` 
     
 </dd>
 </dl>
@@ -4643,10 +5359,26 @@ await client.integrations.updateAnIntegration({
 </dl>
 </details>
 
-## SsOs
-<details><summary><code>client.ssOs.<a href="/src/api/resources/ssOs/client/Client.ts">listAllSsOs</a>({ ...params }) -> Forum.GetSsoResponse</code></summary>
+## SSOs
+<details><summary><code>client.ssOs.<a href="/src/api/resources/ssOs/client/Client.ts">listSsOs</a>({ ...params }) -> Forum.SsoListResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of ssos. Use cursor for pagination.
+
+**Requires feature: sso**
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4657,7 +5389,147 @@ await client.integrations.updateAnIntegration({
 <dd>
 
 ```typescript
-await client.ssOs.listAllSsOs();
+await client.ssOs.listSsOs();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.ListSsOsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SsOsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ssOs.<a href="/src/api/resources/ssOs/client/Client.ts">createSso</a>({ ...params }) -> Forum.SsoResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create an new sso.
+
+**Requires feature: sso**
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.ssOs.createSso({
+    name: "name",
+    clientId: "clientId",
+    clientSecret: "clientSecret",
+    issuer: "issuer",
+    authorizationEndpoint: "authorizationEndpoint",
+    tokenEndpoint: "tokenEndpoint",
+    userInfoEndpoint: "userInfoEndpoint"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.CreateSsoRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SsOsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ssOs.<a href="/src/api/resources/ssOs/client/Client.ts">getSso</a>({ ...params }) -> Forum.SsoResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve an sso by ID or slug (if supported).
+
+**Requires feature: sso**
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.ssOs.getSso({
+    id: "id"
+});
 
 ```
 </dd>
@@ -4693,9 +5565,25 @@ await client.ssOs.listAllSsOs();
 </dl>
 </details>
 
-<details><summary><code>client.ssOs.<a href="/src/api/resources/ssOs/client/Client.ts">createAnSso</a>({ ...params }) -> Forum.PostSsoResponse</code></summary>
+<details><summary><code>client.ssOs.<a href="/src/api/resources/ssOs/client/Client.ts">deleteSso</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Permanently delete an sso.
+
+**Requires feature: sso**
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4706,14 +5594,8 @@ await client.ssOs.listAllSsOs();
 <dd>
 
 ```typescript
-await client.ssOs.createAnSso({
-    name: "name",
-    clientId: "clientId",
-    clientSecret: "clientSecret",
-    issuer: "issuer",
-    authorizationEndpoint: "authorizationEndpoint",
-    tokenEndpoint: "tokenEndpoint",
-    userInfoEndpoint: "userInfoEndpoint"
+await client.ssOs.deleteSso({
+    id: "id"
 });
 
 ```
@@ -4730,7 +5612,7 @@ await client.ssOs.createAnSso({
 <dl>
 <dd>
 
-**request:** `Forum.PostSsoRequest` 
+**request:** `Forum.DeleteSsoRequest` 
     
 </dd>
 </dl>
@@ -4750,9 +5632,25 @@ await client.ssOs.createAnSso({
 </dl>
 </details>
 
-<details><summary><code>client.ssOs.<a href="/src/api/resources/ssOs/client/Client.ts">getAnSso</a>({ ...params }) -> Forum.GetSsoIdResponse</code></summary>
+<details><summary><code>client.ssOs.<a href="/src/api/resources/ssOs/client/Client.ts">updateSso</a>({ ...params }) -> Forum.UpdateSsoResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an existing sso. Only provided fields will be modified.
+
+**Requires feature: sso**
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4763,7 +5661,7 @@ await client.ssOs.createAnSso({
 <dd>
 
 ```typescript
-await client.ssOs.getAnSso({
+await client.ssOs.updateSso({
     id: "id"
 });
 
@@ -4781,109 +5679,7 @@ await client.ssOs.getAnSso({
 <dl>
 <dd>
 
-**request:** `Forum.GetSsoIdRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `SsOsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.ssOs.<a href="/src/api/resources/ssOs/client/Client.ts">deleteAnSso</a>({ ...params }) -> Forum.DeleteSsoIdResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.ssOs.deleteAnSso({
-    id: "id"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Forum.DeleteSsoIdRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `SsOsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.ssOs.<a href="/src/api/resources/ssOs/client/Client.ts">updateAnSso</a>({ ...params }) -> Forum.PatchSsoIdResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.ssOs.updateAnSso({
-    id: "id"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Forum.PatchSsoIdRequest` 
+**request:** `Forum.UpdateSsoRequest` 
     
 </dd>
 </dl>

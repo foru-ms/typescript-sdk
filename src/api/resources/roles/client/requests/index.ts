@@ -1,5 +1,5 @@
-export type { DeleteRolesIdRequest } from "./DeleteRolesIdRequest.js";
-export type { GetRolesIdRequest } from "./GetRolesIdRequest.js";
-export type { GetRolesRequest } from "./GetRolesRequest.js";
-export type { PatchRolesIdRequest } from "./PatchRolesIdRequest.js";
-export type { PostRolesRequest } from "./PostRolesRequest.js";
+export type { CreateRoleRequest } from "./CreateRoleRequest.js";
+export type { DeleteRoleRequest } from "./DeleteRoleRequest.js";
+export type { GetRoleRequest } from "./GetRoleRequest.js";
+export type { ListRolesRequest } from "./ListRolesRequest.js";
+export type { UpdateRoleRequest } from "./UpdateRoleRequest.js";

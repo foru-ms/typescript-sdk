@@ -1,5 +1,5 @@
-export type { DeleteNotificationsIdRequest } from "./DeleteNotificationsIdRequest.js";
-export type { GetNotificationsIdRequest } from "./GetNotificationsIdRequest.js";
-export type { GetNotificationsRequest } from "./GetNotificationsRequest.js";
-export type { PatchNotificationsIdRequest } from "./PatchNotificationsIdRequest.js";
-export type { PostNotificationsRequest } from "./PostNotificationsRequest.js";
+export type { CreateNotificationRequest } from "./CreateNotificationRequest.js";
+export type { DeleteNotificationRequest } from "./DeleteNotificationRequest.js";
+export type { GetNotificationRequest } from "./GetNotificationRequest.js";
+export type { ListNotificationsRequest } from "./ListNotificationsRequest.js";
+export type { UpdateNotificationRequest } from "./UpdateNotificationRequest.js";
