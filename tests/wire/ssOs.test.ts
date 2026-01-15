@@ -99,15 +99,7 @@ describe("SsOsClient", () => {
     test("create (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            name: "name",
-            clientId: "clientId",
-            clientSecret: "clientSecret",
-            issuer: "issuer",
-            authorizationEndpoint: "authorizationEndpoint",
-            tokenEndpoint: "tokenEndpoint",
-            userInfoEndpoint: "userInfoEndpoint",
-        };
+        const rawRequestBody = { provider: "OKTA", domain: "domain", config: { key: "value" } };
         const rawResponseBody = {
             data: {
                 id: "id",
@@ -129,13 +121,11 @@ describe("SsOsClient", () => {
             .build();
 
         const response = await client.ssOs.create({
-            name: "name",
-            clientId: "clientId",
-            clientSecret: "clientSecret",
-            issuer: "issuer",
-            authorizationEndpoint: "authorizationEndpoint",
-            tokenEndpoint: "tokenEndpoint",
-            userInfoEndpoint: "userInfoEndpoint",
+            provider: "OKTA",
+            domain: "domain",
+            config: {
+                key: "value",
+            },
         });
         expect(response).toEqual({
             data: {
@@ -155,15 +145,7 @@ describe("SsOsClient", () => {
     test("create (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            name: "x",
-            clientId: "x",
-            clientSecret: "x",
-            issuer: "issuer",
-            authorizationEndpoint: "authorizationEndpoint",
-            tokenEndpoint: "tokenEndpoint",
-            userInfoEndpoint: "userInfoEndpoint",
-        };
+        const rawRequestBody = { provider: "OKTA", domain: "x", config: { config: { key: "value" } } };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
@@ -176,13 +158,13 @@ describe("SsOsClient", () => {
 
         await expect(async () => {
             return await client.ssOs.create({
-                name: "x",
-                clientId: "x",
-                clientSecret: "x",
-                issuer: "issuer",
-                authorizationEndpoint: "authorizationEndpoint",
-                tokenEndpoint: "tokenEndpoint",
-                userInfoEndpoint: "userInfoEndpoint",
+                provider: "OKTA",
+                domain: "x",
+                config: {
+                    config: {
+                        key: "value",
+                    },
+                },
             });
         }).rejects.toThrow(Forum.BadRequestError);
     });
@@ -190,15 +172,7 @@ describe("SsOsClient", () => {
     test("create (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            name: "x",
-            clientId: "x",
-            clientSecret: "x",
-            issuer: "issuer",
-            authorizationEndpoint: "authorizationEndpoint",
-            tokenEndpoint: "tokenEndpoint",
-            userInfoEndpoint: "userInfoEndpoint",
-        };
+        const rawRequestBody = { provider: "OKTA", domain: "x", config: { config: { key: "value" } } };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
@@ -211,13 +185,13 @@ describe("SsOsClient", () => {
 
         await expect(async () => {
             return await client.ssOs.create({
-                name: "x",
-                clientId: "x",
-                clientSecret: "x",
-                issuer: "issuer",
-                authorizationEndpoint: "authorizationEndpoint",
-                tokenEndpoint: "tokenEndpoint",
-                userInfoEndpoint: "userInfoEndpoint",
+                provider: "OKTA",
+                domain: "x",
+                config: {
+                    config: {
+                        key: "value",
+                    },
+                },
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
@@ -225,15 +199,7 @@ describe("SsOsClient", () => {
     test("create (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            name: "x",
-            clientId: "x",
-            clientSecret: "x",
-            issuer: "issuer",
-            authorizationEndpoint: "authorizationEndpoint",
-            tokenEndpoint: "tokenEndpoint",
-            userInfoEndpoint: "userInfoEndpoint",
-        };
+        const rawRequestBody = { provider: "OKTA", domain: "x", config: { config: { key: "value" } } };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
@@ -246,13 +212,13 @@ describe("SsOsClient", () => {
 
         await expect(async () => {
             return await client.ssOs.create({
-                name: "x",
-                clientId: "x",
-                clientSecret: "x",
-                issuer: "issuer",
-                authorizationEndpoint: "authorizationEndpoint",
-                tokenEndpoint: "tokenEndpoint",
-                userInfoEndpoint: "userInfoEndpoint",
+                provider: "OKTA",
+                domain: "x",
+                config: {
+                    config: {
+                        key: "value",
+                    },
+                },
             });
         }).rejects.toThrow(Forum.PaymentRequiredError);
     });
@@ -260,15 +226,7 @@ describe("SsOsClient", () => {
     test("create (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            name: "x",
-            clientId: "x",
-            clientSecret: "x",
-            issuer: "issuer",
-            authorizationEndpoint: "authorizationEndpoint",
-            tokenEndpoint: "tokenEndpoint",
-            userInfoEndpoint: "userInfoEndpoint",
-        };
+        const rawRequestBody = { provider: "OKTA", domain: "x", config: { config: { key: "value" } } };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
@@ -281,13 +239,13 @@ describe("SsOsClient", () => {
 
         await expect(async () => {
             return await client.ssOs.create({
-                name: "x",
-                clientId: "x",
-                clientSecret: "x",
-                issuer: "issuer",
-                authorizationEndpoint: "authorizationEndpoint",
-                tokenEndpoint: "tokenEndpoint",
-                userInfoEndpoint: "userInfoEndpoint",
+                provider: "OKTA",
+                domain: "x",
+                config: {
+                    config: {
+                        key: "value",
+                    },
+                },
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
@@ -295,15 +253,7 @@ describe("SsOsClient", () => {
     test("create (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            name: "x",
-            clientId: "x",
-            clientSecret: "x",
-            issuer: "issuer",
-            authorizationEndpoint: "authorizationEndpoint",
-            tokenEndpoint: "tokenEndpoint",
-            userInfoEndpoint: "userInfoEndpoint",
-        };
+        const rawRequestBody = { provider: "OKTA", domain: "x", config: { config: { key: "value" } } };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
@@ -316,13 +266,13 @@ describe("SsOsClient", () => {
 
         await expect(async () => {
             return await client.ssOs.create({
-                name: "x",
-                clientId: "x",
-                clientSecret: "x",
-                issuer: "issuer",
-                authorizationEndpoint: "authorizationEndpoint",
-                tokenEndpoint: "tokenEndpoint",
-                userInfoEndpoint: "userInfoEndpoint",
+                provider: "OKTA",
+                domain: "x",
+                config: {
+                    config: {
+                        key: "value",
+                    },
+                },
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });

@@ -3,6 +3,8 @@
 export interface ReportCreate {
     /** Report type (e.g. spam, abuse) */
     type: string;
+    /** Report status (default: pending) */
+    status?: string;
     /** Reason for reporting */
     description?: string;
     /** Reporter user ID (required for API key auth, ignored for JWT auth) */
@@ -15,4 +17,6 @@ export interface ReportCreate {
     postId?: string;
     /** ID of private message being reported */
     privateMessageId?: string;
+    /** Custom extended data */
+    extendedData?: Record<string, unknown>;
 }

@@ -11,7 +11,7 @@ describe("ReportsClient", () => {
 
         const rawResponseBody = {
             data: {
-                items: [{ type: "type", id: "id", status: null, createdAt: "createdAt", updatedAt: "updatedAt" }],
+                items: [{ type: "type", status: null, id: "id", createdAt: "createdAt", updatedAt: "updatedAt" }],
                 nextCursor: "nextCursor",
                 count: 1,
             },
@@ -24,8 +24,8 @@ describe("ReportsClient", () => {
                 items: [
                     {
                         type: "type",
-                        id: "id",
                         status: null,
+                        id: "id",
                         createdAt: "createdAt",
                         updatedAt: "updatedAt",
                     },
@@ -91,14 +91,15 @@ describe("ReportsClient", () => {
         const rawResponseBody = {
             data: {
                 type: "type",
+                status: "status",
                 description: "description",
                 userId: "userId",
                 reportedId: "reportedId",
                 threadId: "threadId",
                 postId: "postId",
                 privateMessageId: "privateMessageId",
+                extendedData: { key: "value" },
                 id: "id",
-                status: "status",
                 createdAt: "createdAt",
                 updatedAt: "updatedAt",
             },
@@ -118,14 +119,17 @@ describe("ReportsClient", () => {
         expect(response).toEqual({
             data: {
                 type: "type",
+                status: "status",
                 description: "description",
                 userId: "userId",
                 reportedId: "reportedId",
                 threadId: "threadId",
                 postId: "postId",
                 privateMessageId: "privateMessageId",
+                extendedData: {
+                    key: "value",
+                },
                 id: "id",
-                status: "status",
                 createdAt: "createdAt",
                 updatedAt: "updatedAt",
             },
@@ -244,14 +248,15 @@ describe("ReportsClient", () => {
         const rawResponseBody = {
             data: {
                 type: "type",
+                status: "status",
                 description: "description",
                 userId: "userId",
                 reportedId: "reportedId",
                 threadId: "threadId",
                 postId: "postId",
                 privateMessageId: "privateMessageId",
+                extendedData: { key: "value" },
                 id: "id",
-                status: "status",
                 createdAt: "createdAt",
                 updatedAt: "updatedAt",
             },
@@ -264,14 +269,17 @@ describe("ReportsClient", () => {
         expect(response).toEqual({
             data: {
                 type: "type",
+                status: "status",
                 description: "description",
                 userId: "userId",
                 reportedId: "reportedId",
                 threadId: "threadId",
                 postId: "postId",
                 privateMessageId: "privateMessageId",
+                extendedData: {
+                    key: "value",
+                },
                 id: "id",
-                status: "status",
                 createdAt: "createdAt",
                 updatedAt: "updatedAt",
             },
@@ -442,14 +450,15 @@ describe("ReportsClient", () => {
         const rawResponseBody = {
             data: {
                 type: "type",
+                status: "status",
                 description: "description",
                 userId: "userId",
                 reportedId: "reportedId",
                 threadId: "threadId",
                 postId: "postId",
                 privateMessageId: "privateMessageId",
+                extendedData: { key: "value" },
                 id: "id",
-                status: "status",
                 createdAt: "createdAt",
                 updatedAt: "updatedAt",
             },
@@ -469,14 +478,17 @@ describe("ReportsClient", () => {
         expect(response).toEqual({
             data: {
                 type: "type",
+                status: "status",
                 description: "description",
                 userId: "userId",
                 reportedId: "reportedId",
                 threadId: "threadId",
                 postId: "postId",
                 privateMessageId: "privateMessageId",
+                extendedData: {
+                    key: "value",
+                },
                 id: "id",
-                status: "status",
                 createdAt: "createdAt",
                 updatedAt: "updatedAt",
             },

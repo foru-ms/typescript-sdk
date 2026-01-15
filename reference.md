@@ -5423,6 +5423,7 @@ Create an new integration.
 ```typescript
 await client.integrations.create({
     type: "type",
+    name: "name",
     config: {
         "key": "value"
     }
@@ -5759,13 +5760,11 @@ Create an new sso.
 
 ```typescript
 await client.ssOs.create({
-    name: "name",
-    clientId: "clientId",
-    clientSecret: "clientSecret",
-    issuer: "issuer",
-    authorizationEndpoint: "authorizationEndpoint",
-    tokenEndpoint: "tokenEndpoint",
-    userInfoEndpoint: "userInfoEndpoint"
+    provider: "OKTA",
+    domain: "domain",
+    config: {
+        "key": "value"
+    }
 });
 
 ```

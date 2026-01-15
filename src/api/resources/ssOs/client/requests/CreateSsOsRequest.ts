@@ -3,24 +3,32 @@
 /**
  * @example
  *     {
- *         name: "name",
- *         clientId: "clientId",
- *         clientSecret: "clientSecret",
- *         issuer: "issuer",
- *         authorizationEndpoint: "authorizationEndpoint",
- *         tokenEndpoint: "tokenEndpoint",
- *         userInfoEndpoint: "userInfoEndpoint"
+ *         provider: "OKTA",
+ *         domain: "domain",
+ *         config: {
+ *             "key": "value"
+ *         }
  *     }
  */
 export interface CreateSsOsRequest {
-    /** Provider name (e.g. Google) */
-    name: string;
-    clientId: string;
-    clientSecret: string;
-    issuer: string;
-    authorizationEndpoint: string;
-    tokenEndpoint: string;
-    userInfoEndpoint: string;
+    /** SSO provider type */
+    provider: CreateSsOsRequest.Provider;
+    /** Email domain to match (e.g. 'acme.com') */
+    domain: string;
+    /** Provider configuration (clientId, issuer, etc.) */
+    config: Record<string, unknown>;
+    /** Whether SSO is active */
+    active?: boolean;
     /** Custom extended data */
     extendedData?: Record<string, unknown>;
+}
+
+export namespace CreateSsOsRequest {
+    /** SSO provider type */
+    export const Provider = {
+        Okta: "OKTA",
+        Auth0: "AUTH0",
+        Saml: "SAML",
+    } as const;
+    export type Provider = (typeof Provider)[keyof typeof Provider];
 }

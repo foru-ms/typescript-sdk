@@ -20,6 +20,8 @@ export namespace ReportListResponse {
             export interface Item {
                 /** Report type (e.g. spam, abuse) */
                 type: string;
+                /** Report status (pending, reviewed, resolved, dismissed) */
+                status: string | null;
                 /** Reason for reporting */
                 description?: string;
                 /** Reporter user ID (required for API key auth, ignored for JWT auth) */
@@ -32,9 +34,9 @@ export namespace ReportListResponse {
                 postId?: string;
                 /** ID of private message being reported */
                 privateMessageId?: string;
+                /** Custom extended data */
+                extendedData?: Record<string, unknown>;
                 id: string;
-                /** Report status (pending, reviewed, resolved, dismissed) */
-                status: string | null;
                 /** Report creation timestamp */
                 createdAt: string;
                 /** Report last update timestamp */

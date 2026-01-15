@@ -4,17 +4,21 @@
  * @example
  *     {
  *         type: "type",
+ *         name: "name",
  *         config: {
  *             "key": "value"
  *         }
  *     }
  */
 export interface CreateIntegrationsRequest {
-    /** Integration type (e.g. slack, discord) */
+    /** Integration type (e.g. SLACK, DISCORD) */
     type: string;
+    /** Integration name */
+    name: string;
     /** JSON configuration */
     config: Record<string, unknown>;
-    enabled?: boolean;
+    /** Whether integration is active */
+    active?: boolean;
     /** Custom extended data */
     extendedData?: Record<string, unknown>;
 }

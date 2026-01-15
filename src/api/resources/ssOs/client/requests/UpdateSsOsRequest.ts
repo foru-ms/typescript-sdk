@@ -9,18 +9,24 @@
 export interface UpdateSsOsRequest {
     /** SSO ID */
     id: string;
-    /** Provider name */
-    name?: string;
+    /** SSO provider type */
+    provider?: UpdateSsOsRequest.Provider;
     /** Email domain to match */
     domain?: string;
-    clientId?: string;
-    clientSecret?: string;
-    issuer?: string;
-    authorizationEndpoint?: string;
-    tokenEndpoint?: string;
-    userInfoEndpoint?: string;
+    /** Provider configuration */
+    config?: Record<string, unknown>;
     /** Enable/disable provider */
     active?: boolean;
     /** Custom extended data */
     extendedData?: Record<string, unknown>;
+}
+
+export namespace UpdateSsOsRequest {
+    /** SSO provider type */
+    export const Provider = {
+        Okta: "OKTA",
+        Auth0: "AUTH0",
+        Saml: "SAML",
+    } as const;
+    export type Provider = (typeof Provider)[keyof typeof Provider];
 }

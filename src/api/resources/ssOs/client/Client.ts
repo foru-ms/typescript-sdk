@@ -133,13 +133,11 @@ export class SsOsClient {
      *
      * @example
      *     await client.ssOs.create({
-     *         name: "name",
-     *         clientId: "clientId",
-     *         clientSecret: "clientSecret",
-     *         issuer: "issuer",
-     *         authorizationEndpoint: "authorizationEndpoint",
-     *         tokenEndpoint: "tokenEndpoint",
-     *         userInfoEndpoint: "userInfoEndpoint"
+     *         provider: "OKTA",
+     *         domain: "domain",
+     *         config: {
+     *             "key": "value"
+     *         }
      *     })
      */
     public create(

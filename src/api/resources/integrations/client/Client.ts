@@ -134,6 +134,7 @@ export class IntegrationsClient {
      * @example
      *     await client.integrations.create({
      *         type: "type",
+     *         name: "name",
      *         config: {
      *             "key": "value"
      *         }

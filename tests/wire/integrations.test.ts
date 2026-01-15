@@ -99,7 +99,7 @@ describe("IntegrationsClient", () => {
     test("create (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { type: "type", config: { key: "value" } };
+        const rawRequestBody = { type: "type", name: "name", config: { key: "value" } };
         const rawResponseBody = {
             data: {
                 id: "id",
@@ -122,6 +122,7 @@ describe("IntegrationsClient", () => {
 
         const response = await client.integrations.create({
             type: "type",
+            name: "name",
             config: {
                 key: "value",
             },
@@ -144,7 +145,7 @@ describe("IntegrationsClient", () => {
     test("create (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { type: "x", config: { config: { key: "value" } } };
+        const rawRequestBody = { type: "x", name: "x", config: { config: { key: "value" } } };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
@@ -158,6 +159,7 @@ describe("IntegrationsClient", () => {
         await expect(async () => {
             return await client.integrations.create({
                 type: "x",
+                name: "x",
                 config: {
                     config: {
                         key: "value",
@@ -170,7 +172,7 @@ describe("IntegrationsClient", () => {
     test("create (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { type: "x", config: { config: { key: "value" } } };
+        const rawRequestBody = { type: "x", name: "x", config: { config: { key: "value" } } };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
@@ -184,6 +186,7 @@ describe("IntegrationsClient", () => {
         await expect(async () => {
             return await client.integrations.create({
                 type: "x",
+                name: "x",
                 config: {
                     config: {
                         key: "value",
@@ -196,7 +199,7 @@ describe("IntegrationsClient", () => {
     test("create (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { type: "x", config: { config: { key: "value" } } };
+        const rawRequestBody = { type: "x", name: "x", config: { config: { key: "value" } } };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
@@ -210,6 +213,7 @@ describe("IntegrationsClient", () => {
         await expect(async () => {
             return await client.integrations.create({
                 type: "x",
+                name: "x",
                 config: {
                     config: {
                         key: "value",
@@ -222,7 +226,7 @@ describe("IntegrationsClient", () => {
     test("create (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { type: "x", config: { config: { key: "value" } } };
+        const rawRequestBody = { type: "x", name: "x", config: { config: { key: "value" } } };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
@@ -236,6 +240,7 @@ describe("IntegrationsClient", () => {
         await expect(async () => {
             return await client.integrations.create({
                 type: "x",
+                name: "x",
                 config: {
                     config: {
                         key: "value",
@@ -248,7 +253,7 @@ describe("IntegrationsClient", () => {
     test("create (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { type: "x", config: { config: { key: "value" } } };
+        const rawRequestBody = { type: "x", name: "x", config: { config: { key: "value" } } };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
@@ -262,6 +267,7 @@ describe("IntegrationsClient", () => {
         await expect(async () => {
             return await client.integrations.create({
                 type: "x",
+                name: "x",
                 config: {
                     config: {
                         key: "value",
