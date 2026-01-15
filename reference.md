@@ -304,6 +304,48 @@ await client.auth.resetPassword({
 </dl>
 </details>
 
+## Search
+<details><summary><code>client.search.<a href="/src/api/resources/search/client/Client.ts">search</a>() -> Forum.SearchSearchResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.search.search();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `SearchClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Tags
 <details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">list</a>({ ...params }) -> Forum.TagListResponse</code></summary>
 <dl>
@@ -2841,6 +2883,71 @@ await client.privateMessages.delete({
 </dl>
 </details>
 
+<details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">update</a>({ ...params }) -> Forum.UpdatePrivateMessagesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an existing private message. Only provided fields will be modified.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.privateMessages.update({
+    id: "id"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.UpdatePrivateMessagesRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PrivateMessagesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">listReplies</a>({ ...params }) -> Forum.PrivateMessageReplyListResponse</code></summary>
 <dl>
 <dd>
@@ -3122,6 +3229,71 @@ await client.users.list();
 <dd>
 
 **request:** `Forum.ListUsersRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UsersClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">create</a>({ ...params }) -> Forum.UserResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new user.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.users.create({
+    username: "username"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.CreateUsersRequest` 
     
 </dd>
 </dl>
@@ -4257,6 +4429,71 @@ await client.reports.delete({
 </dl>
 </details>
 
+<details><summary><code>client.reports.<a href="/src/api/resources/reports/client/Client.ts">update</a>({ ...params }) -> Forum.UpdateReportsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an existing report. Only provided fields will be modified.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.reports.update({
+    id: "id"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.UpdateReportsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ReportsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Notifications
 <details><summary><code>client.notifications.<a href="/src/api/resources/notifications/client/Client.ts">list</a>({ ...params }) -> Forum.NotificationListResponse</code></summary>
 <dl>
@@ -4832,6 +5069,73 @@ await client.webhooks.delete({
 <dd>
 
 **request:** `Forum.DeleteWebhooksRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `WebhooksClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">update</a>({ ...params }) -> Forum.UpdateWebhooksResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an existing webhook. Only provided fields will be modified.
+
+**Requires feature: webhooks**
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.webhooks.update({
+    id: "id"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.UpdateWebhooksRequest` 
     
 </dd>
 </dl>

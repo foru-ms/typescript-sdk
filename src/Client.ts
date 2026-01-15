@@ -7,6 +7,7 @@ import { PostsClient } from "./api/resources/posts/client/Client.js";
 import { PrivateMessagesClient } from "./api/resources/privateMessages/client/Client.js";
 import { ReportsClient } from "./api/resources/reports/client/Client.js";
 import { RolesClient } from "./api/resources/roles/client/Client.js";
+import { SearchClient } from "./api/resources/search/client/Client.js";
 import { SsOsClient } from "./api/resources/ssOs/client/Client.js";
 import { TagsClient } from "./api/resources/tags/client/Client.js";
 import { ThreadsClient } from "./api/resources/threads/client/Client.js";
@@ -24,6 +25,7 @@ export declare namespace ForumClient {
 export class ForumClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<ForumClient.Options>;
     protected _auth: AuthClient | undefined;
+    protected _search: SearchClient | undefined;
     protected _tags: TagsClient | undefined;
     protected _threads: ThreadsClient | undefined;
     protected _posts: PostsClient | undefined;
@@ -36,12 +38,16 @@ export class ForumClient {
     protected _integrations: IntegrationsClient | undefined;
     protected _ssOs: SsOsClient | undefined;
 
-    constructor(options: ForumClient.Options) {
+    constructor(options: ForumClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
     public get auth(): AuthClient {
         return (this._auth ??= new AuthClient(this._options));
+    }
+
+    public get search(): SearchClient {
+        return (this._search ??= new SearchClient(this._options));
     }
 
     public get tags(): TagsClient {

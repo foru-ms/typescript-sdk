@@ -1,5 +1,5 @@
 export type { CreatePostsRequest } from "./CreatePostsRequest.js";
-export type { CreateReactionPostsRequest } from "./CreateReactionPostsRequest.js";
+export { CreateReactionPostsRequest } from "./CreateReactionPostsRequest.js";
 export type { DeletePostPostsRequest } from "./DeletePostPostsRequest.js";
 export type { DeletePostsRequest } from "./DeletePostsRequest.js";
 export type { DeleteReactionPostsRequest } from "./DeleteReactionPostsRequest.js";

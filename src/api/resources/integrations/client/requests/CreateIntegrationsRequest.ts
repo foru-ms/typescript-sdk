@@ -15,4 +15,6 @@ export interface CreateIntegrationsRequest {
     /** JSON configuration */
     config: Record<string, unknown>;
     enabled?: boolean;
+    /** Custom extended data */
+    extendedData?: Record<string, unknown>;
 }

@@ -21,7 +21,7 @@ export declare namespace RolesClient {
 export class RolesClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<RolesClient.Options>;
 
-    constructor(options: RolesClient.Options) {
+    constructor(options: RolesClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
@@ -50,16 +50,13 @@ export class RolesClient {
         request: Forum.ListRolesRequest = {},
         requestOptions?: RolesClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.RoleListResponse>> {
-        const { cursor, limit } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
-        }
-
+        const { limit, cursor, search, sort } = request;
+        const _queryParams: Record<string, unknown> = {
+            limit,
+            cursor,
+            search,
+            sort: sort != null ? sort : undefined,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,

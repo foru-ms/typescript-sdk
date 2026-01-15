@@ -21,7 +21,7 @@ export declare namespace SsOsClient {
 export class SsOsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<SsOsClient.Options>;
 
-    constructor(options: SsOsClient.Options) {
+    constructor(options: SsOsClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
@@ -52,16 +52,11 @@ export class SsOsClient {
         request: Forum.ListSsOsRequest = {},
         requestOptions?: SsOsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.SsoListResponse>> {
-        const { cursor, limit } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
-        }
-
+        const { limit, cursor } = request;
+        const _queryParams: Record<string, unknown> = {
+            limit,
+            cursor,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,

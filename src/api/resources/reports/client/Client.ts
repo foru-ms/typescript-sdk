@@ -21,7 +21,7 @@ export declare namespace ReportsClient {
 export class ReportsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<ReportsClient.Options>;
 
-    constructor(options: ReportsClient.Options) {
+    constructor(options: ReportsClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
@@ -51,27 +51,13 @@ export class ReportsClient {
         requestOptions?: ReportsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.ReportListResponse>> {
         const { limit, cursor, status, reporterId, reportedId } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
-        }
-
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
-        if (status != null) {
-            _queryParams.status = status;
-        }
-
-        if (reporterId != null) {
-            _queryParams.reporterId = reporterId;
-        }
-
-        if (reportedId != null) {
-            _queryParams.reportedId = reportedId;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            limit,
+            cursor,
+            status,
+            reporterId,
+            reportedId,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -405,5 +391,102 @@ export class ReportsClient {
         }
 
         return handleNonStatusCodeError(_response.error, _response.rawResponse, "DELETE", "/reports/{id}");
+    }
+
+    /**
+     * Update an existing report. Only provided fields will be modified.
+     *
+     * @param {Forum.UpdateReportsRequest} request
+     * @param {ReportsClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Forum.BadRequestError}
+     * @throws {@link Forum.UnauthorizedError}
+     * @throws {@link Forum.PaymentRequiredError}
+     * @throws {@link Forum.NotFoundError}
+     * @throws {@link Forum.TooManyRequestsError}
+     * @throws {@link Forum.InternalServerError}
+     *
+     * @example
+     *     await client.reports.update({
+     *         id: "id"
+     *     })
+     */
+    public update(
+        request: Forum.UpdateReportsRequest,
+        requestOptions?: ReportsClient.RequestOptions,
+    ): core.HttpResponsePromise<Forum.UpdateReportsResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
+    }
+
+    private async __update(
+        request: Forum.UpdateReportsRequest,
+        requestOptions?: ReportsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Forum.UpdateReportsResponse>> {
+        const { id, ..._body } = request;
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ForumEnvironment.Production,
+                `reports/${core.url.encodePathParam(id)}`,
+            ),
+            method: "PATCH",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: _body,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Forum.UpdateReportsResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Forum.BadRequestError(_response.error.body as Forum.ErrorResponse, _response.rawResponse);
+                case 401:
+                    throw new Forum.UnauthorizedError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 402:
+                    throw new Forum.PaymentRequiredError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Forum.NotFoundError(_response.error.body as Forum.ErrorResponse, _response.rawResponse);
+                case 429:
+                    throw new Forum.TooManyRequestsError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Forum.InternalServerError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ForumError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "PATCH", "/reports/{id}");
     }
 }

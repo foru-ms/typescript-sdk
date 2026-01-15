@@ -13,6 +13,8 @@ export namespace UpdateSsOsResponse {
         domain: string;
         /** Whether SSO is active */
         active: boolean;
+        /** Custom extended data */
+        extendedData: Record<string, unknown> | null;
         /** SSO configuration creation timestamp */
         createdAt: string;
         /** SSO configuration last update timestamp */

@@ -434,4 +434,178 @@ describe("ReportsClient", () => {
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
+
+    test("update (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            data: {
+                type: "type",
+                description: "description",
+                userId: "userId",
+                reportedId: "reportedId",
+                threadId: "threadId",
+                postId: "postId",
+                privateMessageId: "privateMessageId",
+                id: "id",
+                status: "status",
+                createdAt: "createdAt",
+                updatedAt: "updatedAt",
+            },
+        };
+        server
+            .mockEndpoint()
+            .patch("/reports/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.reports.update({
+            id: "id",
+        });
+        expect(response).toEqual({
+            data: {
+                type: "type",
+                description: "description",
+                userId: "userId",
+                reportedId: "reportedId",
+                threadId: "threadId",
+                postId: "postId",
+                privateMessageId: "privateMessageId",
+                id: "id",
+                status: "status",
+                createdAt: "createdAt",
+                updatedAt: "updatedAt",
+            },
+        });
+    });
+
+    test("update (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .patch("/reports/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.reports.update({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.BadRequestError);
+    });
+
+    test("update (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .patch("/reports/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.reports.update({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.UnauthorizedError);
+    });
+
+    test("update (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .patch("/reports/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(402)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.reports.update({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.PaymentRequiredError);
+    });
+
+    test("update (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .patch("/reports/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.reports.update({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.NotFoundError);
+    });
+
+    test("update (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .patch("/reports/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.reports.update({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.TooManyRequestsError);
+    });
+
+    test("update (7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .patch("/reports/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.reports.update({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.InternalServerError);
+    });
 });

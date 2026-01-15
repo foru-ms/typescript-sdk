@@ -21,7 +21,7 @@ export declare namespace PostsClient {
 export class PostsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<PostsClient.Options>;
 
-    constructor(options: PostsClient.Options) {
+    constructor(options: PostsClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
@@ -51,31 +51,14 @@ export class PostsClient {
         requestOptions?: PostsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.PostListResponse>> {
         const { limit, cursor, userId, sort, search, type: type_ } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
-        }
-
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
-        if (userId != null) {
-            _queryParams.userId = userId;
-        }
-
-        if (sort != null) {
-            _queryParams.sort = sort;
-        }
-
-        if (search != null) {
-            _queryParams.search = search;
-        }
-
-        if (type_ != null) {
-            _queryParams.type = type_;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            limit,
+            cursor,
+            userId,
+            sort: sort != null ? sort : undefined,
+            search,
+            type: type_ != null ? type_ : undefined,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -537,19 +520,11 @@ export class PostsClient {
         requestOptions?: PostsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.PostReactionListResponse>> {
         const { id, limit, cursor, type: type_ } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
-        }
-
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
-        if (type_ != null) {
-            _queryParams.type = type_;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            limit,
+            cursor,
+            type: type_ != null ? type_ : undefined,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -900,31 +875,14 @@ export class PostsClient {
         requestOptions?: PostsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.PostPostListResponse>> {
         const { id, limit, cursor, userId, sort, search, type: type_ } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
-        }
-
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
-        if (userId != null) {
-            _queryParams.userId = userId;
-        }
-
-        if (sort != null) {
-            _queryParams.sort = sort;
-        }
-
-        if (search != null) {
-            _queryParams.search = search;
-        }
-
-        if (type_ != null) {
-            _queryParams.type = type_;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            limit,
+            cursor,
+            userId,
+            sort: sort != null ? sort : undefined,
+            search,
+            type: type_ != null ? type_ : undefined,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,

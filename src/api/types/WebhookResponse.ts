@@ -15,6 +15,8 @@ export namespace WebhookResponse {
         events: string[];
         /** Whether webhook is active */
         active: boolean;
+        /** Custom extended data */
+        extendedData: Record<string, unknown> | null;
         /** Last trigger timestamp */
         lastTriggered: string | null;
         /** Consecutive failure count */

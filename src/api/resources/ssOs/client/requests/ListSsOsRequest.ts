@@ -5,8 +5,8 @@
  *     {}
  */
 export interface ListSsOsRequest {
-    /** Pagination cursor */
-    cursor?: string;
     /** Items per page (max 75) */
     limit?: number;
+    /** Cursor for pagination */
+    cursor?: string;
 }

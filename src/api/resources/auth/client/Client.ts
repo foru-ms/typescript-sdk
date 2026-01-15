@@ -21,7 +21,7 @@ export declare namespace AuthClient {
 export class AuthClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<AuthClient.Options>;
 
-    constructor(options: AuthClient.Options) {
+    constructor(options: AuthClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 

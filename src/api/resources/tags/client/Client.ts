@@ -21,7 +21,7 @@ export declare namespace TagsClient {
 export class TagsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<TagsClient.Options>;
 
-    constructor(options: TagsClient.Options) {
+    constructor(options: TagsClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
@@ -51,19 +51,11 @@ export class TagsClient {
         requestOptions?: TagsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.TagListResponse>> {
         const { limit, cursor, search } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
-        }
-
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
-        if (search != null) {
-            _queryParams.search = search;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            limit,
+            cursor,
+            search,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -524,15 +516,10 @@ export class TagsClient {
         requestOptions?: TagsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.TagSubscriberListResponse>> {
         const { id, limit, cursor } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
-        }
-
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            limit,
+            cursor,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,

@@ -5,3 +5,4 @@ export type { ListDeliveriesWebhooksRequest } from "./ListDeliveriesWebhooksRequ
 export type { ListWebhooksRequest } from "./ListWebhooksRequest.js";
 export type { RetrieveDeliveryWebhooksRequest } from "./RetrieveDeliveryWebhooksRequest.js";
 export type { RetrieveWebhooksRequest } from "./RetrieveWebhooksRequest.js";
+export type { UpdateWebhooksRequest } from "./UpdateWebhooksRequest.js";

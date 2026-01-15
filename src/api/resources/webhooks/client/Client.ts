@@ -21,7 +21,7 @@ export declare namespace WebhooksClient {
 export class WebhooksClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<WebhooksClient.Options>;
 
-    constructor(options: WebhooksClient.Options) {
+    constructor(options: WebhooksClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
@@ -53,15 +53,10 @@ export class WebhooksClient {
         requestOptions?: WebhooksClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.WebhookListResponse>> {
         const { limit, cursor } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
-        }
-
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            limit,
+            cursor,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -406,6 +401,105 @@ export class WebhooksClient {
     }
 
     /**
+     * Update an existing webhook. Only provided fields will be modified.
+     *
+     * **Requires feature: webhooks**
+     *
+     * @param {Forum.UpdateWebhooksRequest} request
+     * @param {WebhooksClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Forum.BadRequestError}
+     * @throws {@link Forum.UnauthorizedError}
+     * @throws {@link Forum.PaymentRequiredError}
+     * @throws {@link Forum.NotFoundError}
+     * @throws {@link Forum.TooManyRequestsError}
+     * @throws {@link Forum.InternalServerError}
+     *
+     * @example
+     *     await client.webhooks.update({
+     *         id: "id"
+     *     })
+     */
+    public update(
+        request: Forum.UpdateWebhooksRequest,
+        requestOptions?: WebhooksClient.RequestOptions,
+    ): core.HttpResponsePromise<Forum.UpdateWebhooksResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
+    }
+
+    private async __update(
+        request: Forum.UpdateWebhooksRequest,
+        requestOptions?: WebhooksClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Forum.UpdateWebhooksResponse>> {
+        const { id, ..._body } = request;
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ForumEnvironment.Production,
+                `webhooks/${core.url.encodePathParam(id)}`,
+            ),
+            method: "PATCH",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: _body,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Forum.UpdateWebhooksResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Forum.BadRequestError(_response.error.body as Forum.ErrorResponse, _response.rawResponse);
+                case 401:
+                    throw new Forum.UnauthorizedError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 402:
+                    throw new Forum.PaymentRequiredError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Forum.NotFoundError(_response.error.body as Forum.ErrorResponse, _response.rawResponse);
+                case 429:
+                    throw new Forum.TooManyRequestsError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Forum.InternalServerError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ForumError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "PATCH", "/webhooks/{id}");
+    }
+
+    /**
      * Retrieve a paginated list of deliveries for Webhook.
      *
      * **Requires feature: webhooks**
@@ -435,15 +529,10 @@ export class WebhooksClient {
         requestOptions?: WebhooksClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.WebhookDeliveryListResponse>> {
         const { id, cursor, limit } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            cursor,
+            limit,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,

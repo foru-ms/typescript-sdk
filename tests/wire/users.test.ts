@@ -104,6 +104,173 @@ describe("UsersClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
+    test("create (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { username: "username" };
+        const rawResponseBody = {
+            data: {
+                id: "id",
+                username: "username",
+                displayName: "displayName",
+                bio: "bio",
+                signature: "signature",
+                url: "url",
+                postsCount: 1,
+                threadsCount: 1,
+                isOnline: true,
+                lastSeenAt: "lastSeenAt",
+                roles: [{ id: "id", name: "name", slug: null }],
+                extendedData: { key: "value" },
+                createdAt: "createdAt",
+                updatedAt: "updatedAt",
+            },
+        };
+        server
+            .mockEndpoint()
+            .post("/users")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.users.create({
+            username: "username",
+        });
+        expect(response).toEqual({
+            data: {
+                id: "id",
+                username: "username",
+                displayName: "displayName",
+                bio: "bio",
+                signature: "signature",
+                url: "url",
+                postsCount: 1,
+                threadsCount: 1,
+                isOnline: true,
+                lastSeenAt: "lastSeenAt",
+                roles: [
+                    {
+                        id: "id",
+                        name: "name",
+                        slug: null,
+                    },
+                ],
+                extendedData: {
+                    key: "value",
+                },
+                createdAt: "createdAt",
+                updatedAt: "updatedAt",
+            },
+        });
+    });
+
+    test("create (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { username: "foo" };
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/users")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.users.create({
+                username: "foo",
+            });
+        }).rejects.toThrow(Forum.BadRequestError);
+    });
+
+    test("create (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { username: "foo" };
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/users")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.users.create({
+                username: "foo",
+            });
+        }).rejects.toThrow(Forum.UnauthorizedError);
+    });
+
+    test("create (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { username: "foo" };
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/users")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(402)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.users.create({
+                username: "foo",
+            });
+        }).rejects.toThrow(Forum.PaymentRequiredError);
+    });
+
+    test("create (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { username: "foo" };
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/users")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.users.create({
+                username: "foo",
+            });
+        }).rejects.toThrow(Forum.TooManyRequestsError);
+    });
+
+    test("create (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { username: "foo" };
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/users")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.users.create({
+                username: "foo",
+            });
+        }).rejects.toThrow(Forum.InternalServerError);
+    });
+
     test("retrieve (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });

@@ -17,4 +17,8 @@ export interface CreateWebhooksRequest {
     events: string[];
     /** Secret for signature verification (auto-generated if missing) */
     secret?: string;
+    /** Whether webhook is active */
+    active?: boolean;
+    /** Custom extended data */
+    extendedData?: Record<string, unknown>;
 }

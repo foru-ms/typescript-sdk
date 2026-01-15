@@ -21,7 +21,7 @@ export declare namespace NotificationsClient {
 export class NotificationsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<NotificationsClient.Options>;
 
-    constructor(options: NotificationsClient.Options) {
+    constructor(options: NotificationsClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
@@ -51,23 +51,12 @@ export class NotificationsClient {
         requestOptions?: NotificationsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.NotificationListResponse>> {
         const { limit, cursor, status, userId } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
-        }
-
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
-        if (status != null) {
-            _queryParams.status = status;
-        }
-
-        if (userId != null) {
-            _queryParams.userId = userId;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            limit,
+            cursor,
+            status: status != null ? status : undefined,
+            userId,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,

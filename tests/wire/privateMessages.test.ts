@@ -523,6 +523,180 @@ describe("PrivateMessagesClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
+    test("update (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            data: {
+                recipientId: "recipientId",
+                senderId: "senderId",
+                title: "title",
+                body: "body",
+                parentId: "parentId",
+                extendedData: { key: "value" },
+                id: "id",
+                status: "status",
+                createdAt: "createdAt",
+                updatedAt: "updatedAt",
+            },
+        };
+        server
+            .mockEndpoint()
+            .patch("/private-messages/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.privateMessages.update({
+            id: "id",
+        });
+        expect(response).toEqual({
+            data: {
+                recipientId: "recipientId",
+                senderId: "senderId",
+                title: "title",
+                body: "body",
+                parentId: "parentId",
+                extendedData: {
+                    key: "value",
+                },
+                id: "id",
+                status: "status",
+                createdAt: "createdAt",
+                updatedAt: "updatedAt",
+            },
+        });
+    });
+
+    test("update (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .patch("/private-messages/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.privateMessages.update({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.BadRequestError);
+    });
+
+    test("update (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .patch("/private-messages/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.privateMessages.update({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.UnauthorizedError);
+    });
+
+    test("update (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .patch("/private-messages/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(402)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.privateMessages.update({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.PaymentRequiredError);
+    });
+
+    test("update (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .patch("/private-messages/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.privateMessages.update({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.NotFoundError);
+    });
+
+    test("update (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .patch("/private-messages/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.privateMessages.update({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.TooManyRequestsError);
+    });
+
+    test("update (7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .patch("/private-messages/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.privateMessages.update({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.InternalServerError);
+    });
+
     test("listReplies (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });

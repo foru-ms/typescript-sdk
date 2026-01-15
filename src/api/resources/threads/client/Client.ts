@@ -21,7 +21,7 @@ export declare namespace ThreadsClient {
 export class ThreadsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<ThreadsClient.Options>;
 
-    constructor(options: ThreadsClient.Options) {
+    constructor(options: ThreadsClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
@@ -51,31 +51,14 @@ export class ThreadsClient {
         requestOptions?: ThreadsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.ThreadListResponse>> {
         const { limit, cursor, search, tagId, userId, sort } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
-        }
-
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
-        if (search != null) {
-            _queryParams.search = search;
-        }
-
-        if (tagId != null) {
-            _queryParams.tagId = tagId;
-        }
-
-        if (userId != null) {
-            _queryParams.userId = userId;
-        }
-
-        if (sort != null) {
-            _queryParams.sort = sort;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            limit,
+            cursor,
+            search,
+            tagId,
+            userId,
+            sort: sort != null ? sort : undefined,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -537,31 +520,14 @@ export class ThreadsClient {
         requestOptions?: ThreadsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.ThreadPostListResponse>> {
         const { id, limit, cursor, userId, sort, search, type: type_ } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
-        }
-
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
-        if (userId != null) {
-            _queryParams.userId = userId;
-        }
-
-        if (sort != null) {
-            _queryParams.sort = sort;
-        }
-
-        if (search != null) {
-            _queryParams.search = search;
-        }
-
-        if (type_ != null) {
-            _queryParams.type = type_;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            limit,
+            cursor,
+            userId,
+            sort: sort != null ? sort : undefined,
+            search,
+            type: type_ != null ? type_ : undefined,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -820,19 +786,11 @@ export class ThreadsClient {
         requestOptions?: ThreadsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.ThreadReactionListResponse>> {
         const { id, limit, cursor, type: type_ } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
-        }
-
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
-        if (type_ != null) {
-            _queryParams.type = type_;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            limit,
+            cursor,
+            type: type_ != null ? type_ : undefined,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -1191,15 +1149,10 @@ export class ThreadsClient {
         requestOptions?: ThreadsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.ThreadSubscriberListResponse>> {
         const { id, limit, cursor } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
-        }
-
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            limit,
+            cursor,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,

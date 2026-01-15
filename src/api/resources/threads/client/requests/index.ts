@@ -1,5 +1,5 @@
 export type { CreatePollThreadsRequest } from "./CreatePollThreadsRequest.js";
-export type { CreateReactionThreadsRequest } from "./CreateReactionThreadsRequest.js";
+export { CreateReactionThreadsRequest } from "./CreateReactionThreadsRequest.js";
 export type { CreateThreadsRequest } from "./CreateThreadsRequest.js";
 export type { DeletePostThreadsRequest } from "./DeletePostThreadsRequest.js";
 export type { DeleteReactionThreadsRequest } from "./DeleteReactionThreadsRequest.js";

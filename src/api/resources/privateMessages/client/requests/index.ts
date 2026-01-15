@@ -6,3 +6,4 @@ export type { ListPrivateMessagesRequest } from "./ListPrivateMessagesRequest.js
 export type { ListRepliesPrivateMessagesRequest } from "./ListRepliesPrivateMessagesRequest.js";
 export type { RetrievePrivateMessagesRequest } from "./RetrievePrivateMessagesRequest.js";
 export type { RetrieveReplyPrivateMessagesRequest } from "./RetrieveReplyPrivateMessagesRequest.js";
+export type { UpdatePrivateMessagesRequest } from "./UpdatePrivateMessagesRequest.js";

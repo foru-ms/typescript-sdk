@@ -12,4 +12,6 @@ export interface SsoCreate {
     authorizationEndpoint: string;
     tokenEndpoint: string;
     userInfoEndpoint: string;
+    /** Custom extended data */
+    extendedData?: Record<string, unknown>;
 }

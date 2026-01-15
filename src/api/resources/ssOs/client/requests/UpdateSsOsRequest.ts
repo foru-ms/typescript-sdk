@@ -21,4 +21,6 @@ export interface UpdateSsOsRequest {
     userInfoEndpoint?: string;
     /** Enable/disable provider */
     active?: boolean;
+    /** Custom extended data */
+    extendedData?: Record<string, unknown>;
 }

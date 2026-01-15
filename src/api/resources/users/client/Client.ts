@@ -21,7 +21,7 @@ export declare namespace UsersClient {
 export class UsersClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<UsersClient.Options>;
 
-    constructor(options: UsersClient.Options) {
+    constructor(options: UsersClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
@@ -51,23 +51,12 @@ export class UsersClient {
         requestOptions?: UsersClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.UserListResponse>> {
         const { limit, cursor, search, sort } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
-        }
-
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
-        if (search != null) {
-            _queryParams.search = search;
-        }
-
-        if (sort != null) {
-            _queryParams.sort = sort;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            limit,
+            cursor,
+            search,
+            sort: sort != null ? sort : undefined,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -126,6 +115,99 @@ export class UsersClient {
         }
 
         return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/users");
+    }
+
+    /**
+     * Create a new user.
+     *
+     * @param {Forum.CreateUsersRequest} request
+     * @param {UsersClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Forum.BadRequestError}
+     * @throws {@link Forum.UnauthorizedError}
+     * @throws {@link Forum.PaymentRequiredError}
+     * @throws {@link Forum.TooManyRequestsError}
+     * @throws {@link Forum.InternalServerError}
+     *
+     * @example
+     *     await client.users.create({
+     *         username: "username"
+     *     })
+     */
+    public create(
+        request: Forum.CreateUsersRequest,
+        requestOptions?: UsersClient.RequestOptions,
+    ): core.HttpResponsePromise<Forum.UserResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
+    }
+
+    private async __create(
+        request: Forum.CreateUsersRequest,
+        requestOptions?: UsersClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Forum.UserResponse>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ForumEnvironment.Production,
+                "users",
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: request,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Forum.UserResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Forum.BadRequestError(_response.error.body as Forum.ErrorResponse, _response.rawResponse);
+                case 401:
+                    throw new Forum.UnauthorizedError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 402:
+                    throw new Forum.PaymentRequiredError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 429:
+                    throw new Forum.TooManyRequestsError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Forum.InternalServerError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ForumError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/users");
     }
 
     /**
@@ -435,15 +517,10 @@ export class UsersClient {
         requestOptions?: UsersClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.UserFollowerListResponse>> {
         const { id, limit, cursor } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
-        }
-
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            limit,
+            cursor,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -702,15 +779,10 @@ export class UsersClient {
         requestOptions?: UsersClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.UserFollowingListResponse>> {
         const { id, limit, cursor } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (limit != null) {
-            _queryParams.limit = limit.toString();
-        }
-
-        if (cursor != null) {
-            _queryParams.cursor = cursor;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            limit,
+            cursor,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,

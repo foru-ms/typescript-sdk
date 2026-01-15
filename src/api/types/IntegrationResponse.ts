@@ -13,6 +13,8 @@ export namespace IntegrationResponse {
         name: string;
         /** Whether integration is active */
         active: boolean;
+        /** Custom extended data */
+        extendedData: Record<string, unknown> | null;
         /** Integration creation timestamp */
         createdAt: string;
         /** Integration last update timestamp */

@@ -18,6 +18,12 @@ export interface CreateThreadsRequest {
     tags?: string[];
     /** Poll data */
     poll?: CreateThreadsRequest.Poll;
+    /** Lock thread on creation */
+    locked?: boolean;
+    /** Pin thread on creation */
+    pinned?: boolean;
+    /** Custom extended data */
+    extendedData?: Record<string, unknown>;
 }
 
 export namespace CreateThreadsRequest {

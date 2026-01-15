@@ -307,7 +307,24 @@ describe("AuthClient", () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { data: { id: "id", username: "username" } };
+        const rawResponseBody = {
+            data: {
+                id: "id",
+                username: "username",
+                displayName: "displayName",
+                email: "email",
+                bio: "bio",
+                signature: "signature",
+                url: "url",
+                postsCount: 1,
+                threadsCount: 1,
+                isOnline: true,
+                lastSeenAt: "lastSeenAt",
+                roles: [{ id: "id", name: "name", slug: null }],
+                extendedData: { key: "value" },
+                createdAt: "createdAt",
+            },
+        };
         server.mockEndpoint().get("/auth/me").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.auth.me();
@@ -315,6 +332,26 @@ describe("AuthClient", () => {
             data: {
                 id: "id",
                 username: "username",
+                displayName: "displayName",
+                email: "email",
+                bio: "bio",
+                signature: "signature",
+                url: "url",
+                postsCount: 1,
+                threadsCount: 1,
+                isOnline: true,
+                lastSeenAt: "lastSeenAt",
+                roles: [
+                    {
+                        id: "id",
+                        name: "name",
+                        slug: null,
+                    },
+                ],
+                extendedData: {
+                    key: "value",
+                },
+                createdAt: "createdAt",
             },
         });
     });

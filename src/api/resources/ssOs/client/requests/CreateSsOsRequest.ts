@@ -21,4 +21,6 @@ export interface CreateSsOsRequest {
     authorizationEndpoint: string;
     tokenEndpoint: string;
     userInfoEndpoint: string;
+    /** Custom extended data */
+    extendedData?: Record<string, unknown>;
 }

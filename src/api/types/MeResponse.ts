@@ -8,5 +8,29 @@ export namespace MeResponse {
     export interface Data {
         id: string;
         username: string;
+        displayName: string | null;
+        email: string | null;
+        bio: string | null;
+        signature: string | null;
+        url: string | null;
+        postsCount?: number;
+        threadsCount?: number;
+        isOnline: boolean | null;
+        lastSeenAt: string | null;
+        roles?: Data.Roles.Item[];
+        extendedData: Record<string, unknown> | null;
+        createdAt: string;
+    }
+
+    export namespace Data {
+        export type Roles = Roles.Item[];
+
+        export namespace Roles {
+            export interface Item {
+                id: string;
+                name: string;
+                slug: string | null;
+            }
+        }
     }
 }

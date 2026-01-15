@@ -15,4 +15,6 @@ export interface UpdateIntegrationsRequest {
     config?: Record<string, unknown>;
     /** Enable/disable integration */
     active?: boolean;
+    /** Custom extended data */
+    extendedData?: Record<string, unknown>;
 }
