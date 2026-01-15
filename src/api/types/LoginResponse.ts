@@ -19,8 +19,44 @@ export namespace LoginResponse {
         export interface User {
             id: string;
             username: string;
-            email?: string;
+            /** Email address */
+            email: string | null;
+            /** Display name */
             displayName: string | null;
+            /** User bio */
+            bio: string | null;
+            /** Forum signature */
+            signature: string | null;
+            /** User website URL */
+            url: string | null;
+            /** Total posts by user */
+            postsCount?: number;
+            /** Total threads by user */
+            threadsCount?: number;
+            /** Online status */
+            isOnline: boolean | null;
+            /** Last activity timestamp */
+            lastSeenAt: string | null;
+            /** User roles */
+            roles?: User.Roles.Item[];
+            /** Custom user data */
+            extendedData: Record<string, unknown> | null;
+            /** Account creation timestamp */
+            createdAt: string;
+            /** Profile last update timestamp */
+            updatedAt: string;
+        }
+
+        export namespace User {
+            export type Roles = Roles.Item[];
+
+            export namespace Roles {
+                export interface Item {
+                    id: string;
+                    name: string;
+                    slug: string | null;
+                }
+            }
         }
     }
 }

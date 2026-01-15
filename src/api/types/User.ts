@@ -3,6 +3,8 @@
 export interface User {
     id: string;
     username: string;
+    /** Email address */
+    email: string | null;
     /** Display name */
     displayName: string | null;
     /** User bio */

@@ -12,7 +12,23 @@ describe("AuthClient", () => {
         const rawResponseBody = {
             data: {
                 token: "token",
-                user: { id: "id", username: "username", email: "email", displayName: "displayName" },
+                user: {
+                    id: "id",
+                    username: "username",
+                    email: "email",
+                    displayName: "displayName",
+                    bio: "bio",
+                    signature: "signature",
+                    url: "url",
+                    postsCount: 1,
+                    threadsCount: 1,
+                    isOnline: true,
+                    lastSeenAt: "lastSeenAt",
+                    roles: [{ id: "id", name: "name", slug: null }],
+                    extendedData: { key: "value" },
+                    createdAt: "createdAt",
+                    updatedAt: "updatedAt",
+                },
             },
         };
         server
@@ -37,6 +53,25 @@ describe("AuthClient", () => {
                     username: "username",
                     email: "email",
                     displayName: "displayName",
+                    bio: "bio",
+                    signature: "signature",
+                    url: "url",
+                    postsCount: 1,
+                    threadsCount: 1,
+                    isOnline: true,
+                    lastSeenAt: "lastSeenAt",
+                    roles: [
+                        {
+                            id: "id",
+                            name: "name",
+                            slug: null,
+                        },
+                    ],
+                    extendedData: {
+                        key: "value",
+                    },
+                    createdAt: "createdAt",
+                    updatedAt: "updatedAt",
                 },
             },
         });
@@ -164,7 +199,23 @@ describe("AuthClient", () => {
         const rawResponseBody = {
             data: {
                 token: "token",
-                user: { id: "id", username: "username", email: "email", displayName: "displayName" },
+                user: {
+                    id: "id",
+                    username: "username",
+                    email: "email",
+                    displayName: "displayName",
+                    bio: "bio",
+                    signature: "signature",
+                    url: "url",
+                    postsCount: 1,
+                    threadsCount: 1,
+                    isOnline: true,
+                    lastSeenAt: "lastSeenAt",
+                    roles: [{ id: "id", name: "name", slug: null }],
+                    extendedData: { key: "value" },
+                    createdAt: "createdAt",
+                    updatedAt: "updatedAt",
+                },
             },
         };
         server
@@ -188,6 +239,25 @@ describe("AuthClient", () => {
                     username: "username",
                     email: "email",
                     displayName: "displayName",
+                    bio: "bio",
+                    signature: "signature",
+                    url: "url",
+                    postsCount: 1,
+                    threadsCount: 1,
+                    isOnline: true,
+                    lastSeenAt: "lastSeenAt",
+                    roles: [
+                        {
+                            id: "id",
+                            name: "name",
+                            slug: null,
+                        },
+                    ],
+                    extendedData: {
+                        key: "value",
+                    },
+                    createdAt: "createdAt",
+                    updatedAt: "updatedAt",
                 },
             },
         });
@@ -311,8 +381,8 @@ describe("AuthClient", () => {
             data: {
                 id: "id",
                 username: "username",
-                displayName: "displayName",
                 email: "email",
+                displayName: "displayName",
                 bio: "bio",
                 signature: "signature",
                 url: "url",
@@ -323,6 +393,7 @@ describe("AuthClient", () => {
                 roles: [{ id: "id", name: "name", slug: null }],
                 extendedData: { key: "value" },
                 createdAt: "createdAt",
+                updatedAt: "updatedAt",
             },
         };
         server.mockEndpoint().get("/auth/me").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
@@ -332,8 +403,8 @@ describe("AuthClient", () => {
             data: {
                 id: "id",
                 username: "username",
-                displayName: "displayName",
                 email: "email",
+                displayName: "displayName",
                 bio: "bio",
                 signature: "signature",
                 url: "url",
@@ -352,6 +423,7 @@ describe("AuthClient", () => {
                     key: "value",
                 },
                 createdAt: "createdAt",
+                updatedAt: "updatedAt",
             },
         });
     });

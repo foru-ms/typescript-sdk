@@ -8,18 +8,32 @@ export namespace MeResponse {
     export interface Data {
         id: string;
         username: string;
-        displayName: string | null;
+        /** Email address */
         email: string | null;
+        /** Display name */
+        displayName: string | null;
+        /** User bio */
         bio: string | null;
+        /** Forum signature */
         signature: string | null;
+        /** User website URL */
         url: string | null;
+        /** Total posts by user */
         postsCount?: number;
+        /** Total threads by user */
         threadsCount?: number;
+        /** Online status */
         isOnline: boolean | null;
+        /** Last activity timestamp */
         lastSeenAt: string | null;
+        /** User roles */
         roles?: Data.Roles.Item[];
+        /** Custom user data */
         extendedData: Record<string, unknown> | null;
+        /** Account creation timestamp */
         createdAt: string;
+        /** Profile last update timestamp */
+        updatedAt: string;
     }
 
     export namespace Data {

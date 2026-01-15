@@ -15,6 +15,7 @@ describe("UsersClient", () => {
                     {
                         id: "id",
                         username: "username",
+                        email: null,
                         displayName: null,
                         bio: null,
                         signature: null,
@@ -39,6 +40,7 @@ describe("UsersClient", () => {
                     {
                         id: "id",
                         username: "username",
+                        email: null,
                         displayName: null,
                         bio: null,
                         signature: null,
@@ -112,6 +114,7 @@ describe("UsersClient", () => {
             data: {
                 id: "id",
                 username: "username",
+                email: "email",
                 displayName: "displayName",
                 bio: "bio",
                 signature: "signature",
@@ -142,6 +145,7 @@ describe("UsersClient", () => {
             data: {
                 id: "id",
                 username: "username",
+                email: "email",
                 displayName: "displayName",
                 bio: "bio",
                 signature: "signature",
@@ -279,6 +283,7 @@ describe("UsersClient", () => {
             data: {
                 id: "id",
                 username: "username",
+                email: "email",
                 displayName: "displayName",
                 bio: "bio",
                 signature: "signature",
@@ -302,6 +307,7 @@ describe("UsersClient", () => {
             data: {
                 id: "id",
                 username: "username",
+                email: "email",
                 displayName: "displayName",
                 bio: "bio",
                 signature: "signature",
@@ -491,6 +497,7 @@ describe("UsersClient", () => {
             data: {
                 id: "id",
                 username: "username",
+                email: "email",
                 displayName: "displayName",
                 bio: "bio",
                 signature: "signature",
@@ -521,6 +528,7 @@ describe("UsersClient", () => {
             data: {
                 id: "id",
                 username: "username",
+                email: "email",
                 displayName: "displayName",
                 bio: "bio",
                 signature: "signature",
