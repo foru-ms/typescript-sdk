@@ -2,7 +2,7 @@
 
 import type { BaseClientOptions, BaseRequestOptions } from "../../../../BaseClient.js";
 import { type NormalizedClientOptions, normalizeClientOptions } from "../../../../BaseClient.js";
-import { mergeHeaders } from "../../../../core/headers.js";
+import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import * as core from "../../../../core/index.js";
 import * as environments from "../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../errors/handleNonStatusCodeError.js";
@@ -21,7 +21,7 @@ export declare namespace SearchClient {
 export class SearchClient {
     protected readonly _options: NormalizedClientOptions<SearchClient.Options>;
 
-    constructor(options: SearchClient.Options = {}) {
+    constructor(options: SearchClient.Options) {
         this._options = normalizeClientOptions(options);
     }
 
@@ -43,7 +43,13 @@ export class SearchClient {
     private async __search(
         requestOptions?: SearchClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.SearchSearchResponse>> {
-        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(this._options?.headers, requestOptions?.headers);
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({
+                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
+            }),
+            requestOptions?.headers,
+        );
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??

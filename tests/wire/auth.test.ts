@@ -7,7 +7,12 @@ import { mockServerPool } from "../mock-server/MockServerPool";
 describe("AuthClient", () => {
     test("register (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { username: "username", email: "email", password: "password" };
         const rawResponseBody = {
             data: {
@@ -79,7 +84,12 @@ describe("AuthClient", () => {
 
     test("register (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { username: "foo", email: "email", password: "mandarin" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -102,7 +112,12 @@ describe("AuthClient", () => {
 
     test("register (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { username: "foo", email: "email", password: "mandarin" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -125,7 +140,12 @@ describe("AuthClient", () => {
 
     test("register (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { username: "foo", email: "email", password: "mandarin" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -148,7 +168,12 @@ describe("AuthClient", () => {
 
     test("register (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { username: "foo", email: "email", password: "mandarin" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -171,7 +196,12 @@ describe("AuthClient", () => {
 
     test("register (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { username: "foo", email: "email", password: "mandarin" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -194,7 +224,12 @@ describe("AuthClient", () => {
 
     test("login (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { login: "login", password: "password" };
         const rawResponseBody = {
             data: {
@@ -265,7 +300,12 @@ describe("AuthClient", () => {
 
     test("login (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { login: "foo", password: "x" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -287,7 +327,12 @@ describe("AuthClient", () => {
 
     test("login (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { login: "foo", password: "x" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -309,7 +354,12 @@ describe("AuthClient", () => {
 
     test("login (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { login: "foo", password: "x" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -331,7 +381,12 @@ describe("AuthClient", () => {
 
     test("login (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { login: "foo", password: "x" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -353,7 +408,12 @@ describe("AuthClient", () => {
 
     test("login (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { login: "foo", password: "x" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -375,7 +435,12 @@ describe("AuthClient", () => {
 
     test("me (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = {
             data: {
@@ -430,7 +495,12 @@ describe("AuthClient", () => {
 
     test("me (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/auth/me").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
@@ -442,7 +512,12 @@ describe("AuthClient", () => {
 
     test("me (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/auth/me").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
@@ -454,7 +529,12 @@ describe("AuthClient", () => {
 
     test("me (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/auth/me").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
@@ -466,7 +546,12 @@ describe("AuthClient", () => {
 
     test("me (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/auth/me").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
@@ -478,7 +563,12 @@ describe("AuthClient", () => {
 
     test("forgot-password (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { email: "email" };
         const rawResponseBody = { data: { message: "message", resetToken: "resetToken" } };
         server
@@ -503,7 +593,12 @@ describe("AuthClient", () => {
 
     test("forgot-password (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { email: "email" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -524,7 +619,12 @@ describe("AuthClient", () => {
 
     test("forgot-password (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { email: "email" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -545,7 +645,12 @@ describe("AuthClient", () => {
 
     test("forgot-password (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { email: "email" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -566,7 +671,12 @@ describe("AuthClient", () => {
 
     test("forgot-password (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { email: "email" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -587,7 +697,12 @@ describe("AuthClient", () => {
 
     test("forgot-password (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { email: "email" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -608,7 +723,12 @@ describe("AuthClient", () => {
 
     test("reset-password (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { password: "password" };
         const rawResponseBody = { data: { message: "message" } };
         server
@@ -632,7 +752,12 @@ describe("AuthClient", () => {
 
     test("reset-password (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { password: "mandarin" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -653,7 +778,12 @@ describe("AuthClient", () => {
 
     test("reset-password (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { password: "mandarin" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -674,7 +804,12 @@ describe("AuthClient", () => {
 
     test("reset-password (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { password: "mandarin" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -695,7 +830,12 @@ describe("AuthClient", () => {
 
     test("reset-password (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { password: "mandarin" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -716,7 +856,12 @@ describe("AuthClient", () => {
 
     test("reset-password (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { password: "mandarin" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server

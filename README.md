@@ -46,7 +46,7 @@ Instantiate and use the client with the following:
 ```typescript
 import { ForumClient } from "@foru-ms/sdk";
 
-const client = new ForumClient({ apiKey: "YOUR_API_KEY" });
+const client = new ForumClient({ apiKey: "YOUR_API_KEY", provisioningKey: "YOUR_PROVISIONING_KEY" });
 await client.auth.register({
     username: "username",
     email: "email",

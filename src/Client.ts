@@ -5,6 +5,7 @@ import { IntegrationsClient } from "./api/resources/integrations/client/Client.j
 import { NotificationsClient } from "./api/resources/notifications/client/Client.js";
 import { PostsClient } from "./api/resources/posts/client/Client.js";
 import { PrivateMessagesClient } from "./api/resources/privateMessages/client/Client.js";
+import { ProvisioningClient } from "./api/resources/provisioning/client/Client.js";
 import { ReportsClient } from "./api/resources/reports/client/Client.js";
 import { RolesClient } from "./api/resources/roles/client/Client.js";
 import { SearchClient } from "./api/resources/search/client/Client.js";
@@ -37,8 +38,9 @@ export class ForumClient {
     protected _webhooks: WebhooksClient | undefined;
     protected _integrations: IntegrationsClient | undefined;
     protected _ssOs: SsOsClient | undefined;
+    protected _provisioning: ProvisioningClient | undefined;
 
-    constructor(options: ForumClient.Options = {}) {
+    constructor(options: ForumClient.Options) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
@@ -92,5 +94,9 @@ export class ForumClient {
 
     public get ssOs(): SsOsClient {
         return (this._ssOs ??= new SsOsClient(this._options));
+    }
+
+    public get provisioning(): ProvisioningClient {
+        return (this._provisioning ??= new ProvisioningClient(this._options));
     }
 }
