@@ -7,12 +7,7 @@ import { mockServerPool } from "../mock-server/MockServerPool";
 describe("SearchClient", () => {
     test("search (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             data: { items: [{ type: "thread", id: "id" }], nextCursor: "nextCursor", hasMore: true },
@@ -36,12 +31,7 @@ describe("SearchClient", () => {
 
     test("search (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/search/").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
@@ -53,12 +43,7 @@ describe("SearchClient", () => {
 
     test("search (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/search/").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
@@ -70,12 +55,7 @@ describe("SearchClient", () => {
 
     test("search (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/search/").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
@@ -87,12 +67,7 @@ describe("SearchClient", () => {
 
     test("search (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/search/").respondWith().statusCode(500).jsonBody(rawResponseBody).build();

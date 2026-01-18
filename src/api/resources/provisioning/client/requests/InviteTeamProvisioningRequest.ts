@@ -3,6 +3,7 @@
 /**
  * @example
  *     {
+ *         "x-provisioning-key": "x-provisioning-key",
  *         handle: "handle",
  *         members: [{
  *                 email: "email"
@@ -10,6 +11,8 @@
  *     }
  */
 export interface InviteTeamProvisioningRequest {
+    /** User provisioning key for platform-level instance management */
+    "x-provisioning-key": string;
     handle: string;
     members: InviteTeamProvisioningRequest.Members.Item[];
 }

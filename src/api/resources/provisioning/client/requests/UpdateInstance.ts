@@ -3,10 +3,13 @@
 /**
  * @example
  *     {
+ *         "x-provisioning-key": "x-provisioning-key",
  *         handle: "handle"
  *     }
  */
 export interface UpdateInstance {
+    /** User provisioning key for platform-level instance management */
+    "x-provisioning-key": string;
     /** Current handle to identify the instance */
     handle: string;
     /** New display name */

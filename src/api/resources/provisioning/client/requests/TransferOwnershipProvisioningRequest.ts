@@ -3,11 +3,14 @@
 /**
  * @example
  *     {
+ *         "x-provisioning-key": "x-provisioning-key",
  *         handle: "handle",
  *         newOwnerEmail: "newOwnerEmail"
  *     }
  */
 export interface TransferOwnershipProvisioningRequest {
+    /** User provisioning key for platform-level instance management */
+    "x-provisioning-key": string;
     handle: string;
     /** Email of the new owner */
     newOwnerEmail: string;

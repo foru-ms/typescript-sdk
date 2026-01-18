@@ -40,7 +40,7 @@ export class ForumClient {
     protected _ssOs: SsOsClient | undefined;
     protected _provisioning: ProvisioningClient | undefined;
 
-    constructor(options: ForumClient.Options) {
+    constructor(options: ForumClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 

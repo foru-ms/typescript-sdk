@@ -2,9 +2,13 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         "x-provisioning-key": "x-provisioning-key"
+ *     }
  */
 export interface ListProvisioningRequest {
     /** Optional handle to get a single instance */
     handle?: string;
+    /** User provisioning key for platform-level instance management */
+    "x-provisioning-key": string;
 }

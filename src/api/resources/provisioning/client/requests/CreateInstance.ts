@@ -3,11 +3,14 @@
 /**
  * @example
  *     {
+ *         "x-provisioning-key": "x-provisioning-key",
  *         name: "name",
  *         handle: "handle"
  *     }
  */
 export interface CreateInstance {
+    /** User provisioning key for platform-level instance management */
+    "x-provisioning-key": string;
     /** Display name for the instance */
     name: string;
     /** URL-friendly identifier (slug) */

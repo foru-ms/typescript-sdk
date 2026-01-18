@@ -3,11 +3,14 @@
 /**
  * @example
  *     {
+ *         "x-provisioning-key": "x-provisioning-key",
  *         handle: "handle",
  *         email: "email"
  *     }
  */
 export interface RemoveTeamMemberProvisioningRequest {
+    /** User provisioning key for platform-level instance management */
+    "x-provisioning-key": string;
     handle: string;
     email: string;
 }

@@ -7,12 +7,7 @@ import { mockServerPool } from "../mock-server/MockServerPool";
 describe("WebhooksClient", () => {
     test("list (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             data: {
@@ -61,12 +56,7 @@ describe("WebhooksClient", () => {
 
     test("list (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/webhooks").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
@@ -78,12 +68,7 @@ describe("WebhooksClient", () => {
 
     test("list (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/webhooks").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
@@ -95,12 +80,7 @@ describe("WebhooksClient", () => {
 
     test("list (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/webhooks").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
@@ -112,12 +92,7 @@ describe("WebhooksClient", () => {
 
     test("list (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/webhooks").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
@@ -129,12 +104,7 @@ describe("WebhooksClient", () => {
 
     test("create (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name", url: "url", events: ["events"] };
         const rawResponseBody = {
             data: {
@@ -184,12 +154,7 @@ describe("WebhooksClient", () => {
 
     test("create (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "x", url: "url", events: ["events", "events"] };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -212,12 +177,7 @@ describe("WebhooksClient", () => {
 
     test("create (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "x", url: "url", events: ["events", "events"] };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -240,12 +200,7 @@ describe("WebhooksClient", () => {
 
     test("create (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "x", url: "url", events: ["events", "events"] };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -268,12 +223,7 @@ describe("WebhooksClient", () => {
 
     test("create (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "x", url: "url", events: ["events", "events"] };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -296,12 +246,7 @@ describe("WebhooksClient", () => {
 
     test("create (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "x", url: "url", events: ["events", "events"] };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -324,12 +269,7 @@ describe("WebhooksClient", () => {
 
     test("retrieve (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             data: {
@@ -370,12 +310,7 @@ describe("WebhooksClient", () => {
 
     test("retrieve (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/webhooks/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
@@ -389,12 +324,7 @@ describe("WebhooksClient", () => {
 
     test("retrieve (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/webhooks/id").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
@@ -408,12 +338,7 @@ describe("WebhooksClient", () => {
 
     test("retrieve (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/webhooks/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
@@ -427,12 +352,7 @@ describe("WebhooksClient", () => {
 
     test("retrieve (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/webhooks/id").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
@@ -446,12 +366,7 @@ describe("WebhooksClient", () => {
 
     test("retrieve (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/webhooks/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
@@ -465,12 +380,7 @@ describe("WebhooksClient", () => {
 
     test("delete (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { data: { success: true } };
         server.mockEndpoint().delete("/webhooks/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
@@ -487,12 +397,7 @@ describe("WebhooksClient", () => {
 
     test("delete (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().delete("/webhooks/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
@@ -506,12 +411,7 @@ describe("WebhooksClient", () => {
 
     test("delete (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().delete("/webhooks/id").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
@@ -525,12 +425,7 @@ describe("WebhooksClient", () => {
 
     test("delete (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().delete("/webhooks/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
@@ -544,12 +439,7 @@ describe("WebhooksClient", () => {
 
     test("delete (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().delete("/webhooks/id").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
@@ -563,12 +453,7 @@ describe("WebhooksClient", () => {
 
     test("delete (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().delete("/webhooks/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
@@ -582,12 +467,7 @@ describe("WebhooksClient", () => {
 
     test("update (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = {
             data: {
@@ -635,12 +515,7 @@ describe("WebhooksClient", () => {
 
     test("update (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -661,12 +536,7 @@ describe("WebhooksClient", () => {
 
     test("update (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -687,12 +557,7 @@ describe("WebhooksClient", () => {
 
     test("update (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -713,12 +578,7 @@ describe("WebhooksClient", () => {
 
     test("update (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -739,12 +599,7 @@ describe("WebhooksClient", () => {
 
     test("update (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -765,12 +620,7 @@ describe("WebhooksClient", () => {
 
     test("update (7)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -791,12 +641,7 @@ describe("WebhooksClient", () => {
 
     test("listDeliveries (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             data: {
@@ -851,12 +696,7 @@ describe("WebhooksClient", () => {
 
     test("listDeliveries (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -876,12 +716,7 @@ describe("WebhooksClient", () => {
 
     test("listDeliveries (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -901,12 +736,7 @@ describe("WebhooksClient", () => {
 
     test("listDeliveries (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -926,12 +756,7 @@ describe("WebhooksClient", () => {
 
     test("listDeliveries (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -951,12 +776,7 @@ describe("WebhooksClient", () => {
 
     test("retrieveDelivery (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             data: {
@@ -1002,12 +822,7 @@ describe("WebhooksClient", () => {
 
     test("retrieveDelivery (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -1028,12 +843,7 @@ describe("WebhooksClient", () => {
 
     test("retrieveDelivery (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -1054,12 +864,7 @@ describe("WebhooksClient", () => {
 
     test("retrieveDelivery (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -1080,12 +885,7 @@ describe("WebhooksClient", () => {
 
     test("retrieveDelivery (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -1106,12 +906,7 @@ describe("WebhooksClient", () => {
 
     test("deleteDelivery (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { data: { success: true } };
         server
@@ -1135,12 +930,7 @@ describe("WebhooksClient", () => {
 
     test("deleteDelivery (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -1161,12 +951,7 @@ describe("WebhooksClient", () => {
 
     test("deleteDelivery (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -1187,12 +972,7 @@ describe("WebhooksClient", () => {
 
     test("deleteDelivery (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -1213,12 +993,7 @@ describe("WebhooksClient", () => {
 
     test("deleteDelivery (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server

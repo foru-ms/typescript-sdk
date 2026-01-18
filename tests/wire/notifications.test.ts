@@ -7,12 +7,7 @@ import { mockServerPool } from "../mock-server/MockServerPool";
 describe("NotificationsClient", () => {
     test("list (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             data: {
@@ -65,12 +60,7 @@ describe("NotificationsClient", () => {
 
     test("list (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/notifications").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
@@ -82,12 +72,7 @@ describe("NotificationsClient", () => {
 
     test("list (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/notifications").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
@@ -99,12 +84,7 @@ describe("NotificationsClient", () => {
 
     test("list (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/notifications").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
@@ -116,12 +96,7 @@ describe("NotificationsClient", () => {
 
     test("list (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/notifications").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
@@ -133,12 +108,7 @@ describe("NotificationsClient", () => {
 
     test("create (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { userId: "userId", type: "type" };
         const rawResponseBody = {
             data: {
@@ -191,12 +161,7 @@ describe("NotificationsClient", () => {
 
     test("create (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { userId: "userId", type: "x" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -218,12 +183,7 @@ describe("NotificationsClient", () => {
 
     test("create (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { userId: "userId", type: "x" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -245,12 +205,7 @@ describe("NotificationsClient", () => {
 
     test("create (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { userId: "userId", type: "x" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -272,12 +227,7 @@ describe("NotificationsClient", () => {
 
     test("create (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { userId: "userId", type: "x" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -299,12 +249,7 @@ describe("NotificationsClient", () => {
 
     test("create (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { userId: "userId", type: "x" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -326,12 +271,7 @@ describe("NotificationsClient", () => {
 
     test("retrieve (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             data: {
@@ -376,12 +316,7 @@ describe("NotificationsClient", () => {
 
     test("retrieve (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/notifications/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
@@ -395,12 +330,7 @@ describe("NotificationsClient", () => {
 
     test("retrieve (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/notifications/id").respondWith().statusCode(402).jsonBody(rawResponseBody).build();
@@ -414,12 +344,7 @@ describe("NotificationsClient", () => {
 
     test("retrieve (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/notifications/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
@@ -433,12 +358,7 @@ describe("NotificationsClient", () => {
 
     test("retrieve (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/notifications/id").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
@@ -452,12 +372,7 @@ describe("NotificationsClient", () => {
 
     test("retrieve (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server.mockEndpoint().get("/notifications/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
@@ -471,12 +386,7 @@ describe("NotificationsClient", () => {
 
     test("delete (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { data: { success: true } };
         server
@@ -499,12 +409,7 @@ describe("NotificationsClient", () => {
 
     test("delete (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -524,12 +429,7 @@ describe("NotificationsClient", () => {
 
     test("delete (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -549,12 +449,7 @@ describe("NotificationsClient", () => {
 
     test("delete (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -574,12 +469,7 @@ describe("NotificationsClient", () => {
 
     test("delete (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -599,12 +489,7 @@ describe("NotificationsClient", () => {
 
     test("delete (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -624,12 +509,7 @@ describe("NotificationsClient", () => {
 
     test("update (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = {
             data: {
@@ -681,12 +561,7 @@ describe("NotificationsClient", () => {
 
     test("update (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -707,12 +582,7 @@ describe("NotificationsClient", () => {
 
     test("update (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -733,12 +603,7 @@ describe("NotificationsClient", () => {
 
     test("update (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -759,12 +624,7 @@ describe("NotificationsClient", () => {
 
     test("update (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -785,12 +645,7 @@ describe("NotificationsClient", () => {
 
     test("update (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -811,12 +666,7 @@ describe("NotificationsClient", () => {
 
     test("update (7)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server

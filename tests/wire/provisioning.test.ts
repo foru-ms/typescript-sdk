@@ -7,12 +7,7 @@ import { mockServerPool } from "../mock-server/MockServerPool";
 describe("ProvisioningClient", () => {
     test("list (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             data: { instances: [{ id: "id", name: "name", handle: "handle", createdAt: "2024-01-15T09:30:00Z" }] },
@@ -20,12 +15,15 @@ describe("ProvisioningClient", () => {
         server
             .mockEndpoint()
             .get("/provisioning/instances")
+            .header("x-provisioning-key", "x-provisioning-key")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.provisioning.list();
+        const response = await client.provisioning.list({
+            "x-provisioning-key": "x-provisioning-key",
+        });
         expect(response).toEqual({
             data: {
                 instances: [
@@ -42,81 +40,70 @@ describe("ProvisioningClient", () => {
 
     test("list (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.provisioning.list();
+            return await client.provisioning.list({
+                "x-provisioning-key": "provisioningKey",
+            });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
     test("list (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.provisioning.list();
+            return await client.provisioning.list({
+                "x-provisioning-key": "provisioningKey",
+            });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
     test("list (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.provisioning.list();
+            return await client.provisioning.list({
+                "x-provisioning-key": "provisioningKey",
+            });
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
     test("create (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name", handle: "handle" };
         const rawResponseBody = {
             data: { id: "id", name: "name", handle: "handle", apiKey: "apiKey", createdAt: "2024-01-15T09:30:00Z" },
@@ -124,6 +111,7 @@ describe("ProvisioningClient", () => {
         server
             .mockEndpoint()
             .post("/provisioning/instances")
+            .header("x-provisioning-key", "x-provisioning-key")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -131,6 +119,7 @@ describe("ProvisioningClient", () => {
             .build();
 
         const response = await client.provisioning.create({
+            "x-provisioning-key": "x-provisioning-key",
             name: "name",
             handle: "handle",
         });
@@ -147,17 +136,13 @@ describe("ProvisioningClient", () => {
 
     test("create (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name", handle: "handle" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -166,6 +151,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.create({
+                "x-provisioning-key": "provisioningKey",
                 name: "name",
                 handle: "handle",
             });
@@ -174,17 +160,13 @@ describe("ProvisioningClient", () => {
 
     test("create (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name", handle: "handle" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -193,6 +175,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.create({
+                "x-provisioning-key": "provisioningKey",
                 name: "name",
                 handle: "handle",
             });
@@ -201,17 +184,13 @@ describe("ProvisioningClient", () => {
 
     test("create (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name", handle: "handle" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -220,6 +199,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.create({
+                "x-provisioning-key": "provisioningKey",
                 name: "name",
                 handle: "handle",
             });
@@ -228,17 +208,13 @@ describe("ProvisioningClient", () => {
 
     test("update (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle" };
         const rawResponseBody = { data: { name: "name", handle: "handle" } };
         server
             .mockEndpoint()
             .put("/provisioning/instances")
+            .header("x-provisioning-key", "x-provisioning-key")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -246,6 +222,7 @@ describe("ProvisioningClient", () => {
             .build();
 
         const response = await client.provisioning.update({
+            "x-provisioning-key": "x-provisioning-key",
             handle: "handle",
         });
         expect(response).toEqual({
@@ -258,17 +235,13 @@ describe("ProvisioningClient", () => {
 
     test("update (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .put("/provisioning/instances")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -277,6 +250,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.update({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.BadRequestError);
@@ -284,17 +258,13 @@ describe("ProvisioningClient", () => {
 
     test("update (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .put("/provisioning/instances")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -303,6 +273,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.update({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
@@ -310,17 +281,13 @@ describe("ProvisioningClient", () => {
 
     test("update (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .put("/provisioning/instances")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -329,6 +296,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.update({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.NotFoundError);
@@ -336,17 +304,13 @@ describe("ProvisioningClient", () => {
 
     test("update (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .put("/provisioning/instances")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -355,6 +319,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.update({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.InternalServerError);
@@ -362,17 +327,13 @@ describe("ProvisioningClient", () => {
 
     test("delete (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle" };
         const rawResponseBody = { data: { deleted: "deleted" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances")
+            .header("x-provisioning-key", "x-provisioning-key")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -380,6 +341,7 @@ describe("ProvisioningClient", () => {
             .build();
 
         const response = await client.provisioning.delete({
+            "x-provisioning-key": "x-provisioning-key",
             handle: "handle",
         });
         expect(response).toEqual({
@@ -391,17 +353,13 @@ describe("ProvisioningClient", () => {
 
     test("delete (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -410,6 +368,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.delete({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.BadRequestError);
@@ -417,17 +376,13 @@ describe("ProvisioningClient", () => {
 
     test("delete (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -436,6 +391,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.delete({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
@@ -443,17 +399,13 @@ describe("ProvisioningClient", () => {
 
     test("delete (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -462,6 +414,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.delete({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.NotFoundError);
@@ -469,17 +422,13 @@ describe("ProvisioningClient", () => {
 
     test("delete (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -488,6 +437,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.delete({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.InternalServerError);
@@ -495,12 +445,7 @@ describe("ProvisioningClient", () => {
 
     test("getBilling (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             data: {
@@ -515,12 +460,14 @@ describe("ProvisioningClient", () => {
         server
             .mockEndpoint()
             .get("/provisioning/instances/billing")
+            .header("x-provisioning-key", "x-provisioning-key")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
         const response = await client.provisioning.getBilling({
+            "x-provisioning-key": "x-provisioning-key",
             handle: "handle",
         });
         expect(response).toEqual({
@@ -537,17 +484,13 @@ describe("ProvisioningClient", () => {
 
     test("getBilling (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances/billing")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
@@ -555,6 +498,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.getBilling({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
@@ -562,17 +506,13 @@ describe("ProvisioningClient", () => {
 
     test("getBilling (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances/billing")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
@@ -580,6 +520,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.getBilling({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.NotFoundError);
@@ -587,17 +528,13 @@ describe("ProvisioningClient", () => {
 
     test("getBilling (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances/billing")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
@@ -605,6 +542,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.getBilling({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.InternalServerError);
@@ -612,12 +550,7 @@ describe("ProvisioningClient", () => {
 
     test("changePlan (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", plan: "FREE" };
         const rawResponseBody = {
             data: { action: "checkout", plan: "plan", isAnnual: true, message: "message", url: "url" },
@@ -625,6 +558,7 @@ describe("ProvisioningClient", () => {
         server
             .mockEndpoint()
             .post("/provisioning/instances/billing")
+            .header("x-provisioning-key", "x-provisioning-key")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -632,6 +566,7 @@ describe("ProvisioningClient", () => {
             .build();
 
         const response = await client.provisioning.changePlan({
+            "x-provisioning-key": "x-provisioning-key",
             handle: "handle",
             plan: "FREE",
         });
@@ -648,17 +583,13 @@ describe("ProvisioningClient", () => {
 
     test("changePlan (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", plan: "FREE" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/billing")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -667,6 +598,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.changePlan({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 plan: "FREE",
             });
@@ -675,17 +607,13 @@ describe("ProvisioningClient", () => {
 
     test("changePlan (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", plan: "FREE" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/billing")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -694,6 +622,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.changePlan({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 plan: "FREE",
             });
@@ -702,17 +631,13 @@ describe("ProvisioningClient", () => {
 
     test("changePlan (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", plan: "FREE" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/billing")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -721,6 +646,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.changePlan({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 plan: "FREE",
             });
@@ -729,17 +655,13 @@ describe("ProvisioningClient", () => {
 
     test("changePlan (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", plan: "FREE" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/billing")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -748,6 +670,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.changePlan({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 plan: "FREE",
             });
@@ -756,17 +679,13 @@ describe("ProvisioningClient", () => {
 
     test("regenerateApiKey (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle" };
         const rawResponseBody = { data: { handle: "handle", apiKey: "apiKey" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/api-key")
+            .header("x-provisioning-key", "x-provisioning-key")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -774,6 +693,7 @@ describe("ProvisioningClient", () => {
             .build();
 
         const response = await client.provisioning.regenerateApiKey({
+            "x-provisioning-key": "x-provisioning-key",
             handle: "handle",
         });
         expect(response).toEqual({
@@ -786,17 +706,13 @@ describe("ProvisioningClient", () => {
 
     test("regenerateApiKey (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/api-key")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -805,6 +721,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.regenerateApiKey({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
@@ -812,17 +729,13 @@ describe("ProvisioningClient", () => {
 
     test("regenerateApiKey (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/api-key")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -831,6 +744,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.regenerateApiKey({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.NotFoundError);
@@ -838,17 +752,13 @@ describe("ProvisioningClient", () => {
 
     test("regenerateApiKey (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/api-key")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -857,6 +767,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.regenerateApiKey({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.InternalServerError);
@@ -864,12 +775,7 @@ describe("ProvisioningClient", () => {
 
     test("getUsage (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             data: {
@@ -886,12 +792,14 @@ describe("ProvisioningClient", () => {
         server
             .mockEndpoint()
             .get("/provisioning/instances/usage")
+            .header("x-provisioning-key", "x-provisioning-key")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
         const response = await client.provisioning.getUsage({
+            "x-provisioning-key": "x-provisioning-key",
             handle: "handle",
         });
         expect(response).toEqual({
@@ -910,17 +818,13 @@ describe("ProvisioningClient", () => {
 
     test("getUsage (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances/usage")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
@@ -928,6 +832,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.getUsage({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
@@ -935,17 +840,13 @@ describe("ProvisioningClient", () => {
 
     test("getUsage (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances/usage")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
@@ -953,6 +854,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.getUsage({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.NotFoundError);
@@ -960,17 +862,13 @@ describe("ProvisioningClient", () => {
 
     test("getUsage (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances/usage")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
@@ -978,6 +876,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.getUsage({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.InternalServerError);
@@ -985,12 +884,7 @@ describe("ProvisioningClient", () => {
 
     test("listTeam (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             data: { handle: "handle", members: [{ id: "id", email: "email", role: "MEMBER", status: "PENDING" }] },
@@ -998,12 +892,14 @@ describe("ProvisioningClient", () => {
         server
             .mockEndpoint()
             .get("/provisioning/instances/team")
+            .header("x-provisioning-key", "x-provisioning-key")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
         const response = await client.provisioning.listTeam({
+            "x-provisioning-key": "x-provisioning-key",
             handle: "handle",
         });
         expect(response).toEqual({
@@ -1023,17 +919,13 @@ describe("ProvisioningClient", () => {
 
     test("listTeam (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances/team")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
@@ -1041,6 +933,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.listTeam({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
@@ -1048,17 +941,13 @@ describe("ProvisioningClient", () => {
 
     test("listTeam (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances/team")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
@@ -1066,6 +955,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.listTeam({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.NotFoundError);
@@ -1073,17 +963,13 @@ describe("ProvisioningClient", () => {
 
     test("listTeam (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances/team")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
@@ -1091,6 +977,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.listTeam({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.InternalServerError);
@@ -1098,17 +985,13 @@ describe("ProvisioningClient", () => {
 
     test("inviteTeam (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", members: [{ email: "email" }] };
         const rawResponseBody = { data: { invited: ["invited"] } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/team")
+            .header("x-provisioning-key", "x-provisioning-key")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -1116,6 +999,7 @@ describe("ProvisioningClient", () => {
             .build();
 
         const response = await client.provisioning.inviteTeam({
+            "x-provisioning-key": "x-provisioning-key",
             handle: "handle",
             members: [
                 {
@@ -1132,17 +1016,13 @@ describe("ProvisioningClient", () => {
 
     test("inviteTeam (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", members: [{ email: "email" }, { email: "email" }] };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/team")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -1151,6 +1031,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.inviteTeam({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 members: [
                     {
@@ -1166,17 +1047,13 @@ describe("ProvisioningClient", () => {
 
     test("inviteTeam (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", members: [{ email: "email" }, { email: "email" }] };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/team")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -1185,6 +1062,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.inviteTeam({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 members: [
                     {
@@ -1200,17 +1078,13 @@ describe("ProvisioningClient", () => {
 
     test("inviteTeam (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", members: [{ email: "email" }, { email: "email" }] };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/team")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -1219,6 +1093,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.inviteTeam({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 members: [
                     {
@@ -1234,17 +1109,13 @@ describe("ProvisioningClient", () => {
 
     test("inviteTeam (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", members: [{ email: "email" }, { email: "email" }] };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/team")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -1253,6 +1124,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.inviteTeam({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 members: [
                     {
@@ -1268,17 +1140,13 @@ describe("ProvisioningClient", () => {
 
     test("removeTeamMember (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", email: "email" };
         const rawResponseBody = { data: { removed: "removed" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances/team")
+            .header("x-provisioning-key", "x-provisioning-key")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -1286,6 +1154,7 @@ describe("ProvisioningClient", () => {
             .build();
 
         const response = await client.provisioning.removeTeamMember({
+            "x-provisioning-key": "x-provisioning-key",
             handle: "handle",
             email: "email",
         });
@@ -1298,17 +1167,13 @@ describe("ProvisioningClient", () => {
 
     test("removeTeamMember (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", email: "email" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances/team")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -1317,6 +1182,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.removeTeamMember({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 email: "email",
             });
@@ -1325,17 +1191,13 @@ describe("ProvisioningClient", () => {
 
     test("removeTeamMember (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", email: "email" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances/team")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -1344,6 +1206,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.removeTeamMember({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 email: "email",
             });
@@ -1352,17 +1215,13 @@ describe("ProvisioningClient", () => {
 
     test("removeTeamMember (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", email: "email" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances/team")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -1371,6 +1230,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.removeTeamMember({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 email: "email",
             });
@@ -1379,17 +1239,13 @@ describe("ProvisioningClient", () => {
 
     test("removeTeamMember (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", email: "email" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances/team")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -1398,6 +1254,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.removeTeamMember({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 email: "email",
             });
@@ -1406,12 +1263,7 @@ describe("ProvisioningClient", () => {
 
     test("listDomains (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             data: { handle: "handle", domains: [{ id: "id", name: "name", createdAt: "2024-01-15T09:30:00Z" }] },
@@ -1419,12 +1271,14 @@ describe("ProvisioningClient", () => {
         server
             .mockEndpoint()
             .get("/provisioning/instances/domains")
+            .header("x-provisioning-key", "x-provisioning-key")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
         const response = await client.provisioning.listDomains({
+            "x-provisioning-key": "x-provisioning-key",
             handle: "handle",
         });
         expect(response).toEqual({
@@ -1443,17 +1297,13 @@ describe("ProvisioningClient", () => {
 
     test("listDomains (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances/domains")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
@@ -1461,6 +1311,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.listDomains({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
@@ -1468,17 +1319,13 @@ describe("ProvisioningClient", () => {
 
     test("listDomains (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances/domains")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
@@ -1486,6 +1333,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.listDomains({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.NotFoundError);
@@ -1493,17 +1341,13 @@ describe("ProvisioningClient", () => {
 
     test("listDomains (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances/domains")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
@@ -1511,6 +1355,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.listDomains({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.InternalServerError);
@@ -1518,12 +1363,7 @@ describe("ProvisioningClient", () => {
 
     test("addDomain (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", name: "name" };
         const rawResponseBody = {
             data: { id: "id", name: "name", subdomain: "subdomain", createdAt: "2024-01-15T09:30:00Z" },
@@ -1531,6 +1371,7 @@ describe("ProvisioningClient", () => {
         server
             .mockEndpoint()
             .post("/provisioning/instances/domains")
+            .header("x-provisioning-key", "x-provisioning-key")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -1538,6 +1379,7 @@ describe("ProvisioningClient", () => {
             .build();
 
         const response = await client.provisioning.addDomain({
+            "x-provisioning-key": "x-provisioning-key",
             handle: "handle",
             name: "name",
         });
@@ -1553,17 +1395,13 @@ describe("ProvisioningClient", () => {
 
     test("addDomain (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", name: "name" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/domains")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -1572,6 +1410,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.addDomain({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 name: "name",
             });
@@ -1580,17 +1419,13 @@ describe("ProvisioningClient", () => {
 
     test("addDomain (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", name: "name" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/domains")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -1599,6 +1434,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.addDomain({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 name: "name",
             });
@@ -1607,17 +1443,13 @@ describe("ProvisioningClient", () => {
 
     test("addDomain (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", name: "name" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/domains")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -1626,6 +1458,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.addDomain({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 name: "name",
             });
@@ -1634,17 +1467,13 @@ describe("ProvisioningClient", () => {
 
     test("addDomain (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", name: "name" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/domains")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -1653,6 +1482,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.addDomain({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 name: "name",
             });
@@ -1661,17 +1491,13 @@ describe("ProvisioningClient", () => {
 
     test("removeDomain (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", name: "name" };
         const rawResponseBody = { data: { removed: "removed" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances/domains")
+            .header("x-provisioning-key", "x-provisioning-key")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -1679,6 +1505,7 @@ describe("ProvisioningClient", () => {
             .build();
 
         const response = await client.provisioning.removeDomain({
+            "x-provisioning-key": "x-provisioning-key",
             handle: "handle",
             name: "name",
         });
@@ -1691,17 +1518,13 @@ describe("ProvisioningClient", () => {
 
     test("removeDomain (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", name: "name" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances/domains")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -1710,6 +1533,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.removeDomain({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 name: "name",
             });
@@ -1718,17 +1542,13 @@ describe("ProvisioningClient", () => {
 
     test("removeDomain (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", name: "name" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances/domains")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -1737,6 +1557,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.removeDomain({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 name: "name",
             });
@@ -1745,17 +1566,13 @@ describe("ProvisioningClient", () => {
 
     test("removeDomain (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", name: "name" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances/domains")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -1764,6 +1581,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.removeDomain({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 name: "name",
             });
@@ -1772,17 +1590,13 @@ describe("ProvisioningClient", () => {
 
     test("removeDomain (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", name: "name" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances/domains")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -1791,6 +1605,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.removeDomain({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 name: "name",
             });
@@ -1799,12 +1614,7 @@ describe("ProvisioningClient", () => {
 
     test("exportData (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle" };
         const rawResponseBody = {
             data: {
@@ -1815,6 +1625,7 @@ describe("ProvisioningClient", () => {
         server
             .mockEndpoint()
             .post("/provisioning/instances/export")
+            .header("x-provisioning-key", "x-provisioning-key")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -1822,6 +1633,7 @@ describe("ProvisioningClient", () => {
             .build();
 
         const response = await client.provisioning.exportData({
+            "x-provisioning-key": "x-provisioning-key",
             handle: "handle",
         });
         expect(response).toEqual({
@@ -1843,17 +1655,13 @@ describe("ProvisioningClient", () => {
 
     test("exportData (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/export")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -1862,6 +1670,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.exportData({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
@@ -1869,17 +1678,13 @@ describe("ProvisioningClient", () => {
 
     test("exportData (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/export")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -1888,6 +1693,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.exportData({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.NotFoundError);
@@ -1895,17 +1701,13 @@ describe("ProvisioningClient", () => {
 
     test("exportData (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/export")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -1914,6 +1716,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.exportData({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.InternalServerError);
@@ -1921,12 +1724,7 @@ describe("ProvisioningClient", () => {
 
     test("listWebhooks (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             data: { handle: "handle", webhooks: [{ id: "id", url: "url", events: ["events"], active: true }] },
@@ -1934,12 +1732,14 @@ describe("ProvisioningClient", () => {
         server
             .mockEndpoint()
             .get("/provisioning/instances/webhooks")
+            .header("x-provisioning-key", "x-provisioning-key")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
         const response = await client.provisioning.listWebhooks({
+            "x-provisioning-key": "x-provisioning-key",
             handle: "handle",
         });
         expect(response).toEqual({
@@ -1959,17 +1759,13 @@ describe("ProvisioningClient", () => {
 
     test("listWebhooks (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances/webhooks")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
@@ -1977,6 +1773,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.listWebhooks({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
@@ -1984,17 +1781,13 @@ describe("ProvisioningClient", () => {
 
     test("listWebhooks (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances/webhooks")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
@@ -2002,6 +1795,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.listWebhooks({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.NotFoundError);
@@ -2009,17 +1803,13 @@ describe("ProvisioningClient", () => {
 
     test("listWebhooks (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances/webhooks")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
@@ -2027,6 +1817,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.listWebhooks({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.InternalServerError);
@@ -2034,12 +1825,7 @@ describe("ProvisioningClient", () => {
 
     test("createWebhook (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", url: "url", events: ["events"] };
         const rawResponseBody = {
             data: {
@@ -2054,6 +1840,7 @@ describe("ProvisioningClient", () => {
         server
             .mockEndpoint()
             .post("/provisioning/instances/webhooks")
+            .header("x-provisioning-key", "x-provisioning-key")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -2061,6 +1848,7 @@ describe("ProvisioningClient", () => {
             .build();
 
         const response = await client.provisioning.createWebhook({
+            "x-provisioning-key": "x-provisioning-key",
             handle: "handle",
             url: "url",
             events: ["events"],
@@ -2079,17 +1867,13 @@ describe("ProvisioningClient", () => {
 
     test("createWebhook (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", url: "url", events: ["events", "events"] };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/webhooks")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -2098,6 +1882,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.createWebhook({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 url: "url",
                 events: ["events", "events"],
@@ -2107,17 +1892,13 @@ describe("ProvisioningClient", () => {
 
     test("createWebhook (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", url: "url", events: ["events", "events"] };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/webhooks")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -2126,6 +1907,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.createWebhook({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 url: "url",
                 events: ["events", "events"],
@@ -2135,17 +1917,13 @@ describe("ProvisioningClient", () => {
 
     test("createWebhook (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", url: "url", events: ["events", "events"] };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/webhooks")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -2154,6 +1932,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.createWebhook({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 url: "url",
                 events: ["events", "events"],
@@ -2163,17 +1942,13 @@ describe("ProvisioningClient", () => {
 
     test("createWebhook (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", url: "url", events: ["events", "events"] };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/webhooks")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -2182,6 +1957,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.createWebhook({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 url: "url",
                 events: ["events", "events"],
@@ -2191,12 +1967,7 @@ describe("ProvisioningClient", () => {
 
     test("updateWebhook (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", webhookId: "webhookId" };
         const rawResponseBody = {
             data: {
@@ -2211,6 +1982,7 @@ describe("ProvisioningClient", () => {
         server
             .mockEndpoint()
             .put("/provisioning/instances/webhooks")
+            .header("x-provisioning-key", "x-provisioning-key")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -2218,6 +1990,7 @@ describe("ProvisioningClient", () => {
             .build();
 
         const response = await client.provisioning.updateWebhook({
+            "x-provisioning-key": "x-provisioning-key",
             handle: "handle",
             webhookId: "webhookId",
         });
@@ -2235,17 +2008,13 @@ describe("ProvisioningClient", () => {
 
     test("updateWebhook (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", webhookId: "webhookId" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .put("/provisioning/instances/webhooks")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -2254,6 +2023,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.updateWebhook({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 webhookId: "webhookId",
             });
@@ -2262,17 +2032,13 @@ describe("ProvisioningClient", () => {
 
     test("updateWebhook (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", webhookId: "webhookId" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .put("/provisioning/instances/webhooks")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -2281,6 +2047,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.updateWebhook({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 webhookId: "webhookId",
             });
@@ -2289,17 +2056,13 @@ describe("ProvisioningClient", () => {
 
     test("updateWebhook (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", webhookId: "webhookId" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .put("/provisioning/instances/webhooks")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -2308,6 +2071,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.updateWebhook({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 webhookId: "webhookId",
             });
@@ -2316,17 +2080,13 @@ describe("ProvisioningClient", () => {
 
     test("updateWebhook (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", webhookId: "webhookId" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .put("/provisioning/instances/webhooks")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -2335,6 +2095,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.updateWebhook({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 webhookId: "webhookId",
             });
@@ -2343,17 +2104,13 @@ describe("ProvisioningClient", () => {
 
     test("deleteWebhook (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", webhookId: "webhookId" };
         const rawResponseBody = { data: { deleted: "deleted" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances/webhooks")
+            .header("x-provisioning-key", "x-provisioning-key")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -2361,6 +2118,7 @@ describe("ProvisioningClient", () => {
             .build();
 
         const response = await client.provisioning.deleteWebhook({
+            "x-provisioning-key": "x-provisioning-key",
             handle: "handle",
             webhookId: "webhookId",
         });
@@ -2373,17 +2131,13 @@ describe("ProvisioningClient", () => {
 
     test("deleteWebhook (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", webhookId: "webhookId" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances/webhooks")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -2392,6 +2146,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.deleteWebhook({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 webhookId: "webhookId",
             });
@@ -2400,17 +2155,13 @@ describe("ProvisioningClient", () => {
 
     test("deleteWebhook (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", webhookId: "webhookId" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances/webhooks")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -2419,6 +2170,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.deleteWebhook({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 webhookId: "webhookId",
             });
@@ -2427,17 +2179,13 @@ describe("ProvisioningClient", () => {
 
     test("deleteWebhook (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", webhookId: "webhookId" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances/webhooks")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -2446,6 +2194,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.deleteWebhook({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 webhookId: "webhookId",
             });
@@ -2454,17 +2203,13 @@ describe("ProvisioningClient", () => {
 
     test("deleteWebhook (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", webhookId: "webhookId" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .delete("/provisioning/instances/webhooks")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -2473,6 +2218,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.deleteWebhook({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 webhookId: "webhookId",
             });
@@ -2481,12 +2227,7 @@ describe("ProvisioningClient", () => {
 
     test("getOwnership (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             data: {
@@ -2499,12 +2240,14 @@ describe("ProvisioningClient", () => {
         server
             .mockEndpoint()
             .get("/provisioning/instances/ownership")
+            .header("x-provisioning-key", "x-provisioning-key")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
         const response = await client.provisioning.getOwnership({
+            "x-provisioning-key": "x-provisioning-key",
             handle: "handle",
         });
         expect(response).toEqual({
@@ -2527,17 +2270,13 @@ describe("ProvisioningClient", () => {
 
     test("getOwnership (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances/ownership")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
@@ -2545,6 +2284,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.getOwnership({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
@@ -2552,17 +2292,13 @@ describe("ProvisioningClient", () => {
 
     test("getOwnership (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances/ownership")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(403)
             .jsonBody(rawResponseBody)
@@ -2570,6 +2306,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.getOwnership({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.ForbiddenError);
@@ -2577,17 +2314,13 @@ describe("ProvisioningClient", () => {
 
     test("getOwnership (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances/ownership")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
@@ -2595,6 +2328,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.getOwnership({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.NotFoundError);
@@ -2602,17 +2336,13 @@ describe("ProvisioningClient", () => {
 
     test("getOwnership (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .get("/provisioning/instances/ownership")
+            .header("x-provisioning-key", "provisioningKey")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
@@ -2620,6 +2350,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.getOwnership({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
             });
         }).rejects.toThrow(Forum.InternalServerError);
@@ -2627,12 +2358,7 @@ describe("ProvisioningClient", () => {
 
     test("transferOwnership (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", newOwnerEmail: "newOwnerEmail" };
         const rawResponseBody = {
             data: { message: "message", instanceId: "instanceId", newOwner: { id: "id", email: "email" } },
@@ -2640,6 +2366,7 @@ describe("ProvisioningClient", () => {
         server
             .mockEndpoint()
             .post("/provisioning/instances/ownership")
+            .header("x-provisioning-key", "x-provisioning-key")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -2647,6 +2374,7 @@ describe("ProvisioningClient", () => {
             .build();
 
         const response = await client.provisioning.transferOwnership({
+            "x-provisioning-key": "x-provisioning-key",
             handle: "handle",
             newOwnerEmail: "newOwnerEmail",
         });
@@ -2664,17 +2392,13 @@ describe("ProvisioningClient", () => {
 
     test("transferOwnership (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", newOwnerEmail: "newOwnerEmail" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/ownership")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -2683,6 +2407,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.transferOwnership({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 newOwnerEmail: "newOwnerEmail",
             });
@@ -2691,17 +2416,13 @@ describe("ProvisioningClient", () => {
 
     test("transferOwnership (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", newOwnerEmail: "newOwnerEmail" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/ownership")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -2710,6 +2431,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.transferOwnership({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 newOwnerEmail: "newOwnerEmail",
             });
@@ -2718,17 +2440,13 @@ describe("ProvisioningClient", () => {
 
     test("transferOwnership (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", newOwnerEmail: "newOwnerEmail" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/ownership")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -2737,6 +2455,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.transferOwnership({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 newOwnerEmail: "newOwnerEmail",
             });
@@ -2745,17 +2464,13 @@ describe("ProvisioningClient", () => {
 
     test("transferOwnership (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { handle: "handle", newOwnerEmail: "newOwnerEmail" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
             .post("/provisioning/instances/ownership")
+            .header("x-provisioning-key", "provisioningKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -2764,6 +2479,7 @@ describe("ProvisioningClient", () => {
 
         await expect(async () => {
             return await client.provisioning.transferOwnership({
+                "x-provisioning-key": "provisioningKey",
                 handle: "handle",
                 newOwnerEmail: "newOwnerEmail",
             });
@@ -2772,12 +2488,7 @@ describe("ProvisioningClient", () => {
 
     test("register (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { email: "email", password: "password" };
         const rawResponseBody = { data: { provisioningKey: "provisioningKey", userId: "userId", email: "email" } };
         server
@@ -2804,12 +2515,7 @@ describe("ProvisioningClient", () => {
 
     test("register (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { email: "email", password: "mandarin" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -2831,12 +2537,7 @@ describe("ProvisioningClient", () => {
 
     test("register (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { email: "email", password: "mandarin" };
         const rawResponseBody = { errors: { error: { msg: "msg" } } };
         server
@@ -2858,12 +2559,7 @@ describe("ProvisioningClient", () => {
 
     test("register (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { email: "email", password: "mandarin" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -2885,12 +2581,7 @@ describe("ProvisioningClient", () => {
 
     test("login (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { email: "email", password: "password" };
         const rawResponseBody = { data: { provisioningKey: "provisioningKey", userId: "userId", email: "email" } };
         server
@@ -2917,12 +2608,7 @@ describe("ProvisioningClient", () => {
 
     test("login (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { email: "email", password: "password" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
@@ -2944,12 +2630,7 @@ describe("ProvisioningClient", () => {
 
     test("login (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new ForumClient({
-            maxRetries: 0,
-            apiKey: "test",
-            provisioningKey: "test",
-            environment: server.baseUrl,
-        });
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { email: "email", password: "password" };
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server

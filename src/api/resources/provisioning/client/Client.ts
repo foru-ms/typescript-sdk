@@ -21,7 +21,7 @@ export declare namespace ProvisioningClient {
 export class ProvisioningClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<ProvisioningClient.Options>;
 
-    constructor(options: ProvisioningClient.Options) {
+    constructor(options: ProvisioningClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
@@ -36,20 +36,22 @@ export class ProvisioningClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.provisioning.list()
+     *     await client.provisioning.list({
+     *         "x-provisioning-key": "x-provisioning-key"
+     *     })
      */
     public list(
-        request: Forum.ListProvisioningRequest = {},
+        request: Forum.ListProvisioningRequest,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): core.HttpResponsePromise<Forum.ListProvisioningResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
     private async __list(
-        request: Forum.ListProvisioningRequest = {},
+        request: Forum.ListProvisioningRequest,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.ListProvisioningResponse>> {
-        const { handle } = request;
+        const { handle, "x-provisioning-key": provisioningKey } = request;
         const _queryParams: Record<string, unknown> = {
             handle,
         };
@@ -57,9 +59,7 @@ export class ProvisioningClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -120,6 +120,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.create({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         name: "name",
      *         handle: "handle"
      *     })
@@ -135,13 +136,12 @@ export class ProvisioningClient {
         request: Forum.CreateInstance,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.CreateProvisioningResponse>> {
+        const { "x-provisioning-key": provisioningKey, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -156,7 +156,7 @@ export class ProvisioningClient {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -206,6 +206,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.update({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         handle: "handle"
      *     })
      */
@@ -220,13 +221,12 @@ export class ProvisioningClient {
         request: Forum.UpdateInstance,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.UpdateProvisioningResponse>> {
+        const { "x-provisioning-key": provisioningKey, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -241,7 +241,7 @@ export class ProvisioningClient {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -293,6 +293,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.delete({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         handle: "handle"
      *     })
      */
@@ -307,13 +308,12 @@ export class ProvisioningClient {
         request: Forum.DeleteInstance,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.DeleteProvisioningResponse>> {
+        const { "x-provisioning-key": provisioningKey, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -328,7 +328,7 @@ export class ProvisioningClient {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -379,6 +379,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.getBilling({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         handle: "handle"
      *     })
      */
@@ -393,7 +394,7 @@ export class ProvisioningClient {
         request: Forum.GetBillingProvisioningRequest,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.GetBillingProvisioningResponse>> {
-        const { handle } = request;
+        const { handle, "x-provisioning-key": provisioningKey } = request;
         const _queryParams: Record<string, unknown> = {
             handle,
         };
@@ -401,9 +402,7 @@ export class ProvisioningClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -470,6 +469,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.changePlan({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         handle: "handle",
      *         plan: "FREE"
      *     })
@@ -485,13 +485,12 @@ export class ProvisioningClient {
         request: Forum.UpgradeInstance,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.ChangePlanProvisioningResponse>> {
+        const { "x-provisioning-key": provisioningKey, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -506,7 +505,7 @@ export class ProvisioningClient {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -562,6 +561,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.regenerateApiKey({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         handle: "handle"
      *     })
      */
@@ -576,13 +576,12 @@ export class ProvisioningClient {
         request: Forum.RegenerateApiKeyProvisioningRequest,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.RegenerateApiKeyProvisioningResponse>> {
+        const { "x-provisioning-key": provisioningKey, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -597,7 +596,7 @@ export class ProvisioningClient {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -654,6 +653,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.getUsage({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         handle: "handle"
      *     })
      */
@@ -668,7 +668,7 @@ export class ProvisioningClient {
         request: Forum.GetUsageProvisioningRequest,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.GetUsageProvisioningResponse>> {
-        const { handle } = request;
+        const { handle, "x-provisioning-key": provisioningKey } = request;
         const _queryParams: Record<string, unknown> = {
             handle,
         };
@@ -676,9 +676,7 @@ export class ProvisioningClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -739,6 +737,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.listTeam({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         handle: "handle"
      *     })
      */
@@ -753,7 +752,7 @@ export class ProvisioningClient {
         request: Forum.ListTeamProvisioningRequest,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.ListTeamProvisioningResponse>> {
-        const { handle } = request;
+        const { handle, "x-provisioning-key": provisioningKey } = request;
         const _queryParams: Record<string, unknown> = {
             handle,
         };
@@ -761,9 +760,7 @@ export class ProvisioningClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -825,6 +822,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.inviteTeam({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         handle: "handle",
      *         members: [{
      *                 email: "email"
@@ -842,13 +840,12 @@ export class ProvisioningClient {
         request: Forum.InviteTeamProvisioningRequest,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.InviteTeamProvisioningResponse>> {
+        const { "x-provisioning-key": provisioningKey, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -863,7 +860,7 @@ export class ProvisioningClient {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -915,6 +912,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.removeTeamMember({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         handle: "handle",
      *         email: "email"
      *     })
@@ -930,13 +928,12 @@ export class ProvisioningClient {
         request: Forum.RemoveTeamMemberProvisioningRequest,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.RemoveTeamMemberProvisioningResponse>> {
+        const { "x-provisioning-key": provisioningKey, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -951,7 +948,7 @@ export class ProvisioningClient {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1010,6 +1007,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.listDomains({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         handle: "handle"
      *     })
      */
@@ -1024,7 +1022,7 @@ export class ProvisioningClient {
         request: Forum.ListDomainsProvisioningRequest,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.ListDomainsProvisioningResponse>> {
-        const { handle } = request;
+        const { handle, "x-provisioning-key": provisioningKey } = request;
         const _queryParams: Record<string, unknown> = {
             handle,
         };
@@ -1032,9 +1030,7 @@ export class ProvisioningClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1104,6 +1100,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.addDomain({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         handle: "handle",
      *         name: "name"
      *     })
@@ -1119,13 +1116,12 @@ export class ProvisioningClient {
         request: Forum.AddDomainProvisioningRequest,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.AddDomainProvisioningResponse>> {
+        const { "x-provisioning-key": provisioningKey, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1140,7 +1136,7 @@ export class ProvisioningClient {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1197,6 +1193,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.removeDomain({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         handle: "handle",
      *         name: "name"
      *     })
@@ -1212,13 +1209,12 @@ export class ProvisioningClient {
         request: Forum.RemoveDomainProvisioningRequest,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.RemoveDomainProvisioningResponse>> {
+        const { "x-provisioning-key": provisioningKey, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1233,7 +1229,7 @@ export class ProvisioningClient {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1292,6 +1288,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.exportData({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         handle: "handle"
      *     })
      */
@@ -1306,13 +1303,12 @@ export class ProvisioningClient {
         request: Forum.ExportDataProvisioningRequest,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.ExportDataProvisioningResponse>> {
+        const { "x-provisioning-key": provisioningKey, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1327,7 +1323,7 @@ export class ProvisioningClient {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1381,6 +1377,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.listWebhooks({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         handle: "handle"
      *     })
      */
@@ -1395,7 +1392,7 @@ export class ProvisioningClient {
         request: Forum.ListWebhooksProvisioningRequest,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.ListWebhooksProvisioningResponse>> {
-        const { handle } = request;
+        const { handle, "x-provisioning-key": provisioningKey } = request;
         const _queryParams: Record<string, unknown> = {
             handle,
         };
@@ -1403,9 +1400,7 @@ export class ProvisioningClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1475,6 +1470,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.createWebhook({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         handle: "handle",
      *         url: "url",
      *         events: ["events"]
@@ -1491,13 +1487,12 @@ export class ProvisioningClient {
         request: Forum.CreateWebhookProvisioningRequest,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.CreateWebhookProvisioningResponse>> {
+        const { "x-provisioning-key": provisioningKey, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1512,7 +1507,7 @@ export class ProvisioningClient {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1572,6 +1567,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.updateWebhook({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         handle: "handle",
      *         webhookId: "webhookId"
      *     })
@@ -1587,13 +1583,12 @@ export class ProvisioningClient {
         request: Forum.UpdateWebhookProvisioningRequest,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.UpdateWebhookProvisioningResponse>> {
+        const { "x-provisioning-key": provisioningKey, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1608,7 +1603,7 @@ export class ProvisioningClient {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1668,6 +1663,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.deleteWebhook({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         handle: "handle",
      *         webhookId: "webhookId"
      *     })
@@ -1683,13 +1679,12 @@ export class ProvisioningClient {
         request: Forum.DeleteWebhookProvisioningRequest,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.DeleteWebhookProvisioningResponse>> {
+        const { "x-provisioning-key": provisioningKey, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1704,7 +1699,7 @@ export class ProvisioningClient {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1764,6 +1759,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.getOwnership({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         handle: "handle"
      *     })
      */
@@ -1778,7 +1774,7 @@ export class ProvisioningClient {
         request: Forum.GetOwnershipProvisioningRequest,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.GetOwnershipProvisioningResponse>> {
-        const { handle } = request;
+        const { handle, "x-provisioning-key": provisioningKey } = request;
         const _queryParams: Record<string, unknown> = {
             handle,
         };
@@ -1786,9 +1782,7 @@ export class ProvisioningClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1860,6 +1854,7 @@ export class ProvisioningClient {
      *
      * @example
      *     await client.provisioning.transferOwnership({
+     *         "x-provisioning-key": "x-provisioning-key",
      *         handle: "handle",
      *         newOwnerEmail: "newOwnerEmail"
      *     })
@@ -1875,13 +1870,12 @@ export class ProvisioningClient {
         request: Forum.TransferOwnershipProvisioningRequest,
         requestOptions?: ProvisioningClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.TransferOwnershipProvisioningResponse>> {
+        const { "x-provisioning-key": provisioningKey, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
+            mergeOnlyDefinedHeaders({ "x-provisioning-key": provisioningKey }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1896,7 +1890,7 @@ export class ProvisioningClient {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1974,9 +1968,6 @@ export class ProvisioningClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -2058,9 +2049,6 @@ export class ProvisioningClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
-            }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({

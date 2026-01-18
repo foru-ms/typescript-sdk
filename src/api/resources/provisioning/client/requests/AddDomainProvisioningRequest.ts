@@ -3,11 +3,14 @@
 /**
  * @example
  *     {
+ *         "x-provisioning-key": "x-provisioning-key",
  *         handle: "handle",
  *         name: "name"
  *     }
  */
 export interface AddDomainProvisioningRequest {
+    /** User provisioning key for platform-level instance management */
+    "x-provisioning-key": string;
     handle: string;
     /** Domain name (e.g., forum.example.com) */
     name: string;

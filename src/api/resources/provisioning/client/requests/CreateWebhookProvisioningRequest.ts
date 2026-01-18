@@ -3,12 +3,15 @@
 /**
  * @example
  *     {
+ *         "x-provisioning-key": "x-provisioning-key",
  *         handle: "handle",
  *         url: "url",
  *         events: ["events"]
  *     }
  */
 export interface CreateWebhookProvisioningRequest {
+    /** User provisioning key for platform-level instance management */
+    "x-provisioning-key": string;
     handle: string;
     url: string;
     events: string[];

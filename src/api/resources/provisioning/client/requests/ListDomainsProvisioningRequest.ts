@@ -3,10 +3,13 @@
 /**
  * @example
  *     {
+ *         "x-provisioning-key": "x-provisioning-key",
  *         handle: "handle"
  *     }
  */
 export interface ListDomainsProvisioningRequest {
     /** Instance handle */
     handle: string;
+    /** User provisioning key for platform-level instance management */
+    "x-provisioning-key": string;
 }

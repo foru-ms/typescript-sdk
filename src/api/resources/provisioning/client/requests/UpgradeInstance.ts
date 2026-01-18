@@ -3,11 +3,14 @@
 /**
  * @example
  *     {
+ *         "x-provisioning-key": "x-provisioning-key",
  *         handle: "handle",
  *         plan: "FREE"
  *     }
  */
 export interface UpgradeInstance {
+    /** User provisioning key for platform-level instance management */
+    "x-provisioning-key": string;
     /** Instance handle */
     handle: string;
     /** Target plan */

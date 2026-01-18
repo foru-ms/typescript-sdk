@@ -6030,7 +6030,9 @@ Retrieve all instances owned by the authenticated user. Use the `handle` query p
 <dd>
 
 ```typescript
-await client.provisioning.list();
+await client.provisioning.list({
+    "x-provisioning-key": "x-provisioning-key"
+});
 
 ```
 </dd>
@@ -6094,6 +6096,7 @@ Create a new forum instance. Returns the instance details including the API key 
 
 ```typescript
 await client.provisioning.create({
+    "x-provisioning-key": "x-provisioning-key",
     name: "name",
     handle: "handle"
 });
@@ -6160,6 +6163,7 @@ Update an instance's name or handle. The `handle` field identifies which instanc
 
 ```typescript
 await client.provisioning.update({
+    "x-provisioning-key": "x-provisioning-key",
     handle: "handle"
 });
 
@@ -6225,6 +6229,7 @@ Permanently delete an instance. This action cannot be undone.
 
 ```typescript
 await client.provisioning.delete({
+    "x-provisioning-key": "x-provisioning-key",
     handle: "handle"
 });
 
@@ -6290,6 +6295,7 @@ Retrieve billing and subscription information for an instance.
 
 ```typescript
 await client.provisioning.getBilling({
+    "x-provisioning-key": "x-provisioning-key",
     handle: "handle"
 });
 
@@ -6355,6 +6361,7 @@ Change an instance's subscription plan. Returns a checkout URL for upgrades or a
 
 ```typescript
 await client.provisioning.changePlan({
+    "x-provisioning-key": "x-provisioning-key",
     handle: "handle",
     plan: "FREE"
 });
@@ -6421,6 +6428,7 @@ Generate a new API key for the instance. The old key will be invalidated.
 
 ```typescript
 await client.provisioning.regenerateApiKey({
+    "x-provisioning-key": "x-provisioning-key",
     handle: "handle"
 });
 
@@ -6486,6 +6494,7 @@ Retrieve usage statistics for an instance including API requests, storage, and c
 
 ```typescript
 await client.provisioning.getUsage({
+    "x-provisioning-key": "x-provisioning-key",
     handle: "handle"
 });
 
@@ -6551,6 +6560,7 @@ Retrieve all team members for an instance.
 
 ```typescript
 await client.provisioning.listTeam({
+    "x-provisioning-key": "x-provisioning-key",
     handle: "handle"
 });
 
@@ -6616,6 +6626,7 @@ Invite new team members to an instance.
 
 ```typescript
 await client.provisioning.inviteTeam({
+    "x-provisioning-key": "x-provisioning-key",
     handle: "handle",
     members: [{
             email: "email"
@@ -6684,6 +6695,7 @@ Remove a team member from an instance.
 
 ```typescript
 await client.provisioning.removeTeamMember({
+    "x-provisioning-key": "x-provisioning-key",
     handle: "handle",
     email: "email"
 });
@@ -6750,6 +6762,7 @@ Retrieve all custom domains for an instance.
 
 ```typescript
 await client.provisioning.listDomains({
+    "x-provisioning-key": "x-provisioning-key",
     handle: "handle"
 });
 
@@ -6815,6 +6828,7 @@ Add a custom domain to an instance.
 
 ```typescript
 await client.provisioning.addDomain({
+    "x-provisioning-key": "x-provisioning-key",
     handle: "handle",
     name: "name"
 });
@@ -6881,6 +6895,7 @@ Remove a custom domain from an instance.
 
 ```typescript
 await client.provisioning.removeDomain({
+    "x-provisioning-key": "x-provisioning-key",
     handle: "handle",
     name: "name"
 });
@@ -6947,6 +6962,7 @@ Export all data from an instance including threads, posts, users, tags, etc.
 
 ```typescript
 await client.provisioning.exportData({
+    "x-provisioning-key": "x-provisioning-key",
     handle: "handle"
 });
 
@@ -7012,6 +7028,7 @@ Retrieve all webhooks configured for an instance.
 
 ```typescript
 await client.provisioning.listWebhooks({
+    "x-provisioning-key": "x-provisioning-key",
     handle: "handle"
 });
 
@@ -7077,6 +7094,7 @@ Create a new webhook for an instance.
 
 ```typescript
 await client.provisioning.createWebhook({
+    "x-provisioning-key": "x-provisioning-key",
     handle: "handle",
     url: "url",
     events: ["events"]
@@ -7144,6 +7162,7 @@ Update an existing webhook.
 
 ```typescript
 await client.provisioning.updateWebhook({
+    "x-provisioning-key": "x-provisioning-key",
     handle: "handle",
     webhookId: "webhookId"
 });
@@ -7210,6 +7229,7 @@ Delete a webhook from an instance.
 
 ```typescript
 await client.provisioning.deleteWebhook({
+    "x-provisioning-key": "x-provisioning-key",
     handle: "handle",
     webhookId: "webhookId"
 });
@@ -7276,6 +7296,7 @@ Retrieve owner and creator information for an instance.
 
 ```typescript
 await client.provisioning.getOwnership({
+    "x-provisioning-key": "x-provisioning-key",
     handle: "handle"
 });
 
@@ -7341,6 +7362,7 @@ Transfer instance ownership to another user. Only the current owner can transfer
 
 ```typescript
 await client.provisioning.transferOwnership({
+    "x-provisioning-key": "x-provisioning-key",
     handle: "handle",
     newOwnerEmail: "newOwnerEmail"
 });
