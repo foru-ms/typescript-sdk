@@ -17,7 +17,13 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = {
             data: { instances: [{ id: "id", name: "name", handle: "handle", createdAt: "2024-01-15T09:30:00Z" }] },
         };
-        server.mockEndpoint().get("/instances").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
         const response = await client.provisioning.list();
         expect(response).toEqual({
@@ -44,7 +50,13 @@ describe("ProvisioningClient", () => {
         });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
-        server.mockEndpoint().get("/instances").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.provisioning.list();
@@ -61,7 +73,13 @@ describe("ProvisioningClient", () => {
         });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
-        server.mockEndpoint().get("/instances").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.provisioning.list();
@@ -78,7 +96,13 @@ describe("ProvisioningClient", () => {
         });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
-        server.mockEndpoint().get("/instances").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.provisioning.list();
@@ -99,7 +123,7 @@ describe("ProvisioningClient", () => {
         };
         server
             .mockEndpoint()
-            .post("/instances")
+            .post("/provisioning/instances")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -133,7 +157,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances")
+            .post("/provisioning/instances")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -160,7 +184,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances")
+            .post("/provisioning/instances")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -187,7 +211,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances")
+            .post("/provisioning/instances")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -214,7 +238,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { data: { name: "name", handle: "handle" } };
         server
             .mockEndpoint()
-            .put("/instances")
+            .put("/provisioning/instances")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -244,7 +268,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .put("/instances")
+            .put("/provisioning/instances")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -270,7 +294,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .put("/instances")
+            .put("/provisioning/instances")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -296,7 +320,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .put("/instances")
+            .put("/provisioning/instances")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -322,7 +346,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .put("/instances")
+            .put("/provisioning/instances")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -348,7 +372,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { data: { deleted: "deleted" } };
         server
             .mockEndpoint()
-            .delete("/instances")
+            .delete("/provisioning/instances")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -377,7 +401,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/instances")
+            .delete("/provisioning/instances")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -403,7 +427,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/instances")
+            .delete("/provisioning/instances")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -429,7 +453,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/instances")
+            .delete("/provisioning/instances")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -455,7 +479,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/instances")
+            .delete("/provisioning/instances")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -488,7 +512,13 @@ describe("ProvisioningClient", () => {
                 cancelAtPeriodEnd: true,
             },
         };
-        server.mockEndpoint().get("/instances/billing").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/billing")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
         const response = await client.provisioning.getBilling({
             handle: "handle",
@@ -515,7 +545,13 @@ describe("ProvisioningClient", () => {
         });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
-        server.mockEndpoint().get("/instances/billing").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/billing")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.provisioning.getBilling({
@@ -534,7 +570,13 @@ describe("ProvisioningClient", () => {
         });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
-        server.mockEndpoint().get("/instances/billing").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/billing")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.provisioning.getBilling({
@@ -553,7 +595,13 @@ describe("ProvisioningClient", () => {
         });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
-        server.mockEndpoint().get("/instances/billing").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/billing")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.provisioning.getBilling({
@@ -576,7 +624,7 @@ describe("ProvisioningClient", () => {
         };
         server
             .mockEndpoint()
-            .post("/instances/billing")
+            .post("/provisioning/instances/billing")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -610,7 +658,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/billing")
+            .post("/provisioning/instances/billing")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -637,7 +685,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/billing")
+            .post("/provisioning/instances/billing")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -664,7 +712,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/billing")
+            .post("/provisioning/instances/billing")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -691,7 +739,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/billing")
+            .post("/provisioning/instances/billing")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -718,7 +766,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { data: { handle: "handle", apiKey: "apiKey" } };
         server
             .mockEndpoint()
-            .post("/instances/api-key")
+            .post("/provisioning/instances/api-key")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -748,7 +796,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/api-key")
+            .post("/provisioning/instances/api-key")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -774,7 +822,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/api-key")
+            .post("/provisioning/instances/api-key")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -800,7 +848,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/api-key")
+            .post("/provisioning/instances/api-key")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -835,7 +883,13 @@ describe("ProvisioningClient", () => {
                 posts: 1,
             },
         };
-        server.mockEndpoint().get("/instances/usage").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/usage")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
         const response = await client.provisioning.getUsage({
             handle: "handle",
@@ -864,7 +918,13 @@ describe("ProvisioningClient", () => {
         });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
-        server.mockEndpoint().get("/instances/usage").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/usage")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.provisioning.getUsage({
@@ -883,7 +943,13 @@ describe("ProvisioningClient", () => {
         });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
-        server.mockEndpoint().get("/instances/usage").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/usage")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.provisioning.getUsage({
@@ -902,7 +968,13 @@ describe("ProvisioningClient", () => {
         });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
-        server.mockEndpoint().get("/instances/usage").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/usage")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.provisioning.getUsage({
@@ -923,7 +995,13 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = {
             data: { handle: "handle", members: [{ id: "id", email: "email", role: "MEMBER", status: "PENDING" }] },
         };
-        server.mockEndpoint().get("/instances/team").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/team")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
         const response = await client.provisioning.listTeam({
             handle: "handle",
@@ -953,7 +1031,13 @@ describe("ProvisioningClient", () => {
         });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
-        server.mockEndpoint().get("/instances/team").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/team")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.provisioning.listTeam({
@@ -972,7 +1056,13 @@ describe("ProvisioningClient", () => {
         });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
-        server.mockEndpoint().get("/instances/team").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/team")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.provisioning.listTeam({
@@ -991,7 +1081,13 @@ describe("ProvisioningClient", () => {
         });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
-        server.mockEndpoint().get("/instances/team").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/team")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.provisioning.listTeam({
@@ -1012,7 +1108,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { data: { invited: ["invited"] } };
         server
             .mockEndpoint()
-            .post("/instances/team")
+            .post("/provisioning/instances/team")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -1046,7 +1142,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/team")
+            .post("/provisioning/instances/team")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -1080,7 +1176,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/team")
+            .post("/provisioning/instances/team")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -1114,7 +1210,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/team")
+            .post("/provisioning/instances/team")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -1148,7 +1244,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/team")
+            .post("/provisioning/instances/team")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -1182,7 +1278,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { data: { removed: "removed" } };
         server
             .mockEndpoint()
-            .delete("/instances/team")
+            .delete("/provisioning/instances/team")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -1212,7 +1308,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/instances/team")
+            .delete("/provisioning/instances/team")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -1239,7 +1335,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/instances/team")
+            .delete("/provisioning/instances/team")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -1266,7 +1362,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/instances/team")
+            .delete("/provisioning/instances/team")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -1293,7 +1389,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/instances/team")
+            .delete("/provisioning/instances/team")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -1320,7 +1416,13 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = {
             data: { handle: "handle", domains: [{ id: "id", name: "name", createdAt: "2024-01-15T09:30:00Z" }] },
         };
-        server.mockEndpoint().get("/instances/domains").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/domains")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
         const response = await client.provisioning.listDomains({
             handle: "handle",
@@ -1349,7 +1451,13 @@ describe("ProvisioningClient", () => {
         });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
-        server.mockEndpoint().get("/instances/domains").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/domains")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.provisioning.listDomains({
@@ -1368,7 +1476,13 @@ describe("ProvisioningClient", () => {
         });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
-        server.mockEndpoint().get("/instances/domains").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/domains")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.provisioning.listDomains({
@@ -1387,7 +1501,13 @@ describe("ProvisioningClient", () => {
         });
 
         const rawResponseBody = { error: { code: "code", message: "message" } };
-        server.mockEndpoint().get("/instances/domains").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/domains")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.provisioning.listDomains({
@@ -1410,7 +1530,7 @@ describe("ProvisioningClient", () => {
         };
         server
             .mockEndpoint()
-            .post("/instances/domains")
+            .post("/provisioning/instances/domains")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -1443,7 +1563,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/domains")
+            .post("/provisioning/instances/domains")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -1470,7 +1590,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/domains")
+            .post("/provisioning/instances/domains")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -1497,7 +1617,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/domains")
+            .post("/provisioning/instances/domains")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -1524,7 +1644,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/domains")
+            .post("/provisioning/instances/domains")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -1551,7 +1671,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { data: { removed: "removed" } };
         server
             .mockEndpoint()
-            .delete("/instances/domains")
+            .delete("/provisioning/instances/domains")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -1581,7 +1701,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/instances/domains")
+            .delete("/provisioning/instances/domains")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -1608,7 +1728,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/instances/domains")
+            .delete("/provisioning/instances/domains")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -1635,7 +1755,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/instances/domains")
+            .delete("/provisioning/instances/domains")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -1662,7 +1782,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/instances/domains")
+            .delete("/provisioning/instances/domains")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -1694,7 +1814,7 @@ describe("ProvisioningClient", () => {
         };
         server
             .mockEndpoint()
-            .post("/instances/export")
+            .post("/provisioning/instances/export")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -1733,7 +1853,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/export")
+            .post("/provisioning/instances/export")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -1759,7 +1879,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/export")
+            .post("/provisioning/instances/export")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -1785,7 +1905,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/export")
+            .post("/provisioning/instances/export")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -1813,7 +1933,7 @@ describe("ProvisioningClient", () => {
         };
         server
             .mockEndpoint()
-            .get("/instances/webhooks")
+            .get("/provisioning/instances/webhooks")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
@@ -1849,7 +1969,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .get("/instances/webhooks")
+            .get("/provisioning/instances/webhooks")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
@@ -1874,7 +1994,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .get("/instances/webhooks")
+            .get("/provisioning/instances/webhooks")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
@@ -1899,7 +2019,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .get("/instances/webhooks")
+            .get("/provisioning/instances/webhooks")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
@@ -1933,7 +2053,7 @@ describe("ProvisioningClient", () => {
         };
         server
             .mockEndpoint()
-            .post("/instances/webhooks")
+            .post("/provisioning/instances/webhooks")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -1969,7 +2089,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/webhooks")
+            .post("/provisioning/instances/webhooks")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -1997,7 +2117,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/webhooks")
+            .post("/provisioning/instances/webhooks")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -2025,7 +2145,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/webhooks")
+            .post("/provisioning/instances/webhooks")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -2053,7 +2173,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .post("/instances/webhooks")
+            .post("/provisioning/instances/webhooks")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -2090,7 +2210,7 @@ describe("ProvisioningClient", () => {
         };
         server
             .mockEndpoint()
-            .put("/instances/webhooks")
+            .put("/provisioning/instances/webhooks")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -2125,7 +2245,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .put("/instances/webhooks")
+            .put("/provisioning/instances/webhooks")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -2152,7 +2272,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .put("/instances/webhooks")
+            .put("/provisioning/instances/webhooks")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -2179,7 +2299,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .put("/instances/webhooks")
+            .put("/provisioning/instances/webhooks")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -2206,7 +2326,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .put("/instances/webhooks")
+            .put("/provisioning/instances/webhooks")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -2233,7 +2353,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { data: { deleted: "deleted" } };
         server
             .mockEndpoint()
-            .delete("/instances/webhooks")
+            .delete("/provisioning/instances/webhooks")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -2263,7 +2383,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/instances/webhooks")
+            .delete("/provisioning/instances/webhooks")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -2290,7 +2410,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/instances/webhooks")
+            .delete("/provisioning/instances/webhooks")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -2317,7 +2437,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/instances/webhooks")
+            .delete("/provisioning/instances/webhooks")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -2344,7 +2464,7 @@ describe("ProvisioningClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/instances/webhooks")
+            .delete("/provisioning/instances/webhooks")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -2355,6 +2475,496 @@ describe("ProvisioningClient", () => {
             return await client.provisioning.deleteWebhook({
                 handle: "handle",
                 webhookId: "webhookId",
+            });
+        }).rejects.toThrow(Forum.InternalServerError);
+    });
+
+    test("getOwnership (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = {
+            data: {
+                handle: "handle",
+                owner: { id: "id", email: "email", name: "name" },
+                creator: { id: "id", email: "email", name: "name" },
+                isCurrentUserOwner: true,
+            },
+        };
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/ownership")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.provisioning.getOwnership({
+            handle: "handle",
+        });
+        expect(response).toEqual({
+            data: {
+                handle: "handle",
+                owner: {
+                    id: "id",
+                    email: "email",
+                    name: "name",
+                },
+                creator: {
+                    id: "id",
+                    email: "email",
+                    name: "name",
+                },
+                isCurrentUserOwner: true,
+            },
+        });
+    });
+
+    test("getOwnership (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/ownership")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.provisioning.getOwnership({
+                handle: "handle",
+            });
+        }).rejects.toThrow(Forum.UnauthorizedError);
+    });
+
+    test("getOwnership (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/ownership")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.provisioning.getOwnership({
+                handle: "handle",
+            });
+        }).rejects.toThrow(Forum.ForbiddenError);
+    });
+
+    test("getOwnership (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/ownership")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.provisioning.getOwnership({
+                handle: "handle",
+            });
+        }).rejects.toThrow(Forum.NotFoundError);
+    });
+
+    test("getOwnership (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .get("/provisioning/instances/ownership")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.provisioning.getOwnership({
+                handle: "handle",
+            });
+        }).rejects.toThrow(Forum.InternalServerError);
+    });
+
+    test("transferOwnership (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { handle: "handle", newOwnerEmail: "newOwnerEmail" };
+        const rawResponseBody = {
+            data: { message: "message", instanceId: "instanceId", newOwner: { id: "id", email: "email" } },
+        };
+        server
+            .mockEndpoint()
+            .post("/provisioning/instances/ownership")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.provisioning.transferOwnership({
+            handle: "handle",
+            newOwnerEmail: "newOwnerEmail",
+        });
+        expect(response).toEqual({
+            data: {
+                message: "message",
+                instanceId: "instanceId",
+                newOwner: {
+                    id: "id",
+                    email: "email",
+                },
+            },
+        });
+    });
+
+    test("transferOwnership (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { handle: "handle", newOwnerEmail: "newOwnerEmail" };
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/provisioning/instances/ownership")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.provisioning.transferOwnership({
+                handle: "handle",
+                newOwnerEmail: "newOwnerEmail",
+            });
+        }).rejects.toThrow(Forum.BadRequestError);
+    });
+
+    test("transferOwnership (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { handle: "handle", newOwnerEmail: "newOwnerEmail" };
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/provisioning/instances/ownership")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.provisioning.transferOwnership({
+                handle: "handle",
+                newOwnerEmail: "newOwnerEmail",
+            });
+        }).rejects.toThrow(Forum.UnauthorizedError);
+    });
+
+    test("transferOwnership (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { handle: "handle", newOwnerEmail: "newOwnerEmail" };
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/provisioning/instances/ownership")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.provisioning.transferOwnership({
+                handle: "handle",
+                newOwnerEmail: "newOwnerEmail",
+            });
+        }).rejects.toThrow(Forum.NotFoundError);
+    });
+
+    test("transferOwnership (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { handle: "handle", newOwnerEmail: "newOwnerEmail" };
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/provisioning/instances/ownership")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.provisioning.transferOwnership({
+                handle: "handle",
+                newOwnerEmail: "newOwnerEmail",
+            });
+        }).rejects.toThrow(Forum.InternalServerError);
+    });
+
+    test("register (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { email: "email", password: "password" };
+        const rawResponseBody = { data: { provisioningKey: "provisioningKey", userId: "userId", email: "email" } };
+        server
+            .mockEndpoint()
+            .post("/provisioning/register")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.provisioning.register({
+            email: "email",
+            password: "password",
+        });
+        expect(response).toEqual({
+            data: {
+                provisioningKey: "provisioningKey",
+                userId: "userId",
+                email: "email",
+            },
+        });
+    });
+
+    test("register (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { email: "email", password: "mandarin" };
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/provisioning/register")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.provisioning.register({
+                email: "email",
+                password: "mandarin",
+            });
+        }).rejects.toThrow(Forum.BadRequestError);
+    });
+
+    test("register (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { email: "email", password: "mandarin" };
+        const rawResponseBody = { errors: { error: { msg: "msg" } } };
+        server
+            .mockEndpoint()
+            .post("/provisioning/register")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.provisioning.register({
+                email: "email",
+                password: "mandarin",
+            });
+        }).rejects.toThrow(Forum.ConflictError);
+    });
+
+    test("register (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { email: "email", password: "mandarin" };
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/provisioning/register")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.provisioning.register({
+                email: "email",
+                password: "mandarin",
+            });
+        }).rejects.toThrow(Forum.InternalServerError);
+    });
+
+    test("login (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { email: "email", password: "password" };
+        const rawResponseBody = { data: { provisioningKey: "provisioningKey", userId: "userId", email: "email" } };
+        server
+            .mockEndpoint()
+            .post("/provisioning/login")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.provisioning.login({
+            email: "email",
+            password: "password",
+        });
+        expect(response).toEqual({
+            data: {
+                provisioningKey: "provisioningKey",
+                userId: "userId",
+                email: "email",
+            },
+        });
+    });
+
+    test("login (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { email: "email", password: "password" };
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/provisioning/login")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.provisioning.login({
+                email: "email",
+                password: "password",
+            });
+        }).rejects.toThrow(Forum.UnauthorizedError);
+    });
+
+    test("login (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({
+            maxRetries: 0,
+            apiKey: "test",
+            provisioningKey: "test",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { email: "email", password: "password" };
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/provisioning/login")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.provisioning.login({
+                email: "email",
+                password: "password",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });

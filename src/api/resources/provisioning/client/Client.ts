@@ -67,7 +67,7 @@ export class ProvisioningClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ForumEnvironment.Production,
-                "instances",
+                "provisioning/instances",
             ),
             method: "GET",
             headers: _headers,
@@ -105,7 +105,7 @@ export class ProvisioningClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/instances");
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/provisioning/instances");
     }
 
     /**
@@ -149,7 +149,7 @@ export class ProvisioningClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ForumEnvironment.Production,
-                "instances",
+                "provisioning/instances",
             ),
             method: "POST",
             headers: _headers,
@@ -190,7 +190,7 @@ export class ProvisioningClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/instances");
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/provisioning/instances");
     }
 
     /**
@@ -234,7 +234,7 @@ export class ProvisioningClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ForumEnvironment.Production,
-                "instances",
+                "provisioning/instances",
             ),
             method: "PUT",
             headers: _headers,
@@ -277,7 +277,7 @@ export class ProvisioningClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "PUT", "/instances");
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "PUT", "/provisioning/instances");
     }
 
     /**
@@ -321,7 +321,7 @@ export class ProvisioningClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ForumEnvironment.Production,
-                "instances",
+                "provisioning/instances",
             ),
             method: "DELETE",
             headers: _headers,
@@ -364,7 +364,7 @@ export class ProvisioningClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "DELETE", "/instances");
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "DELETE", "/provisioning/instances");
     }
 
     /**
@@ -411,7 +411,7 @@ export class ProvisioningClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ForumEnvironment.Production,
-                "instances/billing",
+                "provisioning/instances/billing",
             ),
             method: "GET",
             headers: _headers,
@@ -449,7 +449,12 @@ export class ProvisioningClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/instances/billing");
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "GET",
+            "/provisioning/instances/billing",
+        );
     }
 
     /**
@@ -494,7 +499,7 @@ export class ProvisioningClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ForumEnvironment.Production,
-                "instances/billing",
+                "provisioning/instances/billing",
             ),
             method: "POST",
             headers: _headers,
@@ -537,7 +542,12 @@ export class ProvisioningClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/instances/billing");
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "POST",
+            "/provisioning/instances/billing",
+        );
     }
 
     /**
@@ -580,7 +590,7 @@ export class ProvisioningClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ForumEnvironment.Production,
-                "instances/api-key",
+                "provisioning/instances/api-key",
             ),
             method: "POST",
             headers: _headers,
@@ -624,7 +634,12 @@ export class ProvisioningClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/instances/api-key");
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "POST",
+            "/provisioning/instances/api-key",
+        );
     }
 
     /**
@@ -671,7 +686,7 @@ export class ProvisioningClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ForumEnvironment.Production,
-                "instances/usage",
+                "provisioning/instances/usage",
             ),
             method: "GET",
             headers: _headers,
@@ -709,7 +724,7 @@ export class ProvisioningClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/instances/usage");
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/provisioning/instances/usage");
     }
 
     /**
@@ -756,7 +771,7 @@ export class ProvisioningClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ForumEnvironment.Production,
-                "instances/team",
+                "provisioning/instances/team",
             ),
             method: "GET",
             headers: _headers,
@@ -794,7 +809,7 @@ export class ProvisioningClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/instances/team");
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/provisioning/instances/team");
     }
 
     /**
@@ -841,7 +856,7 @@ export class ProvisioningClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ForumEnvironment.Production,
-                "instances/team",
+                "provisioning/instances/team",
             ),
             method: "POST",
             headers: _headers,
@@ -884,7 +899,7 @@ export class ProvisioningClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/instances/team");
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/provisioning/instances/team");
     }
 
     /**
@@ -929,7 +944,7 @@ export class ProvisioningClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ForumEnvironment.Production,
-                "instances/team",
+                "provisioning/instances/team",
             ),
             method: "DELETE",
             headers: _headers,
@@ -975,7 +990,12 @@ export class ProvisioningClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "DELETE", "/instances/team");
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "DELETE",
+            "/provisioning/instances/team",
+        );
     }
 
     /**
@@ -1022,7 +1042,7 @@ export class ProvisioningClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ForumEnvironment.Production,
-                "instances/domains",
+                "provisioning/instances/domains",
             ),
             method: "GET",
             headers: _headers,
@@ -1063,7 +1083,12 @@ export class ProvisioningClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/instances/domains");
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "GET",
+            "/provisioning/instances/domains",
+        );
     }
 
     /**
@@ -1108,7 +1133,7 @@ export class ProvisioningClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ForumEnvironment.Production,
-                "instances/domains",
+                "provisioning/instances/domains",
             ),
             method: "POST",
             headers: _headers,
@@ -1151,7 +1176,12 @@ export class ProvisioningClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/instances/domains");
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "POST",
+            "/provisioning/instances/domains",
+        );
     }
 
     /**
@@ -1196,7 +1226,7 @@ export class ProvisioningClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ForumEnvironment.Production,
-                "instances/domains",
+                "provisioning/instances/domains",
             ),
             method: "DELETE",
             headers: _headers,
@@ -1242,7 +1272,12 @@ export class ProvisioningClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "DELETE", "/instances/domains");
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "DELETE",
+            "/provisioning/instances/domains",
+        );
     }
 
     /**
@@ -1285,7 +1320,7 @@ export class ProvisioningClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ForumEnvironment.Production,
-                "instances/export",
+                "provisioning/instances/export",
             ),
             method: "POST",
             headers: _headers,
@@ -1326,7 +1361,12 @@ export class ProvisioningClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/instances/export");
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "POST",
+            "/provisioning/instances/export",
+        );
     }
 
     /**
@@ -1373,7 +1413,7 @@ export class ProvisioningClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ForumEnvironment.Production,
-                "instances/webhooks",
+                "provisioning/instances/webhooks",
             ),
             method: "GET",
             headers: _headers,
@@ -1414,7 +1454,12 @@ export class ProvisioningClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/instances/webhooks");
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "GET",
+            "/provisioning/instances/webhooks",
+        );
     }
 
     /**
@@ -1460,7 +1505,7 @@ export class ProvisioningClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ForumEnvironment.Production,
-                "instances/webhooks",
+                "provisioning/instances/webhooks",
             ),
             method: "POST",
             headers: _headers,
@@ -1506,7 +1551,12 @@ export class ProvisioningClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/instances/webhooks");
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "POST",
+            "/provisioning/instances/webhooks",
+        );
     }
 
     /**
@@ -1551,7 +1601,7 @@ export class ProvisioningClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ForumEnvironment.Production,
-                "instances/webhooks",
+                "provisioning/instances/webhooks",
             ),
             method: "PUT",
             headers: _headers,
@@ -1597,7 +1647,12 @@ export class ProvisioningClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "PUT", "/instances/webhooks");
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "PUT",
+            "/provisioning/instances/webhooks",
+        );
     }
 
     /**
@@ -1642,7 +1697,7 @@ export class ProvisioningClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ForumEnvironment.Production,
-                "instances/webhooks",
+                "provisioning/instances/webhooks",
             ),
             method: "DELETE",
             headers: _headers,
@@ -1688,6 +1743,370 @@ export class ProvisioningClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "DELETE", "/instances/webhooks");
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "DELETE",
+            "/provisioning/instances/webhooks",
+        );
+    }
+
+    /**
+     * Retrieve owner and creator information for an instance.
+     *
+     * @param {Forum.GetOwnershipProvisioningRequest} request
+     * @param {ProvisioningClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Forum.UnauthorizedError}
+     * @throws {@link Forum.ForbiddenError}
+     * @throws {@link Forum.NotFoundError}
+     * @throws {@link Forum.InternalServerError}
+     *
+     * @example
+     *     await client.provisioning.getOwnership({
+     *         handle: "handle"
+     *     })
+     */
+    public getOwnership(
+        request: Forum.GetOwnershipProvisioningRequest,
+        requestOptions?: ProvisioningClient.RequestOptions,
+    ): core.HttpResponsePromise<Forum.GetOwnershipProvisioningResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getOwnership(request, requestOptions));
+    }
+
+    private async __getOwnership(
+        request: Forum.GetOwnershipProvisioningRequest,
+        requestOptions?: ProvisioningClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Forum.GetOwnershipProvisioningResponse>> {
+        const { handle } = request;
+        const _queryParams: Record<string, unknown> = {
+            handle,
+        };
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({
+                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
+            }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ForumEnvironment.Production,
+                "provisioning/instances/ownership",
+            ),
+            method: "GET",
+            headers: _headers,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Forum.GetOwnershipProvisioningResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new Forum.UnauthorizedError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new Forum.ForbiddenError(_response.error.body as Forum.ErrorResponse, _response.rawResponse);
+                case 404:
+                    throw new Forum.NotFoundError(_response.error.body as Forum.ErrorResponse, _response.rawResponse);
+                case 500:
+                    throw new Forum.InternalServerError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ForumError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "GET",
+            "/provisioning/instances/ownership",
+        );
+    }
+
+    /**
+     * Transfer instance ownership to another user. Only the current owner can transfer ownership.
+     *
+     * @param {Forum.TransferOwnershipProvisioningRequest} request
+     * @param {ProvisioningClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Forum.BadRequestError}
+     * @throws {@link Forum.UnauthorizedError}
+     * @throws {@link Forum.NotFoundError}
+     * @throws {@link Forum.InternalServerError}
+     *
+     * @example
+     *     await client.provisioning.transferOwnership({
+     *         handle: "handle",
+     *         newOwnerEmail: "newOwnerEmail"
+     *     })
+     */
+    public transferOwnership(
+        request: Forum.TransferOwnershipProvisioningRequest,
+        requestOptions?: ProvisioningClient.RequestOptions,
+    ): core.HttpResponsePromise<Forum.TransferOwnershipProvisioningResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__transferOwnership(request, requestOptions));
+    }
+
+    private async __transferOwnership(
+        request: Forum.TransferOwnershipProvisioningRequest,
+        requestOptions?: ProvisioningClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Forum.TransferOwnershipProvisioningResponse>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({
+                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
+            }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ForumEnvironment.Production,
+                "provisioning/instances/ownership",
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: request,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Forum.TransferOwnershipProvisioningResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Forum.BadRequestError(_response.error.body as Forum.ErrorResponse, _response.rawResponse);
+                case 401:
+                    throw new Forum.UnauthorizedError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Forum.NotFoundError(_response.error.body as Forum.ErrorResponse, _response.rawResponse);
+                case 500:
+                    throw new Forum.InternalServerError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ForumError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "POST",
+            "/provisioning/instances/ownership",
+        );
+    }
+
+    /**
+     * Create a new account and receive a provisioning key for API access. Use this key to create and manage instances.
+     *
+     * @param {Forum.RegisterProvisioningRequest} request
+     * @param {ProvisioningClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Forum.BadRequestError}
+     * @throws {@link Forum.ConflictError}
+     * @throws {@link Forum.InternalServerError}
+     *
+     * @example
+     *     await client.provisioning.register({
+     *         email: "email",
+     *         password: "password"
+     *     })
+     */
+    public register(
+        request: Forum.RegisterProvisioningRequest,
+        requestOptions?: ProvisioningClient.RequestOptions,
+    ): core.HttpResponsePromise<Forum.RegisterProvisioningResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__register(request, requestOptions));
+    }
+
+    private async __register(
+        request: Forum.RegisterProvisioningRequest,
+        requestOptions?: ProvisioningClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Forum.RegisterProvisioningResponse>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({
+                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
+            }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ForumEnvironment.Production,
+                "provisioning/register",
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: request,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Forum.RegisterProvisioningResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Forum.BadRequestError(_response.error.body as Forum.ErrorResponse, _response.rawResponse);
+                case 409:
+                    throw new Forum.ConflictError(
+                        _response.error.body as Forum.ConflictErrorBody,
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Forum.InternalServerError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ForumError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/provisioning/register");
+    }
+
+    /**
+     * Login with email and password to retrieve your provisioning key.
+     *
+     * @param {Forum.LoginProvisioningRequest} request
+     * @param {ProvisioningClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Forum.UnauthorizedError}
+     * @throws {@link Forum.InternalServerError}
+     *
+     * @example
+     *     await client.provisioning.login({
+     *         email: "email",
+     *         password: "password"
+     *     })
+     */
+    public login(
+        request: Forum.LoginProvisioningRequest,
+        requestOptions?: ProvisioningClient.RequestOptions,
+    ): core.HttpResponsePromise<Forum.LoginProvisioningResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__login(request, requestOptions));
+    }
+
+    private async __login(
+        request: Forum.LoginProvisioningRequest,
+        requestOptions?: ProvisioningClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Forum.LoginProvisioningResponse>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({
+                "x-provisioning-key": requestOptions?.provisioningKey ?? this._options?.provisioningKey,
+            }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ForumEnvironment.Production,
+                "provisioning/login",
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: request,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Forum.LoginProvisioningResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new Forum.UnauthorizedError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Forum.InternalServerError(
+                        _response.error.body as Forum.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ForumError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/provisioning/login");
     }
 }
