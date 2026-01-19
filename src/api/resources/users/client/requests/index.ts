@@ -1,3 +1,4 @@
+export type { CreateFollowerUsersRequest } from "./CreateFollowerUsersRequest.js";
 export type { CreateUsersRequest } from "./CreateUsersRequest.js";
 export type { DeleteFollowerUsersRequest } from "./DeleteFollowerUsersRequest.js";
 export type { DeleteFollowingUsersRequest } from "./DeleteFollowingUsersRequest.js";

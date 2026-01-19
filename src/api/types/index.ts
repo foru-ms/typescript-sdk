@@ -106,6 +106,7 @@ export * from "./UsageStats.js";
 export * from "./User.js";
 export * from "./UserCreate.js";
 export * from "./UserFollower.js";
+export * from "./UserFollowerCreate.js";
 export * from "./UserFollowerListResponse.js";
 export * from "./UserFollowerResponse.js";
 export * from "./UserFollowing.js";

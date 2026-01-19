@@ -800,6 +800,186 @@ describe("UsersClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
+    test("createFollower (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            data: {
+                id: "id",
+                followerId: "followerId",
+                followingId: "followingId",
+                follower: {
+                    id: "id",
+                    username: "username",
+                    displayName: "displayName",
+                    bio: "bio",
+                    signature: "signature",
+                    url: "url",
+                    postsCount: 1,
+                    threadsCount: 1,
+                    isOnline: true,
+                    lastSeenAt: "lastSeenAt",
+                    roles: [{ id: "id", name: "name", slug: null, color: null }],
+                    extendedData: { key: "value" },
+                    createdAt: "createdAt",
+                    updatedAt: "updatedAt",
+                },
+                createdAt: "createdAt",
+            },
+        };
+        server
+            .mockEndpoint()
+            .post("/users/id/followers")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.users.createFollower({
+            id: "id",
+        });
+        expect(response).toEqual({
+            data: {
+                id: "id",
+                followerId: "followerId",
+                followingId: "followingId",
+                follower: {
+                    id: "id",
+                    username: "username",
+                    displayName: "displayName",
+                    bio: "bio",
+                    signature: "signature",
+                    url: "url",
+                    postsCount: 1,
+                    threadsCount: 1,
+                    isOnline: true,
+                    lastSeenAt: "lastSeenAt",
+                    roles: [
+                        {
+                            id: "id",
+                            name: "name",
+                            slug: null,
+                            color: null,
+                        },
+                    ],
+                    extendedData: {
+                        key: "value",
+                    },
+                    createdAt: "createdAt",
+                    updatedAt: "updatedAt",
+                },
+                createdAt: "createdAt",
+            },
+        });
+    });
+
+    test("createFollower (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/users/id/followers")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.users.createFollower({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.BadRequestError);
+    });
+
+    test("createFollower (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/users/id/followers")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.users.createFollower({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.UnauthorizedError);
+    });
+
+    test("createFollower (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/users/id/followers")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.users.createFollower({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.NotFoundError);
+    });
+
+    test("createFollower (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/users/id/followers")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.users.createFollower({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.TooManyRequestsError);
+    });
+
+    test("createFollower (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/users/id/followers")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.users.createFollower({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.InternalServerError);
+    });
+
     test("retrieveFollower (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
