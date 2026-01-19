@@ -12,10 +12,10 @@ export namespace UpdateThreadsResponse {
         body: string;
         /** Author user ID (required for API key auth, ignored for JWT auth) */
         userId?: string;
-        /** List of tag slugs, names, or IDs to attach */
-        tags?: string[];
-        /** Poll data */
-        poll?: Data.Poll;
+        /** Thread tags */
+        tags?: Data.Tags.Item[];
+        /** Thread poll */
+        poll?: Data.Poll | null;
         /** Whether thread is locked */
         locked: boolean | null;
         /** Whether thread is pinned */
@@ -40,14 +40,37 @@ export namespace UpdateThreadsResponse {
     }
 
     export namespace Data {
+        export type Tags = Tags.Item[];
+
+        export namespace Tags {
+            export interface Item {
+                /** Tag name */
+                name: string;
+                /** Tag slug (unique identifier) */
+                slug?: string;
+                /** Tag description */
+                description?: string;
+                /** Hex color code */
+                color?: string;
+                /** Extended data */
+                extendedData?: Record<string, unknown>;
+                id: string;
+            }
+        }
+
         /**
-         * Poll data
+         * Thread poll
          */
         export interface Poll {
-            /** Poll title */
+            id: string;
             title: string;
-            /** Poll options */
+            closed: boolean | null;
+            closedAt: string | null;
+            expiresAt: string | null;
+            totalVotes: number;
             options: Poll.Options.Item[];
+            createdAt: string;
+            updatedAt: string;
         }
 
         export namespace Poll {
@@ -55,9 +78,11 @@ export namespace UpdateThreadsResponse {
 
             export namespace Options {
                 export interface Item {
+                    id: string;
                     title: string;
-                    color?: string;
-                    extendedData?: Record<string, unknown>;
+                    color: string | null;
+                    votesCount: number;
+                    extendedData: Record<string, unknown> | null;
                 }
             }
         }
@@ -68,11 +93,30 @@ export namespace UpdateThreadsResponse {
         export interface User {
             id: string;
             username: string;
+            /** Display name */
             displayName: string | null;
+            /** User bio */
             bio: string | null;
+            /** Forum signature */
+            signature: string | null;
+            /** User website URL */
             url: string | null;
+            /** Total posts by user */
+            postsCount?: number;
+            /** Total threads by user */
+            threadsCount?: number;
+            /** Online status */
             isOnline: boolean | null;
+            /** Last activity timestamp */
+            lastSeenAt: string | null;
+            /** User roles */
             roles?: User.Roles.Item[];
+            /** Custom user data */
+            extendedData: Record<string, unknown> | null;
+            /** Account creation timestamp */
+            createdAt: string;
+            /** Profile last update timestamp */
+            updatedAt: string;
         }
 
         export namespace User {
@@ -100,10 +144,10 @@ export namespace UpdateThreadsResponse {
 
             export namespace Item {
                 export const Type = {
-                    Upvote: "UPVOTE",
-                    Downvote: "DOWNVOTE",
                     Like: "LIKE",
                     Dislike: "DISLIKE",
+                    Upvote: "UPVOTE",
+                    Downvote: "DOWNVOTE",
                 } as const;
                 export type Type = (typeof Type)[keyof typeof Type];
             }

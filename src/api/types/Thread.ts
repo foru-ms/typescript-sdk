@@ -9,10 +9,10 @@ export interface Thread {
     body: string;
     /** Author user ID (required for API key auth, ignored for JWT auth) */
     userId?: string;
-    /** List of tag slugs, names, or IDs to attach */
-    tags?: string[];
-    /** Poll data */
-    poll?: Forum.ThreadPoll;
+    /** Thread tags */
+    tags?: Thread.Tags.Item[];
+    /** Thread poll */
+    poll?: Forum.ThreadPoll | null;
     /** Whether thread is locked */
     locked: boolean | null;
     /** Whether thread is pinned */
@@ -37,17 +37,54 @@ export interface Thread {
 }
 
 export namespace Thread {
+    export type Tags = Tags.Item[];
+
+    export namespace Tags {
+        export interface Item {
+            /** Tag name */
+            name: string;
+            /** Tag slug (unique identifier) */
+            slug?: string;
+            /** Tag description */
+            description?: string;
+            /** Hex color code */
+            color?: string;
+            /** Extended data */
+            extendedData?: Record<string, unknown>;
+            id: string;
+        }
+    }
+
     /**
      * Thread author
      */
     export interface User {
         id: string;
         username: string;
+        /** Display name */
         displayName: string | null;
+        /** User bio */
         bio: string | null;
+        /** Forum signature */
+        signature: string | null;
+        /** User website URL */
         url: string | null;
+        /** Total posts by user */
+        postsCount?: number;
+        /** Total threads by user */
+        threadsCount?: number;
+        /** Online status */
         isOnline: boolean | null;
+        /** Last activity timestamp */
+        lastSeenAt: string | null;
+        /** User roles */
         roles?: User.Roles.Item[];
+        /** Custom user data */
+        extendedData: Record<string, unknown> | null;
+        /** Account creation timestamp */
+        createdAt: string;
+        /** Profile last update timestamp */
+        updatedAt: string;
     }
 
     export namespace User {
@@ -75,10 +112,10 @@ export namespace Thread {
 
         export namespace Item {
             export const Type = {
-                Upvote: "UPVOTE",
-                Downvote: "DOWNVOTE",
                 Like: "LIKE",
                 Dislike: "DISLIKE",
+                Upvote: "UPVOTE",
+                Downvote: "DOWNVOTE",
             } as const;
             export type Type = (typeof Type)[keyof typeof Type];
         }

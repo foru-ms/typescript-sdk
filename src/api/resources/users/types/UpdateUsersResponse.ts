@@ -44,6 +44,7 @@ export namespace UpdateUsersResponse {
                 id: string;
                 name: string;
                 slug: string | null;
+                color: string | null;
             }
         }
     }

@@ -55,6 +55,7 @@ export namespace LoginResponse {
                     id: string;
                     name: string;
                     slug: string | null;
+                    color: string | null;
                 }
             }
         }

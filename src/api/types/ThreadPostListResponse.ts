@@ -32,11 +32,30 @@ export namespace ThreadPostListResponse {
                 export interface User {
                     id: string;
                     username: string;
+                    /** Display name */
                     displayName: string | null;
+                    /** User bio */
                     bio: string | null;
+                    /** Forum signature */
+                    signature: string | null;
+                    /** User website URL */
                     url: string | null;
+                    /** Total posts by user */
+                    postsCount?: number;
+                    /** Total threads by user */
+                    threadsCount?: number;
+                    /** Online status */
                     isOnline: boolean | null;
+                    /** Last activity timestamp */
+                    lastSeenAt: string | null;
+                    /** User roles */
                     roles?: User.Roles.Item[];
+                    /** Custom user data */
+                    extendedData: Record<string, unknown> | null;
+                    /** Account creation timestamp */
+                    createdAt: string;
+                    /** Profile last update timestamp */
+                    updatedAt: string;
                 }
 
                 export namespace User {
@@ -64,10 +83,10 @@ export namespace ThreadPostListResponse {
 
                     export namespace Item {
                         export const Type = {
-                            Upvote: "UPVOTE",
-                            Downvote: "DOWNVOTE",
                             Like: "LIKE",
                             Dislike: "DISLIKE",
+                            Upvote: "UPVOTE",
+                            Downvote: "DOWNVOTE",
                         } as const;
                         export type Type = (typeof Type)[keyof typeof Type];
                     }

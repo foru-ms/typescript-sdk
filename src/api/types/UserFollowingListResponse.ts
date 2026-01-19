@@ -27,11 +27,30 @@ export namespace UserFollowingListResponse {
                 export interface Following {
                     id: string;
                     username: string;
+                    /** Display name */
                     displayName: string | null;
+                    /** User bio */
                     bio: string | null;
+                    /** Forum signature */
+                    signature: string | null;
+                    /** User website URL */
                     url: string | null;
+                    /** Total posts by user */
+                    postsCount?: number;
+                    /** Total threads by user */
+                    threadsCount?: number;
+                    /** Online status */
                     isOnline: boolean | null;
+                    /** Last activity timestamp */
+                    lastSeenAt: string | null;
+                    /** User roles */
                     roles?: Following.Roles.Item[];
+                    /** Custom user data */
+                    extendedData: Record<string, unknown> | null;
+                    /** Account creation timestamp */
+                    createdAt: string;
+                    /** Profile last update timestamp */
+                    updatedAt: string;
                 }
 
                 export namespace Following {

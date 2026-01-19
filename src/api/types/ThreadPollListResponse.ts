@@ -30,13 +30,8 @@ export namespace ThreadPollListResponse {
                         id: string;
                         title: string;
                         color: string | null;
-                        _count?: Item.Count;
-                    }
-
-                    export namespace Item {
-                        export interface Count {
-                            votes: number;
-                        }
+                        votesCount: number;
+                        extendedData: Record<string, unknown> | null;
                     }
                 }
             }
