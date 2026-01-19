@@ -31,6 +31,8 @@ export namespace UpdateThreadsResponse {
         postsCount: number;
         /** Timestamp of the last post */
         lastPostAt: string | null;
+        /** Thread reactions */
+        reactions?: Data.Reactions.Item[];
         createdAt: string;
         updatedAt: string;
     }
@@ -55,6 +57,27 @@ export namespace UpdateThreadsResponse {
                     color?: string;
                     extendedData?: Record<string, unknown>;
                 }
+            }
+        }
+
+        export type Reactions = Reactions.Item[];
+
+        export namespace Reactions {
+            export interface Item {
+                id: string;
+                type: Item.Type;
+                userId: string;
+                createdAt: string;
+            }
+
+            export namespace Item {
+                export const Type = {
+                    Upvote: "UPVOTE",
+                    Downvote: "DOWNVOTE",
+                    Like: "LIKE",
+                    Dislike: "DISLIKE",
+                } as const;
+                export type Type = (typeof Type)[keyof typeof Type];
             }
         }
     }

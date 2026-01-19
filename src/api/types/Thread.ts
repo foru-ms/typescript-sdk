@@ -28,6 +28,31 @@ export interface Thread {
     postsCount: number;
     /** Timestamp of the last post */
     lastPostAt: string | null;
+    /** Thread reactions */
+    reactions?: Thread.Reactions.Item[];
     createdAt: string;
     updatedAt: string;
+}
+
+export namespace Thread {
+    export type Reactions = Reactions.Item[];
+
+    export namespace Reactions {
+        export interface Item {
+            id: string;
+            type: Item.Type;
+            userId: string;
+            createdAt: string;
+        }
+
+        export namespace Item {
+            export const Type = {
+                Upvote: "UPVOTE",
+                Downvote: "DOWNVOTE",
+                Like: "LIKE",
+                Dislike: "DISLIKE",
+            } as const;
+            export type Type = (typeof Type)[keyof typeof Type];
+        }
+    }
 }
