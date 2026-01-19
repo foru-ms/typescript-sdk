@@ -8,5 +8,5 @@
         "generateWireTests": false,
         "allowCustomFetcher": true
     },
-    "sdkVersion": "2.1.7"
+    "sdkVersion": "2.1.8"
 }

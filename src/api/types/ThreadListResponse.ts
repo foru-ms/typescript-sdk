@@ -43,6 +43,8 @@ export namespace ThreadListResponse {
                 postsCount: number;
                 /** Timestamp of the last post */
                 lastPostAt: string | null;
+                /** Thread author */
+                user?: Item.User;
                 /** Thread reactions */
                 reactions?: Item.Reactions.Item[];
                 createdAt: string;
@@ -68,6 +70,32 @@ export namespace ThreadListResponse {
                             title: string;
                             color?: string;
                             extendedData?: Record<string, unknown>;
+                        }
+                    }
+                }
+
+                /**
+                 * Thread author
+                 */
+                export interface User {
+                    id: string;
+                    username: string;
+                    displayName: string | null;
+                    bio: string | null;
+                    url: string | null;
+                    isOnline: boolean | null;
+                    roles?: User.Roles.Item[];
+                }
+
+                export namespace User {
+                    export type Roles = Roles.Item[];
+
+                    export namespace Roles {
+                        export interface Item {
+                            id: string;
+                            name: string;
+                            slug: string | null;
+                            color: string | null;
                         }
                     }
                 }

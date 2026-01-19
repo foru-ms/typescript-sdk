@@ -18,9 +18,62 @@ export namespace UpdatePostsResponse {
         id: string;
         /** Nesting level for threaded replies */
         depth: number | null;
+        /** Post author */
+        user?: Data.User;
+        /** Post reactions */
+        reactions?: Data.Reactions.Item[];
         /** Post creation timestamp */
         createdAt: string;
         /** Post last update timestamp */
         updatedAt: string;
+    }
+
+    export namespace Data {
+        /**
+         * Post author
+         */
+        export interface User {
+            id: string;
+            username: string;
+            displayName: string | null;
+            bio: string | null;
+            url: string | null;
+            isOnline: boolean | null;
+            roles?: User.Roles.Item[];
+        }
+
+        export namespace User {
+            export type Roles = Roles.Item[];
+
+            export namespace Roles {
+                export interface Item {
+                    id: string;
+                    name: string;
+                    slug: string | null;
+                    color: string | null;
+                }
+            }
+        }
+
+        export type Reactions = Reactions.Item[];
+
+        export namespace Reactions {
+            export interface Item {
+                id: string;
+                type: Item.Type;
+                userId: string;
+                createdAt: string;
+            }
+
+            export namespace Item {
+                export const Type = {
+                    Upvote: "UPVOTE",
+                    Downvote: "DOWNVOTE",
+                    Like: "LIKE",
+                    Dislike: "DISLIKE",
+                } as const;
+                export type Type = (typeof Type)[keyof typeof Type];
+            }
+        }
     }
 }

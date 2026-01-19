@@ -18,6 +18,23 @@ export namespace RetrieveFollowerUsersResponse {
             id: string;
             username: string;
             displayName: string | null;
+            bio: string | null;
+            url: string | null;
+            isOnline: boolean | null;
+            roles?: Follower.Roles.Item[];
+        }
+
+        export namespace Follower {
+            export type Roles = Roles.Item[];
+
+            export namespace Roles {
+                export interface Item {
+                    id: string;
+                    name: string;
+                    slug: string | null;
+                    color: string | null;
+                }
+            }
         }
     }
 }
