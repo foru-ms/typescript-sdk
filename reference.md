@@ -735,6 +735,136 @@ await client.tags.listSubscribers({
 </dl>
 </details>
 
+<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">createSubscriber</a>({ ...params }) -> Forum.TagSubscriberResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a Subscriber in Tag.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tags.createSubscriber({
+    id: "id"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.CreateSubscriberTagsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TagsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">unsubscribe</a>({ ...params }) -> Forum.UnsubscribeTagsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Unsubscribe from this tag. Removes the authenticated user's subscription. No subId needed.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tags.unsubscribe({
+    id: "id"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.UnsubscribeTagsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TagsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">retrieveSubscriber</a>({ ...params }) -> Forum.RetrieveSubscriberTagsResponse</code></summary>
 <dl>
 <dd>
@@ -1633,6 +1763,71 @@ await client.threads.listSubscribers({
 </dl>
 </details>
 
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">unsubscribe</a>({ ...params }) -> Forum.UnsubscribeThreadsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Unsubscribe from this thread. Removes the authenticated user's subscription. No subId needed.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.threads.unsubscribe({
+    id: "id"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.UnsubscribeThreadsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ThreadsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">retrieveSubscriber</a>({ ...params }) -> Forum.RetrieveSubscriberThreadsResponse</code></summary>
 <dl>
 <dd>
@@ -1883,6 +2078,190 @@ await client.threads.updatePoll({
 <dd>
 
 **requestOptions:** `ThreadsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## PollVotes
+<details><summary><code>client.pollVotes.<a href="/src/api/resources/pollVotes/client/Client.ts">createvote</a>({ ...params }) -> Forum.PollVotesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a vote in the Thread's Poll.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.pollVotes.createvote({
+    id: "id",
+    optionId: "optionId"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.CreatevotePollVotesRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PollVotesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.pollVotes.<a href="/src/api/resources/pollVotes/client/Client.ts">deleteOwnvote</a>({ ...params }) -> Forum.DeleteOwnvotePollVotesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Removes the authenticated user's vote. No ID needed.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.pollVotes.deleteOwnvote({
+    id: "id"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.DeleteOwnvotePollVotesRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PollVotesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.pollVotes.<a href="/src/api/resources/pollVotes/client/Client.ts">deletevote</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.pollVotes.deletevote({
+    id: "id",
+    nestedId: "nestedId"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.DeletevotePollVotesRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PollVotesClient.RequestOptions` 
     
 </dd>
 </dl>

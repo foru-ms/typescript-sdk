@@ -6,4 +6,5 @@ export * from "./ListThreadsRequestSort.js";
 export * from "./RetrievePostThreadsResponse.js";
 export * from "./RetrieveReactionThreadsResponse.js";
 export * from "./RetrieveSubscriberThreadsResponse.js";
+export * from "./UnsubscribeThreadsResponse.js";
 export * from "./UpdateThreadsResponse.js";

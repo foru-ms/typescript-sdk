@@ -14,5 +14,6 @@ export type { RetrievePostThreadsRequest } from "./RetrievePostThreadsRequest.js
 export type { RetrieveReactionThreadsRequest } from "./RetrieveReactionThreadsRequest.js";
 export type { RetrieveSubscriberThreadsRequest } from "./RetrieveSubscriberThreadsRequest.js";
 export type { RetrieveThreadsRequest } from "./RetrieveThreadsRequest.js";
+export type { UnsubscribeThreadsRequest } from "./UnsubscribeThreadsRequest.js";
 export type { UpdatePollThreadsRequest } from "./UpdatePollThreadsRequest.js";
 export type { UpdateThreadsRequest } from "./UpdateThreadsRequest.js";
