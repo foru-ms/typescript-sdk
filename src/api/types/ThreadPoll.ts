@@ -8,6 +8,8 @@ export interface ThreadPoll {
     expiresAt: string | null;
     totalVotes: number;
     options: ThreadPoll.Options.Item[];
+    /** The option ID that the current user voted for, or null if they haven't voted */
+    userVote: string | null;
     createdAt: string;
     updatedAt: string;
 }

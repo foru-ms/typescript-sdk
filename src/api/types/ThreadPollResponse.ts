@@ -13,6 +13,8 @@ export namespace ThreadPollResponse {
         expiresAt: string | null;
         totalVotes: number;
         options: Data.Options.Item[];
+        /** The option ID that the current user voted for, or null if they haven't voted */
+        userVote: string | null;
         createdAt: string;
         updatedAt: string;
     }
