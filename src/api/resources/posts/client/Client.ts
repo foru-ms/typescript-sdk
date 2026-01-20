@@ -50,10 +50,11 @@ export class PostsClient {
         request: Forum.ListPostsRequest = {},
         requestOptions?: PostsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.PostListResponse>> {
-        const { limit, cursor, userId, sort, search, type: type_ } = request;
+        const { limit, cursor, threadId, userId, sort, search, type: type_ } = request;
         const _queryParams: Record<string, unknown> = {
             limit,
             cursor,
+            threadId,
             userId,
             sort: sort != null ? sort : undefined,
             search,
@@ -874,10 +875,11 @@ export class PostsClient {
         request: Forum.ListPostsPostsRequest,
         requestOptions?: PostsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.PostPostListResponse>> {
-        const { id, limit, cursor, userId, sort, search, type: type_ } = request;
+        const { id, limit, cursor, threadId, userId, sort, search, type: type_ } = request;
         const _queryParams: Record<string, unknown> = {
             limit,
             cursor,
+            threadId,
             userId,
             sort: sort != null ? sort : undefined,
             search,

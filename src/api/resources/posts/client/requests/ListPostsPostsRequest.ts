@@ -15,6 +15,8 @@ export interface ListPostsPostsRequest {
     limit?: number;
     /** Cursor for pagination */
     cursor?: string;
+    /** Filter posts by thread ID */
+    threadId?: string;
     /** Filter posts by author ID */
     userId?: string;
     /** Sort posts by creation time */
