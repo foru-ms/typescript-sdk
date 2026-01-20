@@ -1,6 +1,9 @@
 export type { CreatePollThreadsRequest } from "./CreatePollThreadsRequest.js";
+export type { CreatePollVoteThreadsRequest } from "./CreatePollVoteThreadsRequest.js";
 export { CreateReactionThreadsRequest } from "./CreateReactionThreadsRequest.js";
 export type { CreateThreadsRequest } from "./CreateThreadsRequest.js";
+export type { DeleteOwnPollVoteThreadsRequest } from "./DeleteOwnPollVoteThreadsRequest.js";
+export type { DeletePollVoteThreadsRequest } from "./DeletePollVoteThreadsRequest.js";
 export type { DeletePostThreadsRequest } from "./DeletePostThreadsRequest.js";
 export type { DeleteReactionThreadsRequest } from "./DeleteReactionThreadsRequest.js";
 export type { DeleteSubscriberThreadsRequest } from "./DeleteSubscriberThreadsRequest.js";

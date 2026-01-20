@@ -1,3 +1,4 @@
+export * from "./DeleteOwnPollVoteThreadsResponse.js";
 export * from "./DeleteReactionThreadsResponse.js";
 export * from "./ListPostsThreadsRequestSort.js";
 export * from "./ListPostsThreadsRequestType.js";

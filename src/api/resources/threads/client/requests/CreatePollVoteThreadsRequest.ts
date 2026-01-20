@@ -7,7 +7,7 @@
  *         optionId: "optionId"
  *     }
  */
-export interface CreatevotePollVotesRequest {
+export interface CreatePollVoteThreadsRequest {
     /** Thread ID */
     id: string;
     /** ID of the poll option to vote for */

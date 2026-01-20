@@ -3,7 +3,6 @@
 import { AuthClient } from "./api/resources/auth/client/Client.js";
 import { IntegrationsClient } from "./api/resources/integrations/client/Client.js";
 import { NotificationsClient } from "./api/resources/notifications/client/Client.js";
-import { PollVotesClient } from "./api/resources/pollVotes/client/Client.js";
 import { PostsClient } from "./api/resources/posts/client/Client.js";
 import { PrivateMessagesClient } from "./api/resources/privateMessages/client/Client.js";
 import { ProvisioningClient } from "./api/resources/provisioning/client/Client.js";
@@ -30,7 +29,6 @@ export class ForumClient {
     protected _search: SearchClient | undefined;
     protected _tags: TagsClient | undefined;
     protected _threads: ThreadsClient | undefined;
-    protected _pollVotes: PollVotesClient | undefined;
     protected _posts: PostsClient | undefined;
     protected _privateMessages: PrivateMessagesClient | undefined;
     protected _users: UsersClient | undefined;
@@ -60,10 +58,6 @@ export class ForumClient {
 
     public get threads(): ThreadsClient {
         return (this._threads ??= new ThreadsClient(this._options));
-    }
-
-    public get pollVotes(): PollVotesClient {
-        return (this._pollVotes ??= new PollVotesClient(this._options));
     }
 
     public get posts(): PostsClient {

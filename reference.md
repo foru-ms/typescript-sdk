@@ -2089,8 +2089,7 @@ await client.threads.updatePoll({
 </dl>
 </details>
 
-## PollVotes
-<details><summary><code>client.pollVotes.<a href="/src/api/resources/pollVotes/client/Client.ts">createvote</a>({ ...params }) -> Forum.PollVotesResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">createPollVote</a>({ ...params }) -> Forum.PollVoteResponse</code></summary>
 <dl>
 <dd>
 
@@ -2102,7 +2101,7 @@ await client.threads.updatePoll({
 <dl>
 <dd>
 
-Create a vote in the Thread's Poll.
+Create a Vote in the Thread's Poll.
 </dd>
 </dl>
 </dd>
@@ -2117,7 +2116,7 @@ Create a vote in the Thread's Poll.
 <dd>
 
 ```typescript
-await client.pollVotes.createvote({
+await client.threads.createPollVote({
     id: "id",
     optionId: "optionId"
 });
@@ -2136,7 +2135,7 @@ await client.pollVotes.createvote({
 <dl>
 <dd>
 
-**request:** `Forum.CreatevotePollVotesRequest` 
+**request:** `Forum.CreatePollVoteThreadsRequest` 
     
 </dd>
 </dl>
@@ -2144,7 +2143,7 @@ await client.pollVotes.createvote({
 <dl>
 <dd>
 
-**requestOptions:** `PollVotesClient.RequestOptions` 
+**requestOptions:** `ThreadsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2156,7 +2155,7 @@ await client.pollVotes.createvote({
 </dl>
 </details>
 
-<details><summary><code>client.pollVotes.<a href="/src/api/resources/pollVotes/client/Client.ts">deleteOwnvote</a>({ ...params }) -> Forum.DeleteOwnvotePollVotesResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">deleteOwnPollVote</a>({ ...params }) -> Forum.DeleteOwnPollVoteThreadsResponse</code></summary>
 <dl>
 <dd>
 
@@ -2168,7 +2167,7 @@ await client.pollVotes.createvote({
 <dl>
 <dd>
 
-Removes the authenticated user's vote. No ID needed.
+Removes the authenticated user's Vote. No ID needed.
 </dd>
 </dl>
 </dd>
@@ -2183,7 +2182,7 @@ Removes the authenticated user's vote. No ID needed.
 <dd>
 
 ```typescript
-await client.pollVotes.deleteOwnvote({
+await client.threads.deleteOwnPollVote({
     id: "id"
 });
 
@@ -2201,7 +2200,7 @@ await client.pollVotes.deleteOwnvote({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteOwnvotePollVotesRequest` 
+**request:** `Forum.DeleteOwnPollVoteThreadsRequest` 
     
 </dd>
 </dl>
@@ -2209,7 +2208,7 @@ await client.pollVotes.deleteOwnvote({
 <dl>
 <dd>
 
-**requestOptions:** `PollVotesClient.RequestOptions` 
+**requestOptions:** `ThreadsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2221,7 +2220,7 @@ await client.pollVotes.deleteOwnvote({
 </dl>
 </details>
 
-<details><summary><code>client.pollVotes.<a href="/src/api/resources/pollVotes/client/Client.ts">deletevote</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">deletePollVote</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -2234,7 +2233,7 @@ await client.pollVotes.deleteOwnvote({
 <dd>
 
 ```typescript
-await client.pollVotes.deletevote({
+await client.threads.deletePollVote({
     id: "id",
     nestedId: "nestedId"
 });
@@ -2253,7 +2252,7 @@ await client.pollVotes.deletevote({
 <dl>
 <dd>
 
-**request:** `Forum.DeletevotePollVotesRequest` 
+**request:** `Forum.DeletePollVoteThreadsRequest` 
     
 </dd>
 </dl>
@@ -2261,7 +2260,7 @@ await client.pollVotes.deletevote({
 <dl>
 <dd>
 
-**requestOptions:** `PollVotesClient.RequestOptions` 
+**requestOptions:** `ThreadsClient.RequestOptions` 
     
 </dd>
 </dl>

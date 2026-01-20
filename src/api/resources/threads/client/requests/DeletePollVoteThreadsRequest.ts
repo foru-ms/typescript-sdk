@@ -3,10 +3,13 @@
 /**
  * @example
  *     {
- *         id: "id"
+ *         id: "id",
+ *         nestedId: "nestedId"
  *     }
  */
-export interface DeleteOwnvotePollVotesRequest {
+export interface DeletePollVoteThreadsRequest {
     /** Thread ID */
     id: string;
+    /** Vote ID */
+    nestedId: string;
 }
