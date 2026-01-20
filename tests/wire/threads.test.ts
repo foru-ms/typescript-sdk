@@ -2370,8 +2370,13 @@ describe("ThreadsClient", () => {
             data: {
                 id: "id",
                 title: "title",
+                closed: true,
+                closedAt: "2024-01-15T09:30:00Z",
+                expiresAt: "2024-01-15T09:30:00Z",
+                totalVotes: 1.1,
                 options: [{ id: "id", title: "title", color: null, votesCount: 1.1, extendedData: null }],
-                createdAt: "createdAt",
+                createdAt: "2024-01-15T09:30:00Z",
+                updatedAt: "2024-01-15T09:30:00Z",
             },
         };
         server.mockEndpoint().get("/threads/id/poll").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
@@ -2383,6 +2388,10 @@ describe("ThreadsClient", () => {
             data: {
                 id: "id",
                 title: "title",
+                closed: true,
+                closedAt: "2024-01-15T09:30:00Z",
+                expiresAt: "2024-01-15T09:30:00Z",
+                totalVotes: 1.1,
                 options: [
                     {
                         id: "id",
@@ -2392,7 +2401,8 @@ describe("ThreadsClient", () => {
                         extendedData: null,
                     },
                 ],
-                createdAt: "createdAt",
+                createdAt: "2024-01-15T09:30:00Z",
+                updatedAt: "2024-01-15T09:30:00Z",
             },
         });
     });
@@ -2461,8 +2471,13 @@ describe("ThreadsClient", () => {
             data: {
                 id: "id",
                 title: "title",
+                closed: true,
+                closedAt: "2024-01-15T09:30:00Z",
+                expiresAt: "2024-01-15T09:30:00Z",
+                totalVotes: 1.1,
                 options: [{ id: "id", title: "title", color: null, votesCount: 1.1, extendedData: null }],
-                createdAt: "createdAt",
+                createdAt: "2024-01-15T09:30:00Z",
+                updatedAt: "2024-01-15T09:30:00Z",
             },
         };
         server
@@ -2487,6 +2502,10 @@ describe("ThreadsClient", () => {
             data: {
                 id: "id",
                 title: "title",
+                closed: true,
+                closedAt: "2024-01-15T09:30:00Z",
+                expiresAt: "2024-01-15T09:30:00Z",
+                totalVotes: 1.1,
                 options: [
                     {
                         id: "id",
@@ -2496,7 +2515,8 @@ describe("ThreadsClient", () => {
                         extendedData: null,
                     },
                 ],
-                createdAt: "createdAt",
+                createdAt: "2024-01-15T09:30:00Z",
+                updatedAt: "2024-01-15T09:30:00Z",
             },
         });
     });
@@ -2659,8 +2679,13 @@ describe("ThreadsClient", () => {
             data: {
                 id: "id",
                 title: "title",
+                closed: true,
+                closedAt: "2024-01-15T09:30:00Z",
+                expiresAt: "2024-01-15T09:30:00Z",
+                totalVotes: 1.1,
                 options: [{ id: "id", title: "title", color: null, votesCount: 1.1, extendedData: null }],
-                createdAt: "createdAt",
+                createdAt: "2024-01-15T09:30:00Z",
+                updatedAt: "2024-01-15T09:30:00Z",
             },
         };
         server
@@ -2679,6 +2704,10 @@ describe("ThreadsClient", () => {
             data: {
                 id: "id",
                 title: "title",
+                closed: true,
+                closedAt: "2024-01-15T09:30:00Z",
+                expiresAt: "2024-01-15T09:30:00Z",
+                totalVotes: 1.1,
                 options: [
                     {
                         id: "id",
@@ -2688,7 +2717,8 @@ describe("ThreadsClient", () => {
                         extendedData: null,
                     },
                 ],
-                createdAt: "createdAt",
+                createdAt: "2024-01-15T09:30:00Z",
+                updatedAt: "2024-01-15T09:30:00Z",
             },
         });
     });
@@ -2798,12 +2828,145 @@ describe("ThreadsClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
+    test("listPollVotes (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            data: {
+                items: [
+                    {
+                        id: "id",
+                        pollId: "pollId",
+                        optionId: "optionId",
+                        userId: "userId",
+                        createdAt: "2024-01-15T09:30:00Z",
+                    },
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
+            },
+        };
+        server
+            .mockEndpoint()
+            .get("/threads/id/poll/votes")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.threads.listPollVotes({
+            id: "id",
+        });
+        expect(response).toEqual({
+            data: {
+                items: [
+                    {
+                        id: "id",
+                        pollId: "pollId",
+                        optionId: "optionId",
+                        userId: "userId",
+                        createdAt: "2024-01-15T09:30:00Z",
+                    },
+                ],
+                nextCursor: "nextCursor",
+                count: 1,
+            },
+        });
+    });
+
+    test("listPollVotes (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .get("/threads/id/poll/votes")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.threads.listPollVotes({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.UnauthorizedError);
+    });
+
+    test("listPollVotes (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .get("/threads/id/poll/votes")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.threads.listPollVotes({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.NotFoundError);
+    });
+
+    test("listPollVotes (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .get("/threads/id/poll/votes")
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.threads.listPollVotes({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.TooManyRequestsError);
+    });
+
+    test("listPollVotes (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .get("/threads/id/poll/votes")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.threads.listPollVotes({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.InternalServerError);
+    });
+
     test("createPollVote (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { optionId: "optionId" };
         const rawResponseBody = {
-            data: { id: "id", pollId: "pollId", optionId: "optionId", userId: "userId", createdAt: "createdAt" },
+            data: {
+                id: "id",
+                pollId: "pollId",
+                optionId: "optionId",
+                userId: "userId",
+                createdAt: "2024-01-15T09:30:00Z",
+            },
         };
         server
             .mockEndpoint()
@@ -2824,7 +2987,7 @@ describe("ThreadsClient", () => {
                 pollId: "pollId",
                 optionId: "optionId",
                 userId: "userId",
-                createdAt: "createdAt",
+                createdAt: "2024-01-15T09:30:00Z",
             },
         });
     });

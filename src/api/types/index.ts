@@ -25,6 +25,7 @@ export * from "./NotificationResponse.js";
 export * from "./NotificationUpdate.js";
 export * from "./OwnershipInfo.js";
 export * from "./PollVoteResponse.js";
+export * from "./PollVotesListResponse.js";
 export * from "./Post.js";
 export * from "./PostCreate.js";
 export * from "./PostList.js";

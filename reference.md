@@ -2089,6 +2089,71 @@ await client.threads.updatePoll({
 </dl>
 </details>
 
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">listPollVotes</a>({ ...params }) -> Forum.PollVotesListResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all votes in the Thread's Poll.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.threads.listPollVotes({
+    id: "id"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.ListPollVotesThreadsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ThreadsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">createPollVote</a>({ ...params }) -> Forum.PollVoteResponse</code></summary>
 <dl>
 <dd>

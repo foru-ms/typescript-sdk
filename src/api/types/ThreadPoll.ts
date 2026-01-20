@@ -3,8 +3,13 @@
 export interface ThreadPoll {
     id: string;
     title: string;
+    closed: boolean | null;
+    closedAt: string | null;
+    expiresAt: string | null;
+    totalVotes: number;
     options: ThreadPoll.Options.Item[];
     createdAt: string;
+    updatedAt: string;
 }
 
 export namespace ThreadPoll {

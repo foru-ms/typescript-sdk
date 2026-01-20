@@ -8,6 +8,7 @@ export type { DeletePostThreadsRequest } from "./DeletePostThreadsRequest.js";
 export type { DeleteReactionThreadsRequest } from "./DeleteReactionThreadsRequest.js";
 export type { DeleteSubscriberThreadsRequest } from "./DeleteSubscriberThreadsRequest.js";
 export type { DeleteThreadsRequest } from "./DeleteThreadsRequest.js";
+export type { ListPollVotesThreadsRequest } from "./ListPollVotesThreadsRequest.js";
 export type { ListPostsThreadsRequest } from "./ListPostsThreadsRequest.js";
 export type { ListReactionsThreadsRequest } from "./ListReactionsThreadsRequest.js";
 export type { ListSubscribersThreadsRequest } from "./ListSubscribersThreadsRequest.js";

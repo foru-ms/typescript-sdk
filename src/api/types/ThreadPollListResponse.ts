@@ -18,8 +18,13 @@ export namespace ThreadPollListResponse {
             export interface Item {
                 id: string;
                 title: string;
+                closed: boolean | null;
+                closedAt: string | null;
+                expiresAt: string | null;
+                totalVotes: number;
                 options: Item.Options.Item[];
                 createdAt: string;
+                updatedAt: string;
             }
 
             export namespace Item {

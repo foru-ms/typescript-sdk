@@ -8,8 +8,13 @@ export namespace ThreadPollResponse {
     export interface Data {
         id: string;
         title: string;
+        closed: boolean | null;
+        closedAt: string | null;
+        expiresAt: string | null;
+        totalVotes: number;
         options: Data.Options.Item[];
         createdAt: string;
+        updatedAt: string;
     }
 
     export namespace Data {
