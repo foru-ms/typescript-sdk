@@ -9,4 +9,5 @@ export type { ListUsersRequest } from "./ListUsersRequest.js";
 export type { RetrieveFollowerUsersRequest } from "./RetrieveFollowerUsersRequest.js";
 export type { RetrieveFollowingUsersRequest } from "./RetrieveFollowingUsersRequest.js";
 export type { RetrieveUsersRequest } from "./RetrieveUsersRequest.js";
+export type { UnfollowUsersRequest } from "./UnfollowUsersRequest.js";
 export type { UpdateUsersRequest } from "./UpdateUsersRequest.js";
