@@ -7,9 +7,9 @@
  *         subId: "subId"
  *     }
  */
-export interface DeleteReplyPrivateMessagesRequest {
-    /** Private Message ID */
+export interface DeleteDeliveryByIdWebhooksRequest {
+    /** Webhook ID */
     id: string;
-    /** Reply ID */
+    /** Delivery ID */
     subId: string;
 }

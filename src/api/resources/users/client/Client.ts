@@ -839,7 +839,7 @@ export class UsersClient {
     }
 
     /**
-     * @param {Forum.DeleteFollowerUsersRequest} request
+     * @param {Forum.DeleteFollowerByIdUsersRequest} request
      * @param {UsersClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -848,20 +848,20 @@ export class UsersClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.users.deleteFollower({
+     *     await client.users.deleteFollowerById({
      *         id: "id",
      *         subId: "subId"
      *     })
      */
-    public deleteFollower(
-        request: Forum.DeleteFollowerUsersRequest,
+    public deleteFollowerById(
+        request: Forum.DeleteFollowerByIdUsersRequest,
         requestOptions?: UsersClient.RequestOptions,
     ): core.HttpResponsePromise<Forum.SuccessResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteFollower(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__deleteFollowerById(request, requestOptions));
     }
 
-    private async __deleteFollower(
-        request: Forum.DeleteFollowerUsersRequest,
+    private async __deleteFollowerById(
+        request: Forum.DeleteFollowerByIdUsersRequest,
         requestOptions?: UsersClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id, subId } = request;
@@ -1101,7 +1101,7 @@ export class UsersClient {
     }
 
     /**
-     * @param {Forum.DeleteFollowingUsersRequest} request
+     * @param {Forum.DeleteFollowingByIdUsersRequest} request
      * @param {UsersClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -1110,20 +1110,20 @@ export class UsersClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.users.deleteFollowing({
+     *     await client.users.deleteFollowingById({
      *         id: "id",
      *         subId: "subId"
      *     })
      */
-    public deleteFollowing(
-        request: Forum.DeleteFollowingUsersRequest,
+    public deleteFollowingById(
+        request: Forum.DeleteFollowingByIdUsersRequest,
         requestOptions?: UsersClient.RequestOptions,
     ): core.HttpResponsePromise<Forum.SuccessResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteFollowing(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__deleteFollowingById(request, requestOptions));
     }
 
-    private async __deleteFollowing(
-        request: Forum.DeleteFollowingUsersRequest,
+    private async __deleteFollowingById(
+        request: Forum.DeleteFollowingByIdUsersRequest,
         requestOptions?: UsersClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id, subId } = request;

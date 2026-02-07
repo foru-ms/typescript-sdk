@@ -102,6 +102,7 @@ export * from "./ThreadReactionListResponse.js";
 export * from "./ThreadReactionResponse.js";
 export * from "./ThreadResponse.js";
 export * from "./ThreadSubscriber.js";
+export * from "./ThreadSubscriberCreate.js";
 export * from "./ThreadSubscriberListResponse.js";
 export * from "./ThreadSubscriberResponse.js";
 export * from "./ThreadUpdate.js";

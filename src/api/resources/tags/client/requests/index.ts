@@ -1,6 +1,6 @@
 export type { CreateSubscriberTagsRequest } from "./CreateSubscriberTagsRequest.js";
 export type { CreateTagsRequest } from "./CreateTagsRequest.js";
-export type { DeleteSubscriberTagsRequest } from "./DeleteSubscriberTagsRequest.js";
+export type { DeleteSubscriberByIdTagsRequest } from "./DeleteSubscriberByIdTagsRequest.js";
 export type { DeleteTagsRequest } from "./DeleteTagsRequest.js";
 export type { ListSubscribersTagsRequest } from "./ListSubscribersTagsRequest.js";
 export type { ListTagsRequest } from "./ListTagsRequest.js";

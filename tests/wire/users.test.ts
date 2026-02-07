@@ -1242,7 +1242,7 @@ describe("UsersClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("deleteFollower (1)", async () => {
+    test("deleteFollowerById (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1255,7 +1255,7 @@ describe("UsersClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.users.deleteFollower({
+        const response = await client.users.deleteFollowerById({
             id: "id",
             subId: "subId",
         });
@@ -1266,7 +1266,7 @@ describe("UsersClient", () => {
         });
     });
 
-    test("deleteFollower (2)", async () => {
+    test("deleteFollowerById (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1280,14 +1280,14 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.deleteFollower({
+            return await client.users.deleteFollowerById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("deleteFollower (3)", async () => {
+    test("deleteFollowerById (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1301,14 +1301,14 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.deleteFollower({
+            return await client.users.deleteFollowerById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("deleteFollower (4)", async () => {
+    test("deleteFollowerById (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1322,14 +1322,14 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.deleteFollower({
+            return await client.users.deleteFollowerById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("deleteFollower (5)", async () => {
+    test("deleteFollowerById (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1343,7 +1343,7 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.deleteFollower({
+            return await client.users.deleteFollowerById({
                 id: "id",
                 subId: "subId",
             });
@@ -1627,7 +1627,7 @@ describe("UsersClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("deleteFollowing (1)", async () => {
+    test("deleteFollowingById (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1640,7 +1640,7 @@ describe("UsersClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.users.deleteFollowing({
+        const response = await client.users.deleteFollowingById({
             id: "id",
             subId: "subId",
         });
@@ -1651,7 +1651,7 @@ describe("UsersClient", () => {
         });
     });
 
-    test("deleteFollowing (2)", async () => {
+    test("deleteFollowingById (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1665,14 +1665,14 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.deleteFollowing({
+            return await client.users.deleteFollowingById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("deleteFollowing (3)", async () => {
+    test("deleteFollowingById (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1686,14 +1686,14 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.deleteFollowing({
+            return await client.users.deleteFollowingById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("deleteFollowing (4)", async () => {
+    test("deleteFollowingById (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1707,14 +1707,14 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.deleteFollowing({
+            return await client.users.deleteFollowingById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("deleteFollowing (5)", async () => {
+    test("deleteFollowingById (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1728,7 +1728,7 @@ describe("UsersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.users.deleteFollowing({
+            return await client.users.deleteFollowingById({
                 id: "id",
                 subId: "subId",
             });

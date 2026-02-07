@@ -1109,7 +1109,7 @@ describe("PrivateMessagesClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("deleteReply (1)", async () => {
+    test("deleteReplyById (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1122,7 +1122,7 @@ describe("PrivateMessagesClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.privateMessages.deleteReply({
+        const response = await client.privateMessages.deleteReplyById({
             id: "id",
             subId: "subId",
         });
@@ -1133,7 +1133,7 @@ describe("PrivateMessagesClient", () => {
         });
     });
 
-    test("deleteReply (2)", async () => {
+    test("deleteReplyById (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1147,14 +1147,14 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.deleteReply({
+            return await client.privateMessages.deleteReplyById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("deleteReply (3)", async () => {
+    test("deleteReplyById (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1168,14 +1168,14 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.deleteReply({
+            return await client.privateMessages.deleteReplyById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("deleteReply (4)", async () => {
+    test("deleteReplyById (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1189,14 +1189,14 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.deleteReply({
+            return await client.privateMessages.deleteReplyById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("deleteReply (5)", async () => {
+    test("deleteReplyById (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1210,7 +1210,7 @@ describe("PrivateMessagesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.privateMessages.deleteReply({
+            return await client.privateMessages.deleteReplyById({
                 id: "id",
                 subId: "subId",
             });

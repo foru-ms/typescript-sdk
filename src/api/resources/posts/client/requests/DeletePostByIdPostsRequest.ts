@@ -7,9 +7,9 @@
  *         subId: "subId"
  *     }
  */
-export interface DeleteSubscriberTagsRequest {
-    /** Tag ID */
+export interface DeletePostByIdPostsRequest {
+    /** Post ID */
     id: string;
-    /** Subscriber ID */
+    /** Post ID */
     subId: string;
 }

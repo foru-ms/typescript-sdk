@@ -6,7 +6,9 @@
  *         id: "id"
  *     }
  */
-export interface DeleteReactionThreadsRequest {
+export interface CreateSubscriberThreadsRequest {
     /** Thread ID */
     id: string;
+    /** Optional custom data */
+    extendedData?: Record<string, unknown>;
 }

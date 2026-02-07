@@ -683,7 +683,7 @@ export class WebhooksClient {
     }
 
     /**
-     * @param {Forum.DeleteDeliveryWebhooksRequest} request
+     * @param {Forum.DeleteDeliveryByIdWebhooksRequest} request
      * @param {WebhooksClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -692,20 +692,20 @@ export class WebhooksClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.webhooks.deleteDelivery({
+     *     await client.webhooks.deleteDeliveryById({
      *         id: "id",
      *         subId: "subId"
      *     })
      */
-    public deleteDelivery(
-        request: Forum.DeleteDeliveryWebhooksRequest,
+    public deleteDeliveryById(
+        request: Forum.DeleteDeliveryByIdWebhooksRequest,
         requestOptions?: WebhooksClient.RequestOptions,
     ): core.HttpResponsePromise<Forum.SuccessResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteDelivery(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__deleteDeliveryById(request, requestOptions));
     }
 
-    private async __deleteDelivery(
-        request: Forum.DeleteDeliveryWebhooksRequest,
+    private async __deleteDeliveryById(
+        request: Forum.DeleteDeliveryByIdWebhooksRequest,
         requestOptions?: WebhooksClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id, subId } = request;

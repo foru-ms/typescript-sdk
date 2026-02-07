@@ -1,12 +1,14 @@
 export type { CreatePollThreadsRequest } from "./CreatePollThreadsRequest.js";
 export type { CreatePollVoteThreadsRequest } from "./CreatePollVoteThreadsRequest.js";
 export { CreateReactionThreadsRequest } from "./CreateReactionThreadsRequest.js";
+export type { CreateSubscriberThreadsRequest } from "./CreateSubscriberThreadsRequest.js";
 export type { CreateThreadsRequest } from "./CreateThreadsRequest.js";
 export type { DeleteOwnPollVoteThreadsRequest } from "./DeleteOwnPollVoteThreadsRequest.js";
 export type { DeletePollVoteThreadsRequest } from "./DeletePollVoteThreadsRequest.js";
-export type { DeletePostThreadsRequest } from "./DeletePostThreadsRequest.js";
+export type { DeletePostByIdThreadsRequest } from "./DeletePostByIdThreadsRequest.js";
+export type { DeleteReactionByIdThreadsRequest } from "./DeleteReactionByIdThreadsRequest.js";
 export type { DeleteReactionThreadsRequest } from "./DeleteReactionThreadsRequest.js";
-export type { DeleteSubscriberThreadsRequest } from "./DeleteSubscriberThreadsRequest.js";
+export type { DeleteSubscriberByIdThreadsRequest } from "./DeleteSubscriberByIdThreadsRequest.js";
 export type { DeleteThreadsRequest } from "./DeleteThreadsRequest.js";
 export type { ListPollVotesThreadsRequest } from "./ListPollVotesThreadsRequest.js";
 export type { ListPostsThreadsRequest } from "./ListPostsThreadsRequest.js";

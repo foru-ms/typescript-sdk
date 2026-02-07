@@ -7,9 +7,9 @@
  *         subId: "subId"
  *     }
  */
-export interface DeletePostThreadsRequest {
+export interface DeleteSubscriberByIdThreadsRequest {
     /** Thread ID */
     id: string;
-    /** Post ID */
+    /** Subscriber ID */
     subId: string;
 }

@@ -1080,7 +1080,7 @@ describe("PostsClient", () => {
         const rawResponseBody = { data: { success: true } };
         server
             .mockEndpoint()
-            .delete("/posts/id/reactions/subId")
+            .delete("/posts/id/reactions")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
@@ -1088,7 +1088,6 @@ describe("PostsClient", () => {
 
         const response = await client.posts.deleteReaction({
             id: "id",
-            subId: "subId",
         });
         expect(response).toEqual({
             data: {
@@ -1104,7 +1103,7 @@ describe("PostsClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/posts/id/reactions/subId")
+            .delete("/posts/id/reactions")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
@@ -1113,7 +1112,6 @@ describe("PostsClient", () => {
         await expect(async () => {
             return await client.posts.deleteReaction({
                 id: "id",
-                subId: "subId",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
@@ -1125,7 +1123,7 @@ describe("PostsClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/posts/id/reactions/subId")
+            .delete("/posts/id/reactions")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
@@ -1134,7 +1132,6 @@ describe("PostsClient", () => {
         await expect(async () => {
             return await client.posts.deleteReaction({
                 id: "id",
-                subId: "subId",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
@@ -1146,7 +1143,7 @@ describe("PostsClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/posts/id/reactions/subId")
+            .delete("/posts/id/reactions")
             .respondWith()
             .statusCode(429)
             .jsonBody(rawResponseBody)
@@ -1155,7 +1152,6 @@ describe("PostsClient", () => {
         await expect(async () => {
             return await client.posts.deleteReaction({
                 id: "id",
-                subId: "subId",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
@@ -1167,7 +1163,7 @@ describe("PostsClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/posts/id/reactions/subId")
+            .delete("/posts/id/reactions")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
@@ -1176,7 +1172,6 @@ describe("PostsClient", () => {
         await expect(async () => {
             return await client.posts.deleteReaction({
                 id: "id",
-                subId: "subId",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
@@ -1334,6 +1329,114 @@ describe("PostsClient", () => {
 
         await expect(async () => {
             return await client.posts.retrieveReaction({
+                id: "id",
+                subId: "subId",
+            });
+        }).rejects.toThrow(Forum.InternalServerError);
+    });
+
+    test("deleteReactionById (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { data: { success: true } };
+        server
+            .mockEndpoint()
+            .delete("/posts/id/reactions/subId")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.posts.deleteReactionById({
+            id: "id",
+            subId: "subId",
+        });
+        expect(response).toEqual({
+            data: {
+                success: true,
+            },
+        });
+    });
+
+    test("deleteReactionById (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .delete("/posts/id/reactions/subId")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.posts.deleteReactionById({
+                id: "id",
+                subId: "subId",
+            });
+        }).rejects.toThrow(Forum.UnauthorizedError);
+    });
+
+    test("deleteReactionById (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .delete("/posts/id/reactions/subId")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.posts.deleteReactionById({
+                id: "id",
+                subId: "subId",
+            });
+        }).rejects.toThrow(Forum.NotFoundError);
+    });
+
+    test("deleteReactionById (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .delete("/posts/id/reactions/subId")
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.posts.deleteReactionById({
+                id: "id",
+                subId: "subId",
+            });
+        }).rejects.toThrow(Forum.TooManyRequestsError);
+    });
+
+    test("deleteReactionById (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .delete("/posts/id/reactions/subId")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.posts.deleteReactionById({
                 id: "id",
                 subId: "subId",
             });
@@ -1620,7 +1723,7 @@ describe("PostsClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("deletePost (1)", async () => {
+    test("deletePostById (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1633,7 +1736,7 @@ describe("PostsClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.posts.deletePost({
+        const response = await client.posts.deletePostById({
             id: "id",
             subId: "subId",
         });
@@ -1644,7 +1747,7 @@ describe("PostsClient", () => {
         });
     });
 
-    test("deletePost (2)", async () => {
+    test("deletePostById (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1658,14 +1761,14 @@ describe("PostsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.posts.deletePost({
+            return await client.posts.deletePostById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("deletePost (3)", async () => {
+    test("deletePostById (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1679,14 +1782,14 @@ describe("PostsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.posts.deletePost({
+            return await client.posts.deletePostById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("deletePost (4)", async () => {
+    test("deletePostById (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1700,14 +1803,14 @@ describe("PostsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.posts.deletePost({
+            return await client.posts.deletePostById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("deletePost (5)", async () => {
+    test("deletePostById (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1721,7 +1824,7 @@ describe("PostsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.posts.deletePost({
+            return await client.posts.deletePostById({
                 id: "id",
                 subId: "subId",
             });

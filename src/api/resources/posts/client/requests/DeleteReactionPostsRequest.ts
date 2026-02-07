@@ -3,13 +3,10 @@
 /**
  * @example
  *     {
- *         id: "id",
- *         subId: "subId"
+ *         id: "id"
  *     }
  */
 export interface DeleteReactionPostsRequest {
     /** Post ID */
     id: string;
-    /** Reaction ID */
-    subId: string;
 }

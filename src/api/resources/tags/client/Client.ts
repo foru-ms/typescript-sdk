@@ -843,7 +843,7 @@ export class TagsClient {
     }
 
     /**
-     * @param {Forum.DeleteSubscriberTagsRequest} request
+     * @param {Forum.DeleteSubscriberByIdTagsRequest} request
      * @param {TagsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -852,20 +852,20 @@ export class TagsClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.tags.deleteSubscriber({
+     *     await client.tags.deleteSubscriberById({
      *         id: "id",
      *         subId: "subId"
      *     })
      */
-    public deleteSubscriber(
-        request: Forum.DeleteSubscriberTagsRequest,
+    public deleteSubscriberById(
+        request: Forum.DeleteSubscriberByIdTagsRequest,
         requestOptions?: TagsClient.RequestOptions,
     ): core.HttpResponsePromise<Forum.SuccessResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteSubscriber(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__deleteSubscriberById(request, requestOptions));
     }
 
-    private async __deleteSubscriber(
-        request: Forum.DeleteSubscriberTagsRequest,
+    private async __deleteSubscriberById(
+        request: Forum.DeleteSubscriberByIdTagsRequest,
         requestOptions?: TagsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id, subId } = request;

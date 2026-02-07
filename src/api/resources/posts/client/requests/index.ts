@@ -1,7 +1,8 @@
 export type { CreatePostsRequest } from "./CreatePostsRequest.js";
 export { CreateReactionPostsRequest } from "./CreateReactionPostsRequest.js";
-export type { DeletePostPostsRequest } from "./DeletePostPostsRequest.js";
+export type { DeletePostByIdPostsRequest } from "./DeletePostByIdPostsRequest.js";
 export type { DeletePostsRequest } from "./DeletePostsRequest.js";
+export type { DeleteReactionByIdPostsRequest } from "./DeleteReactionByIdPostsRequest.js";
 export type { DeleteReactionPostsRequest } from "./DeleteReactionPostsRequest.js";
 export type { ListPostsPostsRequest } from "./ListPostsPostsRequest.js";
 export type { ListPostsRequest } from "./ListPostsRequest.js";

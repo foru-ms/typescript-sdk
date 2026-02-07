@@ -7,9 +7,9 @@
  *         subId: "subId"
  *     }
  */
-export interface DeletePostPostsRequest {
-    /** Post ID */
+export interface DeleteReactionByIdThreadsRequest {
+    /** Thread ID */
     id: string;
-    /** Post ID */
+    /** Reaction ID */
     subId: string;
 }

@@ -777,7 +777,7 @@ export class PrivateMessagesClient {
     }
 
     /**
-     * @param {Forum.DeleteReplyPrivateMessagesRequest} request
+     * @param {Forum.DeleteReplyByIdPrivateMessagesRequest} request
      * @param {PrivateMessagesClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Forum.UnauthorizedError}
@@ -786,20 +786,20 @@ export class PrivateMessagesClient {
      * @throws {@link Forum.InternalServerError}
      *
      * @example
-     *     await client.privateMessages.deleteReply({
+     *     await client.privateMessages.deleteReplyById({
      *         id: "id",
      *         subId: "subId"
      *     })
      */
-    public deleteReply(
-        request: Forum.DeleteReplyPrivateMessagesRequest,
+    public deleteReplyById(
+        request: Forum.DeleteReplyByIdPrivateMessagesRequest,
         requestOptions?: PrivateMessagesClient.RequestOptions,
     ): core.HttpResponsePromise<Forum.SuccessResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteReply(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__deleteReplyById(request, requestOptions));
     }
 
-    private async __deleteReply(
-        request: Forum.DeleteReplyPrivateMessagesRequest,
+    private async __deleteReplyById(
+        request: Forum.DeleteReplyByIdPrivateMessagesRequest,
         requestOptions?: PrivateMessagesClient.RequestOptions,
     ): Promise<core.WithRawResponse<Forum.SuccessResponse>> {
         const { id, subId } = request;

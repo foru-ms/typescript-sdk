@@ -1156,7 +1156,7 @@ describe("TagsClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("deleteSubscriber (1)", async () => {
+    test("deleteSubscriberById (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1169,7 +1169,7 @@ describe("TagsClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.tags.deleteSubscriber({
+        const response = await client.tags.deleteSubscriberById({
             id: "id",
             subId: "subId",
         });
@@ -1180,7 +1180,7 @@ describe("TagsClient", () => {
         });
     });
 
-    test("deleteSubscriber (2)", async () => {
+    test("deleteSubscriberById (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1194,14 +1194,14 @@ describe("TagsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.tags.deleteSubscriber({
+            return await client.tags.deleteSubscriberById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("deleteSubscriber (3)", async () => {
+    test("deleteSubscriberById (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1215,14 +1215,14 @@ describe("TagsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.tags.deleteSubscriber({
+            return await client.tags.deleteSubscriberById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("deleteSubscriber (4)", async () => {
+    test("deleteSubscriberById (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1236,14 +1236,14 @@ describe("TagsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.tags.deleteSubscriber({
+            return await client.tags.deleteSubscriberById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("deleteSubscriber (5)", async () => {
+    test("deleteSubscriberById (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1257,7 +1257,7 @@ describe("TagsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.tags.deleteSubscriber({
+            return await client.tags.deleteSubscriberById({
                 id: "id",
                 subId: "subId",
             });

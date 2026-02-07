@@ -1,12 +1,12 @@
 {
-    "cliVersion": "3.47.0",
+    "cliVersion": "3.69.0",
     "generatorName": "fernapi/fern-typescript-sdk",
-    "generatorVersion": "3.43.13",
+    "generatorVersion": "3.46.3",
     "generatorConfig": {
         "namespaceExport": "Forum",
         "skipResponseValidation": true,
         "generateWireTests": false,
         "allowCustomFetcher": true
     },
-    "sdkVersion": "2.1.18"
+    "sdkVersion": "2.1.19"
 }

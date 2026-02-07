@@ -7,9 +7,9 @@
  *         subId: "subId"
  *     }
  */
-export interface DeleteSubscriberThreadsRequest {
-    /** Thread ID */
+export interface DeleteReplyByIdPrivateMessagesRequest {
+    /** Private Message ID */
     id: string;
-    /** Subscriber ID */
+    /** Reply ID */
     subId: string;
 }

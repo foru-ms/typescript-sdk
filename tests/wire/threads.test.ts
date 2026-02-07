@@ -1201,7 +1201,7 @@ describe("ThreadsClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("deletePost (1)", async () => {
+    test("deletePostById (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1214,7 +1214,7 @@ describe("ThreadsClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.threads.deletePost({
+        const response = await client.threads.deletePostById({
             id: "id",
             subId: "subId",
         });
@@ -1225,7 +1225,7 @@ describe("ThreadsClient", () => {
         });
     });
 
-    test("deletePost (2)", async () => {
+    test("deletePostById (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1239,14 +1239,14 @@ describe("ThreadsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.threads.deletePost({
+            return await client.threads.deletePostById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("deletePost (3)", async () => {
+    test("deletePostById (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1260,14 +1260,14 @@ describe("ThreadsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.threads.deletePost({
+            return await client.threads.deletePostById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("deletePost (4)", async () => {
+    test("deletePostById (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1281,14 +1281,14 @@ describe("ThreadsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.threads.deletePost({
+            return await client.threads.deletePostById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("deletePost (5)", async () => {
+    test("deletePostById (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -1302,7 +1302,7 @@ describe("ThreadsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.threads.deletePost({
+            return await client.threads.deletePostById({
                 id: "id",
                 subId: "subId",
             });
@@ -1620,7 +1620,7 @@ describe("ThreadsClient", () => {
         const rawResponseBody = { data: { success: true } };
         server
             .mockEndpoint()
-            .delete("/threads/id/reactions/subId")
+            .delete("/threads/id/reactions")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
@@ -1628,7 +1628,6 @@ describe("ThreadsClient", () => {
 
         const response = await client.threads.deleteReaction({
             id: "id",
-            subId: "subId",
         });
         expect(response).toEqual({
             data: {
@@ -1644,7 +1643,7 @@ describe("ThreadsClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/threads/id/reactions/subId")
+            .delete("/threads/id/reactions")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
@@ -1653,7 +1652,6 @@ describe("ThreadsClient", () => {
         await expect(async () => {
             return await client.threads.deleteReaction({
                 id: "id",
-                subId: "subId",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
@@ -1665,7 +1663,7 @@ describe("ThreadsClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/threads/id/reactions/subId")
+            .delete("/threads/id/reactions")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
@@ -1674,7 +1672,6 @@ describe("ThreadsClient", () => {
         await expect(async () => {
             return await client.threads.deleteReaction({
                 id: "id",
-                subId: "subId",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
@@ -1686,7 +1683,7 @@ describe("ThreadsClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/threads/id/reactions/subId")
+            .delete("/threads/id/reactions")
             .respondWith()
             .statusCode(429)
             .jsonBody(rawResponseBody)
@@ -1695,7 +1692,6 @@ describe("ThreadsClient", () => {
         await expect(async () => {
             return await client.threads.deleteReaction({
                 id: "id",
-                subId: "subId",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
@@ -1707,7 +1703,7 @@ describe("ThreadsClient", () => {
         const rawResponseBody = { error: { code: "code", message: "message" } };
         server
             .mockEndpoint()
-            .delete("/threads/id/reactions/subId")
+            .delete("/threads/id/reactions")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
@@ -1716,7 +1712,6 @@ describe("ThreadsClient", () => {
         await expect(async () => {
             return await client.threads.deleteReaction({
                 id: "id",
-                subId: "subId",
             });
         }).rejects.toThrow(Forum.InternalServerError);
     });
@@ -1880,6 +1875,114 @@ describe("ThreadsClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
+    test("deleteReactionById (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { data: { success: true } };
+        server
+            .mockEndpoint()
+            .delete("/threads/id/reactions/subId")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.threads.deleteReactionById({
+            id: "id",
+            subId: "subId",
+        });
+        expect(response).toEqual({
+            data: {
+                success: true,
+            },
+        });
+    });
+
+    test("deleteReactionById (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .delete("/threads/id/reactions/subId")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.threads.deleteReactionById({
+                id: "id",
+                subId: "subId",
+            });
+        }).rejects.toThrow(Forum.UnauthorizedError);
+    });
+
+    test("deleteReactionById (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .delete("/threads/id/reactions/subId")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.threads.deleteReactionById({
+                id: "id",
+                subId: "subId",
+            });
+        }).rejects.toThrow(Forum.NotFoundError);
+    });
+
+    test("deleteReactionById (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .delete("/threads/id/reactions/subId")
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.threads.deleteReactionById({
+                id: "id",
+                subId: "subId",
+            });
+        }).rejects.toThrow(Forum.TooManyRequestsError);
+    });
+
+    test("deleteReactionById (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .delete("/threads/id/reactions/subId")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.threads.deleteReactionById({
+                id: "id",
+                subId: "subId",
+            });
+        }).rejects.toThrow(Forum.InternalServerError);
+    });
+
     test("listSubscribers (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
@@ -1993,6 +2096,186 @@ describe("ThreadsClient", () => {
 
         await expect(async () => {
             return await client.threads.listSubscribers({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.InternalServerError);
+    });
+
+    test("createSubscriber (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            data: {
+                id: "id",
+                userId: "userId",
+                threadId: "threadId",
+                user: {
+                    id: "id",
+                    username: "username",
+                    displayName: "displayName",
+                    bio: "bio",
+                    signature: "signature",
+                    url: "url",
+                    postsCount: 1,
+                    threadsCount: 1,
+                    isOnline: true,
+                    lastSeenAt: "lastSeenAt",
+                    roles: [{ id: "id", name: "name", slug: null, color: null }],
+                    extendedData: { key: "value" },
+                    createdAt: "createdAt",
+                    updatedAt: "updatedAt",
+                },
+                createdAt: "createdAt",
+            },
+        };
+        server
+            .mockEndpoint()
+            .post("/threads/id/subscribers")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.threads.createSubscriber({
+            id: "id",
+        });
+        expect(response).toEqual({
+            data: {
+                id: "id",
+                userId: "userId",
+                threadId: "threadId",
+                user: {
+                    id: "id",
+                    username: "username",
+                    displayName: "displayName",
+                    bio: "bio",
+                    signature: "signature",
+                    url: "url",
+                    postsCount: 1,
+                    threadsCount: 1,
+                    isOnline: true,
+                    lastSeenAt: "lastSeenAt",
+                    roles: [
+                        {
+                            id: "id",
+                            name: "name",
+                            slug: null,
+                            color: null,
+                        },
+                    ],
+                    extendedData: {
+                        key: "value",
+                    },
+                    createdAt: "createdAt",
+                    updatedAt: "updatedAt",
+                },
+                createdAt: "createdAt",
+            },
+        });
+    });
+
+    test("createSubscriber (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/threads/id/subscribers")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.threads.createSubscriber({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.BadRequestError);
+    });
+
+    test("createSubscriber (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/threads/id/subscribers")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.threads.createSubscriber({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.UnauthorizedError);
+    });
+
+    test("createSubscriber (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/threads/id/subscribers")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.threads.createSubscriber({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.NotFoundError);
+    });
+
+    test("createSubscriber (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/threads/id/subscribers")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.threads.createSubscriber({
+                id: "id",
+            });
+        }).rejects.toThrow(Forum.TooManyRequestsError);
+    });
+
+    test("createSubscriber (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: { code: "code", message: "message" } };
+        server
+            .mockEndpoint()
+            .post("/threads/id/subscribers")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.threads.createSubscriber({
                 id: "id",
             });
         }).rejects.toThrow(Forum.InternalServerError);
@@ -2260,7 +2543,7 @@ describe("ThreadsClient", () => {
         }).rejects.toThrow(Forum.InternalServerError);
     });
 
-    test("deleteSubscriber (1)", async () => {
+    test("deleteSubscriberById (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -2273,7 +2556,7 @@ describe("ThreadsClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.threads.deleteSubscriber({
+        const response = await client.threads.deleteSubscriberById({
             id: "id",
             subId: "subId",
         });
@@ -2284,7 +2567,7 @@ describe("ThreadsClient", () => {
         });
     });
 
-    test("deleteSubscriber (2)", async () => {
+    test("deleteSubscriberById (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -2298,14 +2581,14 @@ describe("ThreadsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.threads.deleteSubscriber({
+            return await client.threads.deleteSubscriberById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.UnauthorizedError);
     });
 
-    test("deleteSubscriber (3)", async () => {
+    test("deleteSubscriberById (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -2319,14 +2602,14 @@ describe("ThreadsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.threads.deleteSubscriber({
+            return await client.threads.deleteSubscriberById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.NotFoundError);
     });
 
-    test("deleteSubscriber (4)", async () => {
+    test("deleteSubscriberById (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -2340,14 +2623,14 @@ describe("ThreadsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.threads.deleteSubscriber({
+            return await client.threads.deleteSubscriberById({
                 id: "id",
                 subId: "subId",
             });
         }).rejects.toThrow(Forum.TooManyRequestsError);
     });
 
-    test("deleteSubscriber (5)", async () => {
+    test("deleteSubscriberById (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ForumClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
@@ -2361,7 +2644,7 @@ describe("ThreadsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.threads.deleteSubscriber({
+            return await client.threads.deleteSubscriberById({
                 id: "id",
                 subId: "subId",
             });

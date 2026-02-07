@@ -7,9 +7,9 @@
  *         subId: "subId"
  *     }
  */
-export interface DeleteDeliveryWebhooksRequest {
-    /** Webhook ID */
+export interface DeleteFollowingByIdUsersRequest {
+    /** User ID */
     id: string;
-    /** Delivery ID */
+    /** Following ID */
     subId: string;
 }

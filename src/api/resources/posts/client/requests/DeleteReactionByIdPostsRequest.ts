@@ -7,9 +7,9 @@
  *         subId: "subId"
  *     }
  */
-export interface DeleteFollowingUsersRequest {
-    /** User ID */
+export interface DeleteReactionByIdPostsRequest {
+    /** Post ID */
     id: string;
-    /** Following ID */
+    /** Reaction ID */
     subId: string;
 }

@@ -917,7 +917,7 @@ await client.tags.retrieveSubscriber({
 </dl>
 </details>
 
-<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">deleteSubscriber</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
+<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">deleteSubscriberById</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -930,7 +930,7 @@ await client.tags.retrieveSubscriber({
 <dd>
 
 ```typescript
-await client.tags.deleteSubscriber({
+await client.tags.deleteSubscriberById({
     id: "id",
     subId: "subId"
 });
@@ -949,7 +949,7 @@ await client.tags.deleteSubscriber({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteSubscriberTagsRequest` 
+**request:** `Forum.DeleteSubscriberByIdTagsRequest` 
     
 </dd>
 </dl>
@@ -1411,7 +1411,7 @@ await client.threads.retrievePost({
 </dl>
 </details>
 
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">deletePost</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">deletePostById</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -1424,7 +1424,7 @@ await client.threads.retrievePost({
 <dd>
 
 ```typescript
-await client.threads.deletePost({
+await client.threads.deletePostById({
     id: "id",
     subId: "subId"
 });
@@ -1443,7 +1443,7 @@ await client.threads.deletePost({
 <dl>
 <dd>
 
-**request:** `Forum.DeletePostThreadsRequest` 
+**request:** `Forum.DeletePostByIdThreadsRequest` 
     
 </dd>
 </dl>
@@ -1594,9 +1594,23 @@ await client.threads.createReaction({
 </dl>
 </details>
 
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">deleteReaction</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">deleteReaction</a>({ ...params }) -> Forum.DeleteReactionThreadsResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Removes the authenticated user's reaction. No subId needed.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -1608,8 +1622,7 @@ await client.threads.createReaction({
 
 ```typescript
 await client.threads.deleteReaction({
-    id: "id",
-    subId: "subId"
+    id: "id"
 });
 
 ```
@@ -1698,6 +1711,58 @@ await client.threads.retrieveReaction({
 </dl>
 </details>
 
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">deleteReactionById</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.threads.deleteReactionById({
+    id: "id",
+    subId: "subId"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.DeleteReactionByIdThreadsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ThreadsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">listSubscribers</a>({ ...params }) -> Forum.ThreadSubscriberListResponse</code></summary>
 <dl>
 <dd>
@@ -1744,6 +1809,71 @@ await client.threads.listSubscribers({
 <dd>
 
 **request:** `Forum.ListSubscribersThreadsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ThreadsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">createSubscriber</a>({ ...params }) -> Forum.ThreadSubscriberResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a Subscriber in Thread.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.threads.createSubscriber({
+    id: "id"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.CreateSubscriberThreadsRequest` 
     
 </dd>
 </dl>
@@ -1880,7 +2010,7 @@ await client.threads.retrieveSubscriber({
 </dl>
 </details>
 
-<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">deleteSubscriber</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
+<details><summary><code>client.threads.<a href="/src/api/resources/threads/client/Client.ts">deleteSubscriberById</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -1893,7 +2023,7 @@ await client.threads.retrieveSubscriber({
 <dd>
 
 ```typescript
-await client.threads.deleteSubscriber({
+await client.threads.deleteSubscriberById({
     id: "id",
     subId: "subId"
 });
@@ -1912,7 +2042,7 @@ await client.threads.deleteSubscriber({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteSubscriberThreadsRequest` 
+**request:** `Forum.DeleteSubscriberByIdThreadsRequest` 
     
 </dd>
 </dl>
@@ -2793,9 +2923,23 @@ await client.posts.createReaction({
 </dl>
 </details>
 
-<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">deleteReaction</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
+<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">deleteReaction</a>({ ...params }) -> Forum.DeleteReactionPostsResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Removes the authenticated user's reaction. No subId needed.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -2807,8 +2951,7 @@ await client.posts.createReaction({
 
 ```typescript
 await client.posts.deleteReaction({
-    id: "id",
-    subId: "subId"
+    id: "id"
 });
 
 ```
@@ -2878,6 +3021,58 @@ await client.posts.retrieveReaction({
 <dd>
 
 **request:** `Forum.RetrieveReactionPostsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PostsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">deleteReactionById</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.posts.deleteReactionById({
+    id: "id",
+    subId: "subId"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Forum.DeleteReactionByIdPostsRequest` 
     
 </dd>
 </dl>
@@ -3014,7 +3209,7 @@ await client.posts.retrievePost({
 </dl>
 </details>
 
-<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">deletePost</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
+<details><summary><code>client.posts.<a href="/src/api/resources/posts/client/Client.ts">deletePostById</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -3027,7 +3222,7 @@ await client.posts.retrievePost({
 <dd>
 
 ```typescript
-await client.posts.deletePost({
+await client.posts.deletePostById({
     id: "id",
     subId: "subId"
 });
@@ -3046,7 +3241,7 @@ await client.posts.deletePost({
 <dl>
 <dd>
 
-**request:** `Forum.DeletePostPostsRequest` 
+**request:** `Forum.DeletePostByIdPostsRequest` 
     
 </dd>
 </dl>
@@ -3575,7 +3770,7 @@ await client.privateMessages.retrieveReply({
 </dl>
 </details>
 
-<details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">deleteReply</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
+<details><summary><code>client.privateMessages.<a href="/src/api/resources/privateMessages/client/Client.ts">deleteReplyById</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -3588,7 +3783,7 @@ await client.privateMessages.retrieveReply({
 <dd>
 
 ```typescript
-await client.privateMessages.deleteReply({
+await client.privateMessages.deleteReplyById({
     id: "id",
     subId: "subId"
 });
@@ -3607,7 +3802,7 @@ await client.privateMessages.deleteReply({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteReplyPrivateMessagesRequest` 
+**request:** `Forum.DeleteReplyByIdPrivateMessagesRequest` 
     
 </dd>
 </dl>
@@ -4198,7 +4393,7 @@ await client.users.retrieveFollower({
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">deleteFollower</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
+<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">deleteFollowerById</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -4211,7 +4406,7 @@ await client.users.retrieveFollower({
 <dd>
 
 ```typescript
-await client.users.deleteFollower({
+await client.users.deleteFollowerById({
     id: "id",
     subId: "subId"
 });
@@ -4230,7 +4425,7 @@ await client.users.deleteFollower({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteFollowerUsersRequest` 
+**request:** `Forum.DeleteFollowerByIdUsersRequest` 
     
 </dd>
 </dl>
@@ -4367,7 +4562,7 @@ await client.users.retrieveFollowing({
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">deleteFollowing</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
+<details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">deleteFollowingById</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -4380,7 +4575,7 @@ await client.users.retrieveFollowing({
 <dd>
 
 ```typescript
-await client.users.deleteFollowing({
+await client.users.deleteFollowingById({
     id: "id",
     subId: "subId"
 });
@@ -4399,7 +4594,7 @@ await client.users.deleteFollowing({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteFollowingUsersRequest` 
+**request:** `Forum.DeleteFollowingByIdUsersRequest` 
     
 </dd>
 </dl>
@@ -5847,7 +6042,7 @@ await client.webhooks.retrieveDelivery({
 </dl>
 </details>
 
-<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">deleteDelivery</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
+<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">deleteDeliveryById</a>({ ...params }) -> Forum.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -5860,7 +6055,7 @@ await client.webhooks.retrieveDelivery({
 <dd>
 
 ```typescript
-await client.webhooks.deleteDelivery({
+await client.webhooks.deleteDeliveryById({
     id: "id",
     subId: "subId"
 });
@@ -5879,7 +6074,7 @@ await client.webhooks.deleteDelivery({
 <dl>
 <dd>
 
-**request:** `Forum.DeleteDeliveryWebhooksRequest` 
+**request:** `Forum.DeleteDeliveryByIdWebhooksRequest` 
     
 </dd>
 </dl>
